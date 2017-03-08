@@ -2,3 +2,7 @@
 header {
     background: lightgrey;
 }
+#header_time-it, #header_user {
+    color: #fff;
+    background: #337ab7;
+}

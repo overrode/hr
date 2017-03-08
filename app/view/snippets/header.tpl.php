@@ -18,7 +18,7 @@
 
 <div class="container-fluid">
     <header class="row">
-        <div class="col-md-4 col-xs-12 text-center well"><i class="fa fa-clock-o" style="font-size: 25px;"></i><h1>TIME IT</h1></div>
-        <div class="col-md-4 col-xs-12 text-center pull-right well"><i class="fa fa-user-o" style="font-size: 25px;"></i><h1><?php echo "User"; ?></h1></div>
+        <div class="col-md-4 col-xs-12 text-center well" id="header_time-it"><i class="fa fa-clock-o" style="font-size: 25px;"></i><h1>TIME IT</h1></div>
+        <div class="col-md-4 col-xs-12 text-center pull-right well" id="header_user"><i class="fa fa-user-o" style="font-size: 25px;"></i><h1><?php echo "User"; ?></h1></div>
     </header>
 </div>
