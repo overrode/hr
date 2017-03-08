@@ -70,9 +70,12 @@ class model_database extends PDO {
      * @return array
      */
     public function get_row($sql) {
+
         $result = $this->instance()->prepare($sql);
-        $result->execute();
-        $row = $result->fetch();
+        $tmp = $result->execute();
+        //print_r($row1);
+        $row = $result->fetchAll();
+        print_r($row);
         return $row;
     }
 

@@ -26,12 +26,13 @@ class model_user{
      */
     public static function getById($id) {
         $db = model_database::instance();
-        $query = 'SELECT * 
-			FROM users 
-			WHERE id = ' . intval($id);
-        $sql = $db->prepare($query);
-        $sql->execute();
+      // $sql = $db->prepare('SELECT *
+       //     FROM users
+	//		WHERE id = ?');
+//        $sql->execute([$id]);
+        $sql = 'select * from users';//' where id = ' . intval($id);
         if ($result = $db->get_row($sql)) {
+            echo "da";
             $user = new model_user();
             $user->id = $result['id'];
             $user->nume = $result['nume'];
@@ -41,6 +42,7 @@ class model_user{
             $user->jobs_id = $result['jobs_id'];
             return $user;
         }
+        echo "nu";
         return FALSE;
     }
 
