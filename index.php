@@ -11,7 +11,7 @@ require_once APP_PATH . 'config/config.php';
 define('APP_URL', $config['domain'] . $config['folder']);
 
 // Setup auto-loader
-spl_autoload_register(auto_loader);
+spl_autoload_register('auto_loader');
 function auto_loader($class) {
     if (FALSE !== strpos($class, '_')) {
         $tokens = explode('_', $class);
@@ -75,6 +75,7 @@ if (!method_exists($controller_instance, $action_method)) {
 }
 
 // Go!
+$params = [];
 $controller_instance->$action_method($params);
 
 $row = model_user::getById(1);

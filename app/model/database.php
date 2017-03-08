@@ -3,13 +3,33 @@
 /**
  * Class for handling database connections.
  */
-class model_database {
+class model_database extends PDO {
 
     // Connection object
     var $connection = NULL;
 
     // Singleton instance for database connection
     static $instance = NULL;
+
+    /**
+     * Connects to database.
+     *
+     * @param $server string server
+     * @param $user string user
+     * @param $password string password
+     * @param $name string database
+     */
+    public function __construct($server, $user, $password, $name) {
+
+        $dsn = "mysql:host=$server;dbname=$name";
+        $opt = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => FALSE,
+        ];
+
+        parent::__construct($dsn, $user, $password, $opt);
+    }
 
     /**
      * Returns singleton database connection. If connection doesn't exist it is created.
@@ -23,43 +43,22 @@ class model_database {
 
         // Creates the singleton instance for database connection
         global $config;
-        self::$instance = new model_database;
-        self::$instance->connect($config['database']['server'], $config['database']['user'],
+        self::$instance = new model_database($config['database']['server'], $config['database']['user'],
             $config['database']['password'], $config['database']['name']);
 
         return self::$instance;
     }
 
     /**
-     * Connects to database.
-     *
-     * @param $server MySQL server
-     * @param $user MySQL user
-     * @param $password MySQL password
-     * @param $name MySQL database
-     * @return Boolean
-     */
-    private function connect($server, $user, $password, $name) {
-
-        // Connects to mysql
-        $this->connection = mysql_connect($server, $user, $password)
-        or die('Eroare conexiune mysql');
-
-        // Selects DB
-        if (!mysql_select_db($name, $this->connection)) {
-            die('Eroare selectare baza de date');
-        }
-
-        return TRUE;
-    }
-
-    /**
      * Does a query on database and returns all rows.
+     * @param $sql string query
+     * @return array
      */
     public function get_rows($sql) {
-        $result = mysql_query($sql, $this->connection);
+        $result = $this->instance()->prepare($sql);
+        $result->execute();
         $rows = array();
-        while ($row = mysql_fetch_assoc($result)) {
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $rows[] = $row;
         }
         return $rows;
@@ -67,18 +66,25 @@ class model_database {
 
     /**
      * Does a query on database and returns first row.
+     * @param $sql string query
+     * @return array
      */
     public function get_row($sql) {
-        $result = mysql_query($sql, $this->connection);
-        return mysql_fetch_assoc($result);
+        $result = $this->instance()->prepare($sql);
+        $result->execute();
+        $row = $result->fetch();
+        return $row;
     }
 
     /**
-     * Executes a query on database and number of affected columns.
+     * Executes a query on database and returns the number of affected columns.
+     * @param $sql string query
+     * @return int
      */
     public function execute($sql) {
-        $result = mysql_query($sql, $this->connection);
-        return mysql_affected_rows($this->connection);
+        $result = $this->instance()->prepare($sql);
+        $result->execute();
+        $count = $result->rowCount();
+        return $count;
     }
-
 }
