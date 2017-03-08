@@ -1,0 +1,8 @@
+/* Custom CSS */
+header {
+    background: #d3d3d3;
+}
+#header_time-it, #header_user {
+    color: #fff;
+    background: #337ab7;
+}
