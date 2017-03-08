@@ -26,7 +26,9 @@ $url = $_SERVER['REQUEST_URI'];
 if (0 === strpos($url, $config['folder'])) {
     $url = substr($url, strlen($config['folder']));
 }
-$url = array_pop(array_reverse(explode('?', $url)));
+
+$tmp = array_reverse(explode('?', $url));
+$url = array_pop($tmp);
 $url = trim($url, '/');
 $tokens = $url ? explode('/', $url) : array();
 
