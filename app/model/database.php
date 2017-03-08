@@ -19,7 +19,6 @@ class model_database extends PDO {
      * @param $password string password
      * @param $name string database
      */
-
     public function __construct($server, $user, $password, $name) {
 
         $dsn = "mysql:host=$server;dbname=$name";
@@ -69,7 +68,6 @@ class model_database extends PDO {
      * Does a query on database and returns first row.
      * @param $sql string query
      * @return array
-     *
      */
     public function get_row($sql) {
         $result = $this->instance()->prepare($sql);
@@ -81,9 +79,8 @@ class model_database extends PDO {
     /**
      * Executes a query on database and returns the number of affected columns.
      * @param $sql string query
-     * @return integer
+     * @return int
      */
-
     public function execute($sql) {
         $result = $this->instance()->prepare($sql);
         $result->execute();
