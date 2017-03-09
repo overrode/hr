@@ -54,7 +54,7 @@ class model_database extends PDO {
      * @param $sql string query
      * @return array
      */
-    public function get_rows($sql) {
+    public function getRows($sql) {
         $result = $this->instance()->prepare($sql);
         $result->execute();
         $rows = array();
@@ -69,13 +69,10 @@ class model_database extends PDO {
      * @param $sql string query
      * @return array
      */
-    public function get_row($sql) {
-
+    public function getRow($sql) {
         $result = $this->instance()->prepare($sql);
-        $tmp = $result->execute();
-        //print_r($row1);
+        $result->execute();
         $row = $result->fetchAll();
-        print_r($row);
         return $row[0];
     }
 
@@ -84,7 +81,7 @@ class model_database extends PDO {
      * @param $sql string query
      * @return int
      */
-    public function execute($sql) {
+    public function getNrOfRows($sql) {
         $result = $this->instance()->prepare($sql);
         $result->execute();
         $count = $result->rowCount();
