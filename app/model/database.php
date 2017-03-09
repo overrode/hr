@@ -80,10 +80,8 @@ class model_database extends PDO {
     public function get_row($sql) {
 
         $result = $this->instance()->prepare($sql);
-        $tmp = $result->execute();
-        //print_r($row1);
-        $row = $result->fetchAll();
-        print_r($row);
-        return $row[0];
+        $result->execute();
+        $row = $result->fetch();
+        return $row;
     }
 }
