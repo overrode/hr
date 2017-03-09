@@ -1,8 +1,29 @@
 /* Custom CSS */
-header {
-    background: #d3d3d3;
-}
+
 #header_time-it, #header_user {
     color: #fff;
     background: #337ab7;
+    border: none;
 }
+.main_main {
+    height: 500px;
+}
+#main_button {
+    width: 50%;
+    height: 100px;
+    font-size: 30px;
+}
+/*Animated background*/
+
+@keyframes animatedBackground {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+body {
+    background-image: url('../img/bg2.jpg');
+    background-repeat: repeat-x;
+    animation: animatedBackground 40s ease infinite;
+}
+
