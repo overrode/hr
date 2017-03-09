@@ -12,9 +12,9 @@ $config = array(
     // Database
     'database' => array(
         'server' => 'localhost',
-        'user' => NULL,
-        'password' => NULL,
-        'name' => NULL,
+        'user' => 'root',
+        'password' => '',
+        'name' => 'test',
     ),
 
     'default_controller' => 'home',
@@ -22,6 +22,8 @@ $config = array(
     'default_action' => 'index',
 
 );
+
+define();
 
 // Include local config
 if (file_exists(APP_PATH . 'config/config.local.php')) {
