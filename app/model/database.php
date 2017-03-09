@@ -37,23 +37,15 @@ class model_database extends PDO {
     public static function instance() {
 
         // First it checks if connection was already created
-//        if (isset(self::$instance)) {
-//            return self::$instance;
-//        }
+        if (isset(self::$instance)) {
+            return self::$instance;
+        }
 
         // Creates the singleton instance for database connection
         global $config;
-        try {
-            self::$instance = new model_database($config['database']['server'], $config['database']['user'],
-                $config['database']['password'], $config['database']['name']);
-            echo "Conection is success!";
-        }
-        catch(PDOException $e) {
-            $error_db = $e->getMessage();
-            if($e->getMessage()) {
-                echo $error_db;
-            }
-        }
+        self::$instance = new model_database($config['database']['server'], $config['database']['user'],
+            $config['database']['password'], $config['database']['name']);
+
         return self::$instance;
     }
 
@@ -62,7 +54,7 @@ class model_database extends PDO {
      * @param $sql string query
      * @return array
      */
-    public function get_rows($sql) {
+    public function getRows($sql) {
         $result = $this->instance()->prepare($sql);
         $result->execute();
         $rows = array();
@@ -77,8 +69,19 @@ class model_database extends PDO {
      * @param $sql string query
      * @return array
      */
-    public function get_row($sql) {
+    public function getRow($sql) {
+        $result = $this->instance()->prepare($sql);
+        $result->execute();
+        $row = $result->fetchAll();
+        return $row[0];
+    }
 
+    /**
+     * Executes a query on database and returns the number of affected columns.
+     * @param $sql string query
+     * @return int
+     */
+    public function getNrOfRows($sql) {
         $result = $this->instance()->prepare($sql);
         $result->execute();
         $row = $result->fetch();

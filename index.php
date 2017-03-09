@@ -77,6 +77,3 @@ if (!method_exists($controller_instance, $action_method)) {
 // Go!
 $params = [];
 $controller_instance->$action_method($params);
-
-$row = model_user::getById(1);
-print_r($row);
