@@ -76,7 +76,7 @@ class model_database extends PDO {
         //print_r($row1);
         $row = $result->fetchAll();
         print_r($row);
-        return $row;
+        return $row[0];
     }
 
     /**
