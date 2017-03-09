@@ -23,6 +23,7 @@ $config = array(
 
 );
 
+define('DB_ERROR','db_error');
 // Include local config
 if (file_exists(APP_PATH . 'config/config.local.php')) {
     @include_once APP_PATH . 'config/config.local.php';

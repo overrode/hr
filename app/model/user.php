@@ -16,55 +16,58 @@ class model_user{
     var $job;
 
     /**
+     * model_user constructor.
+     * @param $model_user
+     */
+    public function __construct($model_user) {
+        $this->id = $model_user['id'];
+        $this->nume = $model_user['nume'];
+        $this->prenume = $model_user['prenume'];
+        $this->email = $model_user['email'];
+        $this->password = $model_user['password'];
+        $this->job = $model_user['job'];
+    }
+
+    /**
      * Retrieves an user by id.
      * @param $id int id
-     * @return FALSE or a valid user object
+     * @return bool|model_user
+     * @throws \Exception
+     * @internal param $model_user
+     * @internal param int $id id
      */
     public static function getById($id) {
         $db = model_database::instance();
         $sql = 'select user.id, user.nume, user.prenume, user.email, user.password, job.job
          from users user join jobs job on job.jobs_id= user.jobs_id where id=' . intval($id);
         try {
-            if ($result = $db->getRow($sql)) {
-                $user = new model_user();
-                $user->id = $result['id'];
-                $user->nume = $result['nume'];
-                $user->prenume = $result['prenume'];
-                $user->email = $result['email'];
-                $user->password = $result['password'];
-                $user->job = $result['job'];
-                return $user;
-            }
-        }catch(PDOException $e){
-            $e->getMessage();
+            $result = $db->getRow($sql);
+            $user = new model_user($result);
         }
-        return FALSE;
+        catch (PDOException $e) {
+            throw new Exception(DB_ERROR);
+        }
+        return $user;
     }
 
     /**
      * Retrieves an user by email.
      * @param $email string email
-     * @return FALSE or a valid user object
+     * @return FALSE|model_user
+     * @throws \Exception
      */
     public static function getByEmail($email) {
         $db = model_database::instance();
         $sql = 'select user.id, user.nume, user.prenume, user.email, user.password, job.job from users user
                 join jobs job on job.jobs_id= user.jobs_id where email = ' . "'$email'";
         try {
-            if ($result = $db->getRow($sql)) {
-                $user = new model_user();
-                $user->id = $result['id'];
-                $user->nume = $result['nume'];
-                $user->prenume = $result['prenume'];
-                $user->email = $result['email'];
-                $user->password = $result['password'];
-                $user->job = $result['job'];
-                return $user;
-            }
+            $result = $db->getRow($sql);
+            $user = new model_user($result);
+
         }catch (PDOException $e){
-            $e->getMessage();
+            throw new Exception(DB_ERROR);
         }
-        return FALSE;
+        return $user;
     }
 
     /**
@@ -74,7 +77,8 @@ class model_user{
      * @param $email string email
      * @param $password string password
      * @param $job string job
-     * @return boolean
+     * @return bool
+     * @throws \Exception
      */
     public static function addUser($nume, $prenume, $email, $password, $job){
         $db = model_database::instance();
@@ -82,7 +86,7 @@ class model_user{
             $sql = $db->prepare('insert into users(id,nume,prenume,email,password,jobs_id) VALUES (NULL,?,?,?,?,?)');
             $sql->execute([$nume, $prenume,$email,$password, $job]);
         }catch (PDOException  $e){
-            $e->getMessage();
+            throw new Exception(DB_ERROR);
         }
         return FALSE;
     }
@@ -95,7 +99,8 @@ class model_user{
      * @param $email string email
      * @param $password string password
      * @param $job string job
-     * @return boolean
+     * @return bool
+     * @throws \Exception
      */
     public static function updateUser($id, $nume, $prenume, $email, $password, $job){
         $db = model_database::instance();
@@ -103,7 +108,7 @@ class model_user{
             $sql = $db->prepare('update users set nume = ?, prenume = ?, email= ?, password= ?, jobs_id=? where id= ?');
             $sql->execute([$nume, $prenume, $email, $password, $job, $id ]);
         }catch(PDOException $e){
-            $e->getMessage();
+            throw new Exception(DB_ERROR);
         }
         return FALSE;
     }
@@ -111,7 +116,8 @@ class model_user{
     /**
      * Deletes an user by id.
      * @param $id int id
-     * @return boolean
+     * @return bool
+     * @throws \Exception
      */
     public static function deleteUser($id){
         $db = model_database::instance();
@@ -119,7 +125,7 @@ class model_user{
             $sql = $db->prepare('delete from users where id= ?');
             $sql->execute([$id]);
         }catch(PDOException $e){
-            $e->getMessage();
+            throw new Exception(DB_ERROR);
         }
         return FALSE;
     }
