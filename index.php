@@ -77,3 +77,12 @@ if (!method_exists($controller_instance, $action_method)) {
 // Go!
 $params = [];
 $controller_instance->$action_method($params);
+
+echo strlen(model_work::testSha('daniel'));
+echo "<br />";
+//$x = model_work::testSecurity();
+//echo $x['password'];
+//echo "<br />";
+//if ($x['password'] == 'daniel') {
+//    echo "mere";
+//} else {  echo "nu mere";}

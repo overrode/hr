@@ -29,14 +29,13 @@ class model_work {
         $db = model_database::instance();
         try {
             $sql = 'SELECT * FROM work WHERE user_id = ' . intval($user_id);
-            if ($result = $db->get_row($sql)) {
+            if ($result = $db->getRow($sql)) {
                 $work = new model_work();
                 $work->id_work = $result['id_work'];
                 $work->date = $result['date'];
                 $work->project = $result['project'];
                 $work->task = $result['task'];
                 $work->details = $result['details'];
-                var_dump($result);
                 return $work;
             }
             return FALSE;
@@ -64,4 +63,18 @@ class model_work {
             $db->prepare($sql)->execute();
         } catch(PDOException $e) { echo $e->getMessage(); }
     }
+    public static function testSecurity() {
+        $db = model_database::instance();
+        try {
+            $sql = 'select * from test_security where id = 0';
+            $db->prepare($sql)->execute();
+            $result = $db->getRow($sql);
+            return $result;
+        } catch(PDOException $e) { echo $e->getMessage(); }
+    }
+    public static function testSha($txt) {
+        return hash("sha256", $txt);
+    }
+
+
 }
