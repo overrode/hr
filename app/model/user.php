@@ -142,19 +142,13 @@ class model_user{
         try {
             $db->prepare($sql)->execute();
             $result = $db->getRow($sql);
-
         } catch(PDOException $e) { echo $e->getMessage(); }
-
         $hash_password = $result['password'];
-//        echo $hash_password;
-
-        $adfadf =  password_verify($text, $hash_password);
-        if ($adfadf) {
-            //return true;
-            echo 'mere';
+        $text = hash('sha256', $text);
+        if ( password_verify($text, $hash_password) ) {
+            return true;
         } else {
-            //return false;
-            echo 'nu mere';
+            return false;
         }
     }
 
@@ -162,7 +156,7 @@ class model_user{
      * Hases the password.
      * @param $param string password
      */
-    public static function hashPassword($param) {
+    private function hashPassword($param) {
         $option = ['cost' => PASSWORD_COST];
         return password_hash(hash('sha256', $param), PASSWORD_DEFAULT, $option);
     }

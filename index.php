@@ -80,7 +80,7 @@ $controller_instance->$action_method($params);
 
 print_r( model_user::checkPassword('daniel', 0));
 
-print model_user::hashPassword('daniel');
+//print model_user::hashPassword('daniel');
 
 
 ?>
