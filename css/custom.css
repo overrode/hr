@@ -25,6 +25,10 @@
 #main_button:hover {
     color: #f70b03;
 }
+#footer_text {
+    margin-top: 60px;
+}
+
 /*Animated background*/
 
 @keyframes animatedBackground {

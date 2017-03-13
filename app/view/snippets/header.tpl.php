@@ -4,9 +4,6 @@
     <link href="../css/custom.css" rel="stylesheet">
     <link href="../css/fontawesome.css" rel="stylesheet">
     <link href="../fonts/FontAwesome.otf" rel="stylesheet">
-    <script src="../js/jquery-3.1.1.js"></script>
-    <script src="../js/custom.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
     <title>
         <?php if (isset($html_head_title)) : ?>
             <?php echo $html_head_title; ?> |
