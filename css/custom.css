@@ -30,7 +30,7 @@
 }
 
 body {
-    background-image: url('../img/bg2.jpg');
+    background-image: url('../img/bg.jpg');
     background-repeat: repeat-x;
     animation: animatedBackground 40s ease infinite;
 }
