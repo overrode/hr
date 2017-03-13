@@ -2,15 +2,23 @@
 
 #header_time-it, #header_user {
     color: #fff;
-    background: #337ab7;
-    border: none;
+    background: transparent;
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 10px;
 }
-.main_main {
-    height: 500px;
+#header_time-it h1, #header_user h1 {
+    font-size:26px;
+}
+.main_main_top {
+    height: 400px;
+}
+.main_main_bottom {
+    height: 200px;
 }
 #main_button {
-    width: 50%;
     height: 100px;
+    width:50%;
     font-size: 30px;
 }
 /*Animated background*/
@@ -27,3 +35,10 @@ body {
     animation: animatedBackground 40s ease infinite;
 }
 
+/*Media queries*/
+
+@media screen and (max-width: 992px) {
+    .main_main_top {
+        height: 200px;
+    }
+}
