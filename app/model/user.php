@@ -8,12 +8,12 @@
 
 class model_user{
 
-    var $id;
-    var $nume;
-    var $prenume;
-    var $email;
-    var $password;
-    var $job;
+    public $id;
+    public $nume;
+    public $prenume;
+    public $email;
+    public $password;
+    public $job;
 
     /**
      * model_user constructor.
@@ -63,7 +63,6 @@ class model_user{
         try {
             $result = $db->getRow($sql);
             $user = new model_user($result);
-
         }catch (PDOException $e){
             throw new Exception(DB_ERROR);
         }
@@ -81,6 +80,7 @@ class model_user{
      * @throws \Exception
      */
     public static function addUser($nume, $prenume, $email, $password, $job){
+        $password = self::hashPassword($password);
         $db = model_database::instance();
         try {
             $sql = $db->prepare('insert into users(id,nume,prenume,email,password,jobs_id) VALUES (NULL,?,?,?,?,?)');
@@ -103,6 +103,7 @@ class model_user{
      * @throws \Exception
      */
     public static function updateUser($id, $nume, $prenume, $email, $password, $job){
+        $password = self::hashPassword($password);
         $db = model_database::instance();
         try{
             $sql = $db->prepare('update users set nume = ?, prenume = ?, email= ?, password= ?, jobs_id=? where id= ?');
@@ -133,30 +134,20 @@ class model_user{
     /**
      * Check password
      * @param $text string text
-     * @param $id int id
      * @return bool
      */
-    public static function checkPassword($text, $id) {
-        $db = model_database::instance();
-        $sql = 'select * from test_security where id = ' .intval($id);
-        try {
-            $db->prepare($sql)->execute();
-            $result = $db->getRow($sql);
-        } catch(PDOException $e) { echo $e->getMessage(); }
-        $hash_password = $result['password'];
-        $text = hash('sha256', $text);
-        if ( password_verify($text, $hash_password) ) {
-            return true;
-        } else {
-            return false;
-        }
+    public function checkPassword($password) {
+        $hash_password = $this->password;
+        $password = hash('sha256', $password);
+        return password_verify($password, $hash_password);
     }
 
     /**
      * Hases the password.
      * @param $param string password
+     * @return string hash password
      */
-    private function hashPassword($param) {
+    private static function hashPassword($param) {
         $option = ['cost' => PASSWORD_COST];
         return password_hash(hash('sha256', $param), PASSWORD_DEFAULT, $option);
     }

@@ -78,9 +78,4 @@ if (!method_exists($controller_instance, $action_method)) {
 $params = [];
 $controller_instance->$action_method($params);
 
-print_r( model_user::checkPassword('daniel', 0));
-
-//print model_user::hashPassword('daniel');
-
-
 ?>
