@@ -37,7 +37,7 @@ class controller_admin {
         }
 
         // Include view for this page
-        @include_once APP_PATH . 'view/admin_login.tpl.php';
+        @include_once APP_PATH . 'view/user_login.tpl.php';
     }
 
     /**
