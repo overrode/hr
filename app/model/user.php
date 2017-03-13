@@ -60,10 +60,10 @@ class model_user {
         $query->execute();
         try {
             $result = $query->fetch();
-            if ($result) {
-                $user = new model_user($result);
-            }
-        } catch (PDOException $e) {
+            if ($result){
+            $user = new model_user($result);
+        }
+       } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
         return isset($user) ? $user : FALSE;
@@ -84,10 +84,10 @@ class model_user {
         $query->execute();
         try {
             $result = $query->fetch();
-            if ($result){
-            $user = new model_user($result);
-
-}        }catch (PDOException $e){
+            if ($result) {
+                $user = new model_user($result);
+            }
+        }catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
         return isset($user) ? $user : FALSE;
@@ -135,7 +135,7 @@ class model_user {
         } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
-        return FALSE;
+        return TRUE;
     }
 
     /**
@@ -152,7 +152,7 @@ class model_user {
         } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
-        return FALSE;
+        return TRUE;
     }
 
     /**
