@@ -17,9 +17,13 @@
     height: 200px;
 }
 #main_button {
-    height: 100px;
-    width:50%;
-    font-size: 30px;
+    height: 70px;
+    font-size: 26px;
+    background: transparent;
+    border: 2px solid #f70b03;
+}
+#main_button:hover {
+    color: #f70b03;
 }
 /*Animated background*/
 
