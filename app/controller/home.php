@@ -9,7 +9,6 @@ class controller_home {
      * This is the homepage.
      */
     function action_index($params) {
-
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
 
@@ -17,10 +16,10 @@ class controller_home {
      * Login page for user.
      */
     function action_login() {
-
         $_SESSION['form_error'] = FALSE;
         if (isset($_POST['form']['action'])) {
-            if ($user_id = model_user::validate($_POST['form']['user'], $_POST['form']['password'])) {
+            $user_id = model_user::validate($_POST['form']['user'], $_POST['form']['password']);
+            if ($user_id) {
                 header('Location: track');
                 die();
             }
@@ -33,9 +32,7 @@ class controller_home {
      * Register page for user.
      */
     function action_register() {
-
         if (isset($_POST['btn-register'])) {
-
             $nume = $_POST['form']['nume'];
             $prenume = $_POST['form']['prenume'];
             $email = $_POST['form']['email'];
@@ -46,7 +43,8 @@ class controller_home {
             if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
                 header('Location: login');
                 die();
-            }else{
+            }
+            else {
                 header('Location: register');
             }
         }
