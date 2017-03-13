@@ -21,7 +21,7 @@
         </div>
         <div class="col-md-2 col-xs-5 text-center pull-right " id="header_user">
             <i class="fa fa-user-o" style="font-size: 20px;"></i>
-            <h1><?php echo "User"; ?></h1>
+            <h1><?php echo $_SESSION['user']; ?></h1>
         </div>
     </div>
 </header>

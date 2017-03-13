@@ -20,6 +20,8 @@ class controller_login {
             if( !empty($email_login) && !empty($password_login) ) {
                 if( model_user::checkPassword($password_login)  && model_user::getByEmail($email_login) === $email_login] ) {
                     $_SESSION["logged"] = true;
+                    $user = model_user::getByEmail($email_login);
+                    $_SESSION['user'] = $user['nume'] . $user['prenume'];
                     header('Location: ' . APP_URL . 'admin');
                 } else {
                     $form_error = "E-mail or password incorrect!";
