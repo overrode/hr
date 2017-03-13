@@ -21,7 +21,6 @@ class controller_login {
                 if( model_user::checkPassword($password_login)  && model_user::getByEmail($email_login) === $email_login] ) {
                     $_SESSION["logged"] = true;
                     header('Location: ' . APP_URL . 'admin');
-                    die;
                 } else {
                     $form_error = "E-mail or password incorrect!";
                 }
@@ -32,9 +31,10 @@ class controller_login {
     /**
      * Logout action.
      */
-    function action_logout($params) {
-        unset($_SESSION['myshop']['admin_user_id']);
-        header('Location: ' . APP_URL . 'admin/login');
+    function action_logout() {
+        $_SESSION["logged"] = false;
+        unset($_SESSION['logged']);
+        header('Location: ' . APP_URL . 'user/login');
         die;
     }
 }
