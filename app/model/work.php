@@ -28,15 +28,17 @@ class model_work {
     public static function getWork($user_id) {
         $db = model_database::instance();
         try {
-            $sql = 'SELECT * FROM work WHERE user_id = ' . intval($user_id);
-            if ($result = $db->get_row($sql)) {
+            $sql = 'SELECT * FROM work WHERE user_id = :id';
+            $query= $db->prepare($sql);
+            $query->bindValue(':id', $user_id);
+            $query->execute();
+            if ($result = $query->fetch()) {
                 $work = new model_work();
                 $work->id_work = $result['id_work'];
                 $work->date = $result['date'];
                 $work->project = $result['project'];
                 $work->task = $result['task'];
                 $work->details = $result['details'];
-                var_dump($result);
                 return $work;
             }
             return FALSE;

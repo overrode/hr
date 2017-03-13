@@ -65,18 +65,6 @@ class model_database extends PDO {
     }
 
     /**
-     * Does a query on database and returns first row.
-     * @param $sql string query
-     * @return array
-     */
-    public function getRow($sql) {
-        $result = $this->instance()->prepare($sql);
-        $result->execute();
-        $row = $result->fetchAll();
-        return $row[0];
-    }
-
-    /**
      * Executes a query on database and returns the number of affected columns.
      * @param $sql string query
      * @return int

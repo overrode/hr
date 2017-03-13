@@ -29,14 +29,19 @@ class model_job{
 
     public static function getById($id) {
         $db = model_database::instance();
-        $sql = 'select * from jobs where jobs_id = ' . intval($id);
+        $sql = 'select * from jobs where jobs_id = :id';
+        $query = $db->prepare($sql);
+        $query->bindValue(':id', $id);
+        $query->execute();
         try{
-            $result = $db->getRow($sql);
-            $job = new model_job($result);
+            $result = $query->fetch();
+            if ($result) {
+                $job = new model_job($result);
+            }
         } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
-        return $job;
+        return isset($job) ? $job : FALSE;
     }
 
     /**
@@ -47,13 +52,18 @@ class model_job{
      */
     public static function getByJob($nume) {
         $db = model_database::instance();
-        $sql = 'select * from jobs where job = ' . "'$nume'";
+        $sql = 'select * from jobs where job = :nume';
+        $query = $db->prepare($sql);
+        $query->bindValue(':nume', $nume);
+        $query->execute();
         try {
-            $result = $db->getRow($sql);
-            $job = new model_job($result);
+            $result = $query->fetch();
+            if ($result) {
+                $job = new model_job($result);
+            }
         } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
-        return $job;
+        return isset($job) ? $job : FALSE;
     }
 }
