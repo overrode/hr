@@ -102,6 +102,7 @@ class model_user {
         try {
             $sql = $db->prepare('insert into users(id,nume,prenume,email,password,jobs_id) VALUES (NULL,?,?,?,?,?)');
             $sql->execute([$nume, $prenume, $email, $password, $job]);
+            return true;
         } catch (PDOException  $e) {
             throw new Exception(DB_ERROR);
         }

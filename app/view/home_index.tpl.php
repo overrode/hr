@@ -1,4 +1,6 @@
-<?php @include APP_PATH . 'view/snippets/header.tpl.php'; ?>
+<?php @include APP_PATH . 'view/snippets/header.tpl.php';
+$error = $_SESSION['form_error'];
+?>
     <link href="../css/bootstrap.css" rel="stylesheet">
     <link href="../css/custom.css" rel="stylesheet">
     <link href="../css/fontawesome.css" rel="stylesheet">
@@ -7,9 +9,10 @@
     <script src="../js/custom.js"></script>
     <script src="../js/bootstrap.min.js"></script>
 
-<?php if ($form_error) : ?>
+<?php if ($error) : ?>
     <p><em>Utilizator sau parola gresita. Reincercati.</em></p>
-<?php endif ?>
+<?php endif;
+unset($_SESSION['form_error']); ?>
 
     <div class="form-group">
         <div class="col-sm-offset-8">
@@ -22,7 +25,7 @@
         <h2 align="center"> Autentificare </h2>
 
         <div class="center">
-            <form method="post" action="<?php echo APP_URL; ?>home/login"
+            <form method="post" action="<?php echo APP_URL; ?>login"
                   class="form-horizontal" role="form" align="center">
                 <div class="form-group" align="center">
                     <label class="control-label col-sm-2" for="form[user]">Utilizator<em>*</em></label>

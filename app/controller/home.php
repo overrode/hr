@@ -18,15 +18,14 @@ class controller_home {
      */
     function action_login() {
 
-        $form_error = FALSE;
+        $_SESSION['form_error'] = FALSE;
         if (isset($_POST['form']['action'])) {
             if ($user_id = model_user::validate($_POST['form']['user'], $_POST['form']['password'])) {
                 header('Location: track');
                 die();
             }
-            $form_error = TRUE;
+            $_SESSION['form_error'] = TRUE;
         }
-
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
 
@@ -35,7 +34,7 @@ class controller_home {
      */
     function action_register() {
 
-        if (isset($_POST['form']['action'])) {
+        if (isset($_POST['btn-register'])) {
 
             $nume = $_POST['form']['nume'];
             $prenume = $_POST['form']['prenume'];
@@ -44,11 +43,11 @@ class controller_home {
             $confirmPassword = $_POST['form']['confirmPass'];
             $job = $_POST['form']['job'];
 
-            die($nume . $prenume . $email . $password . $job);
-
-            if ($user = model_user::addUser($nume, $prenume, $email, $confirmPassword, $job)) {
-                header('Location: ' . APP_URL . 'login');
-                die;
+            if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
+                header('Location: login');
+                die();
+            }else{
+                header('Location: register');
             }
         }
         @include_once APP_PATH . 'view/user_register.tpl.php';
