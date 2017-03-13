@@ -16,14 +16,13 @@ class controller_home {
      * Login page for user.
      */
     function action_login() {
-        $_SESSION['form_error'] = FALSE;
+        $form_error = FALSE;
         if (isset($_POST['form']['action'])) {
             $user_id = model_user::validate($_POST['form']['user'], $_POST['form']['password']);
             if ($user_id) {
                 header('Location: track');
-                die();
             }
-            $_SESSION['form_error'] = TRUE;
+            $form_error = TRUE;
         }
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }

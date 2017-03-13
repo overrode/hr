@@ -70,21 +70,22 @@ class model_user {
      * @return FALSE|model_user
      * @throws \Exception
      */
-    public static function getByEmail($email) {
+    public function getByEmail($email) {
         $db = model_database::instance();
         $sql = 'select user.id, user.nume, user.prenume, user.email, user.password, job.job from users user
-                join jobs job on job.jobs_id= user.jobs_id where email = ' . "'$email'";
+                join jobs job on job.jobs_id= user.jobs_id where email = :email';
+        $query = $db->prepare($sql);
+        $query->bindValue(':email', $email);
+        $query->execute();
         try {
-            $result = $db->getRow($sql);
+            $result = $query->fetch();
             if ($result) {
                 $user = new model_user($result);
             }
-            return $user;
-
         } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
-        return FALSE;
+        return isset($user) ? $user : FALSE;
     }
 
     /**
@@ -101,12 +102,11 @@ class model_user {
         $db = model_database::instance();
         try {
             $sql = $db->prepare('insert into users(id,nume,prenume,email,password,jobs_id) VALUES (NULL,?,?,?,?,?)');
-            $sql->execute([$nume, $prenume, $email, $password, $job]);
-            return true;
+            $result = $sql->execute([$nume, $prenume, $email, $password, $job]);
         } catch (PDOException  $e) {
             throw new Exception(DB_ERROR);
         }
-        return FALSE;
+        return $result;
     }
 
     /**
