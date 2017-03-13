@@ -24,7 +24,7 @@ class model_user{
         $this->nume = $model_user['nume'];
         $this->prenume = $model_user['prenume'];
         $this->email = $model_user['email'];
-        $this->password = $model_user['password'];
+        $this->password = $this->hashPassword($model_user['password']);
         $this->job = $model_user['job'];
     }
 
@@ -129,4 +129,42 @@ class model_user{
         }
         return FALSE;
     }
+
+    /**
+     * Check password
+     * @param $text string text
+     * @param $id int id
+     * @return bool
+     */
+    public static function checkPassword($text, $id) {
+        $db = model_database::instance();
+        $sql = 'select * from test_security where id = ' .intval($id);
+        try {
+            $db->prepare($sql)->execute();
+            $result = $db->getRow($sql);
+
+        } catch(PDOException $e) { echo $e->getMessage(); }
+
+        $hash_password = $result['password'];
+//        echo $hash_password;
+
+        $adfadf =  password_verify($text, $hash_password);
+        if ($adfadf) {
+            //return true;
+            echo 'mere';
+        } else {
+            //return false;
+            echo 'nu mere';
+        }
+    }
+
+    /**
+     * Hases the password.
+     * @param $param string password
+     */
+    public static function hashPassword($param) {
+        $option = ['cost' => PASSWORD_COST];
+        return password_hash(hash('sha256', $param), PASSWORD_DEFAULT, $option);
+    }
+
 }

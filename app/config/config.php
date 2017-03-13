@@ -23,7 +23,8 @@ $config = array(
 
 );
 
-define("DB_ERROR", "db_error");
+define('DB_ERROR', 'db_error');
+define('PASSWORD_COST', 9);
 
 // Include local config
 if (file_exists(APP_PATH . 'config/config.local.php')) {
