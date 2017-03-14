@@ -13,7 +13,7 @@ class model_work {
 
     /**
      * model_user constructor.
-     * @param $model_user
+     * @param array $model_user
      */
     public function __construct($model_work) {
         $this->id_work = $model_work['id_work'];
@@ -49,20 +49,16 @@ class model_work {
      */
     public static function getWork($user_id) {
         $db = model_database::instance();
-        $sql = 'SELECT * FROM work WHERE user_id = ' . intval($user_id);
         try {
-
-            if ($result = $db->getRow($sql)) {
-                $work = new model_work();
-                $work->id_work = $result['id_work'];
-                $work->date = $result['date'];
-                $work->project = $result['project'];
-                $work->task = $result['task'];
-                $work->details = $result['details'];
-                return $work;
+            $sql = 'SELECT * FROM work WHERE user_id = :id';
+            $query= $db->prepare($sql);
+            $query->bindValue(':id', $user_id);
+            $query->execute();
+            if ($result = $query->fetch()) {
+                $work = new model_work($result);
             }
-            return FALSE;
         } catch(PDOException $e) { echo $e->getMessage(); }
+        return isset($work) ? $work : FALSE;
     }
 
     /**
