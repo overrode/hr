@@ -8,7 +8,7 @@ class controller_home {
     /**
      * This is the homepage.
      */
-    function actionIndex($params) {
+    function action_index($params) {
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
 
@@ -18,7 +18,6 @@ class controller_home {
     public function action_login() {
         $login_email = $_POST['form']['user'];
         $login_password = $_POST['form']['password'];
-
         $form_error = array(
             'email' => false,
             'password' => false,
@@ -42,7 +41,7 @@ class controller_home {
     /**
      * Register page for user.
      */
-    function actionRegister() {
+    function action_register() {
         if (isset($_POST['btn-register'])) {
             $nume = $_POST['form']['nume'];
             $prenume = $_POST['form']['prenume'];
@@ -62,7 +61,7 @@ class controller_home {
         @include_once APP_PATH . 'view/user_register.tpl.php';
     }
 
-    function actionTrack() {
+    function action_track() {
         @include_once APP_PATH . 'view/track_page.tpl.php';
     }
 }
