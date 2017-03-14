@@ -16,17 +16,14 @@ class controller_home {
      * Login page for user.
      */
     public function action_login() {
+        //Saving form values in variables
         $login_email = $_POST['form']['user'];
         $login_password = $_POST['form']['password'];
-        $form_error = array(
-            'email' => false,
-            'password' => false,
-            'no_email' => false,
-            'no_password' => false
+        //Chaching the form errors
+        $form_error = array('email' => empty($login_email) ? "Please insert your email" : false,
+            'password' => empty($login_password) ? "Please insert your password" : false
             );
-        $form_error = array('email' => empty($login_email) ? true : false);
-        $form_error = array('password' => empty($login_password) ? true : false);
-
+        //Checks email and password for validation
         if(isset($_POST['form']['action'])) {
             $user_login = model_user::getByEmail($login_email);
             if (!empty($user_login) && $user_login->checkPassword($login_password)) {
@@ -36,6 +33,7 @@ class controller_home {
             }
         }
         @include_once APP_PATH . 'view/home_index.tpl.php';
+        
     }
 
     /**

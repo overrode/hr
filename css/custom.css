@@ -5,9 +5,11 @@
     background: transparent;
     border: 2px solid;
     border-radius: 5px;
+    padding-top: 5px;
 }
 #header_time-it h1, #header_user h1 {
     font-size:22px;
+    margin-top: 10px;
 }
 .main_main_top {
     height: 400px;
@@ -16,13 +18,14 @@
     height: 200px;
 }
 #main_button {
+    color:inherit;
     height: 70px;
     font-size: 26px;
     background: transparent;
     border: 2px solid #f70b03;
 }
 #main_button:hover {
-    color: #f70b03;
+    color: #fff;
 }
 #footer_text {
     margin-top: 60px;
