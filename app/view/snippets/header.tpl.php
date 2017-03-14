@@ -15,10 +15,12 @@
 
 <header class="container-fluid">
     <div class="row">
+        <a href="/home/login">
         <div class="col-md-2 col-xs-5 text-center " id="header_time-it">
             <i class="fa fa-clock-o" style="font-size: 20px;"></i>
             <h1>TIME IT</h1>
         </div>
+        </a>
         <div class="col-md-2 col-xs-5 text-center pull-right " id="header_user">
             <i class="fa fa-user-o" style="font-size: 20px;"></i>
             <?php if($_SESSION['logged']) { ?>

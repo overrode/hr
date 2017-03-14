@@ -16,29 +16,26 @@ class controller_home {
      * Login page for user.
      */
     public function action_login() {
-        if (isset($_POST['form']['action'])) {
-            $login_email = $_POST['form']['user'];
-            $login_password = $_POST['form']['password'];
-            $form_error = "";
+        $login_email = $_POST['form']['user'];
+        $login_password = $_POST['form']['password'];
 
-            if(empty($login_email)){
-                $form_error = "Please insert e-mail!";
-                header('Location: login');
-            } elseif (empty($login_password)) {
-                $form_error = "Please insert password!";
-                header('Location: login');
-            }
+        $form_error = array(
+            'email' => false,
+            'password' => false,
+            'no_email' => false,
+            'no_password' => false
+            );
+        $form_error = array('email' => empty($login_email) ? true : false);
+        $form_error = array('password' => empty($login_password) ? true : false);
 
+        if(isset($_POST['form']['action'])) {
             $user_login = model_user::getByEmail($login_email);
-            $password_validate = $user_login->checkPassword($login_password);
-
-            if (!empty($user_login) && $password_validate) {
+            if (!empty($user_login) && $user_login->checkPassword($login_password)) {
                 $_SESSION['logged'] = TRUE;
                 $_SESSION['user'] = $user_login->lastname;
                 header('Location: track');
             }
         }
-        //die();
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
 

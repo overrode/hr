@@ -1,7 +1,7 @@
 <?php @include APP_PATH . 'view/snippets/header.tpl.php'; ?>
 
 <div class="login-container">
-    <div id="output"><?php echo $form_error;?>
+    <div id="output"><?php echo $form_error['email']  ? "yes" : "no"; ;?>
     </div>
     <div class="form-box">
         <form action="<?php echo APP_URL; ?>login" method="post">
