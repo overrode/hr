@@ -22,7 +22,7 @@ class model_user {
         $this->lastname = $model_user['lastname'];
         $this->firstname = $model_user['firstname'];
         $this->email = $model_user['email'];
-        $this->password = $this->hashPassword($model_user['password']);
+        $this->password = $model_user['password'];
         $this->job = $model_user['job'];
     }
 
@@ -37,7 +37,7 @@ class model_user {
      * @return bool
      *   Returns FALSE on fail, TRUE otherwise.
      */
-    public static function validate($email, $password) {
+    public static function validate($email) {
         //$password will can be used after the encryption part is ready
         if ($result = self::getByEmail($email)) {
             return TRUE;
@@ -58,7 +58,7 @@ class model_user {
      */
     public static function getById($id) {
         $db = model_database::instance();
-        $sql = 'select user.id, user.nume, user.prenume, user.email, user.password, job.job
+        $sql = 'select user.id, user.firstname, user.lastname, user.email, user.password, job.job
          from users user join jobs job on job.jobs_id= user.jobs_id where id= :id';
         $query = $db->prepare($sql);
         $query->bindValue(':id', $id);
@@ -86,7 +86,7 @@ class model_user {
      */
     public static function getByEmail($email) {
         $db = model_database::instance();
-        $sql = 'select user.id, user.nume, user.prenume, user.email, user.password, job.job from users user
+        $sql = 'select user.id, user.firstname, user.lastname, user.email, user.password, job.job from users user
                 join jobs job on job.jobs_id= user.jobs_id where email = :email';
         $query = $db->prepare($sql);
         $query->bindValue(':email', $email);
@@ -125,7 +125,7 @@ class model_user {
         $password = self::hashPassword($password);
         $db = model_database::instance();
         try {
-            $sql = $db->prepare('insert into users(id,nume,prenume,email,password,jobs_id) VALUES (NULL,?,?,?,?,?)');
+            $sql = $db->prepare('insert into users(id,firstname,lastname,email,password,jobs_id) VALUES (NULL,?,?,?,?,?)');
             $result = $sql->execute([$lastname, $firstname, $email, $password, $job]);
         } catch (PDOException  $e) {
             throw new Exception(DB_ERROR);
@@ -158,7 +158,7 @@ class model_user {
         $password = self::hashPassword($password);
         $db = model_database::instance();
         try {
-            $sql = $db->prepare('update users set nume = ?, prenume = ?, email= ?, password= ?, jobs_id=? where id= ?');
+            $sql = $db->prepare('update users set firstname = ?, lastname = ?, email= ?, password= ?, jobs_id=? where id= ?');
             $sql->execute([$lastname, $firstname, $email, $password, $job, $id]);
         } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
@@ -194,8 +194,8 @@ class model_user {
      */
     public function checkPassword($password) {
         $hash_password = $this->password;
-        $password = hash('sha256', $password);
-        return password_verify($password, $hash_password);
+        $password_hash = hash('sha256', $password);
+        return password_verify($password_hash, $hash_password);
     }
 
     /**

@@ -8,31 +8,44 @@ class controller_home {
     /**
      * This is the homepage.
      */
-    function action_index($params) {
+    function actionIndex($params) {
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
 
     /**
      * Login page for user.
      */
-    function action_login() {
-        $form_error = "";
+    public function action_login() {
         if (isset($_POST['form']['action'])) {
-            $user_id = model_user::validate($_POST['form']['user'], $_POST['form']['password']);
-            if ($user_id) {
+            $login_email = $_POST['form']['user'];
+            $login_password = $_POST['form']['password'];
+            $form_error = "";
+
+            if(empty($login_email)){
+                $form_error = "Please insert e-mail!";
+                header('Location: login');
+            } elseif (empty($login_password)) {
+                $form_error = "Please insert password!";
+                header('Location: login');
+            }
+
+            $user_login = model_user::getByEmail($login_email);
+            $password_validate = $user_login->checkPassword($login_password);
+
+            if (!empty($user_login) && $password_validate) {
                 $_SESSION['logged'] = TRUE;
-                $_SESSION['user'] = $user_id['nume'];
+                $_SESSION['user'] = $user_login->lastname;
                 header('Location: track');
             }
-            $form_error = "E-mail / passworde incorect.";
         }
+        //die();
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
 
     /**
      * Register page for user.
      */
-    function action_register() {
+    function actionRegister() {
         if (isset($_POST['btn-register'])) {
             $nume = $_POST['form']['nume'];
             $prenume = $_POST['form']['prenume'];
@@ -52,7 +65,7 @@ class controller_home {
         @include_once APP_PATH . 'view/user_register.tpl.php';
     }
 
-    function action_track() {
+    function actionTrack() {
         @include_once APP_PATH . 'view/track_page.tpl.php';
     }
 }

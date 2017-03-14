@@ -2,7 +2,7 @@
 
 <main class="container-fluid">
     <div class="row main_main_top"></div>
-    <button type="button" class="center-block btn btn-danger" id="main_button">START TRACKING</button>
+    <button type="button" class="center-block btn btn-danger" id="main_button" name="start_tracking">START TRACKING</button>
     <div id="gui"></div>
     <div id="canvas-container">
         <div id="mountains2"></div>
