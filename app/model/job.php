@@ -1,29 +1,32 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Freshbyte01
- * Date: 3/8/2017
- * Time: 6:05 AM
- */
 
+/**
+ * Class model_job
+ */
 class model_job{
 
     var $id;
-    var $nume;
+    var $name;
 
     /**
      * model_job constructor.
-     * @param $model_job
+     *
+     * @param string $model_job
      */
     public function __construct($model_job) {
         $this->id = $model_job['jobs_id'];
-        $this->nume = $model_job['job'];
+        $this->name = $model_job['job'];
     }
 
     /**
      * Retrieves a job by id.
-     * @param $id int id
+     *
+     * @param int $id
+     *   The users id.
+     *
      * @return FALSE|model_job
+     *    Returns FALSE on fail, model_job on success.
+     *
      * @throws Exception
      */
 
@@ -46,15 +49,20 @@ class model_job{
 
     /**
      * Retrieves a job by name.
-     * @param $nume string nume
+     *
+     * @param string $name
+     *   The users name.
+     *
      * @return FALSE|\model_job
+     *   Returns FALSE on fail, model_job on success.
+     *
      * @throws Exception
      */
-    public static function getByJob($nume) {
+    public static function getByJob($name) {
         $db = model_database::instance();
         $sql = 'select * from jobs where job = :nume';
         $query = $db->prepare($sql);
-        $query->bindValue(':nume', $nume);
+        $query->bindValue(':nume', $name);
         $query->execute();
         try {
             $result = $query->fetch();
