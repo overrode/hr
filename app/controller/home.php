@@ -38,7 +38,6 @@ class controller_home {
                 header('Location: track');
             }
         }
-        //die();
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
 
@@ -56,7 +55,6 @@ class controller_home {
             $job = $_POST['form']['job'];
             if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
                 header('Location: login');
-                die();
             }
             else {
                 header('Location: register');
