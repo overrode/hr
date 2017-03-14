@@ -74,4 +74,27 @@ class model_job{
         }
         return isset($job) ? $job : FALSE;
     }
+
+    /**
+     * Retrieves all jobs.
+     *
+     * @return FALSE|array
+     *   Returns FALSE on fail, array otherwise.
+     *
+     * @throws Exception
+     */
+    public static function getAllJobs(){
+        $db = model_database::instance();
+        $sql = 'select * from jobs';
+        $query = $db->prepare($sql);
+        $query->execute();
+        try{
+            while($result = $query->fetch()){
+                $val[] = $result;
+            }
+        } catch (PDOException $e) {
+            throw new Exception(DB_ERROR);
+        }
+        return isset($val) ? $val : FALSE;
+    }
 }

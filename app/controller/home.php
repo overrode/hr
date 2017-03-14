@@ -46,6 +46,7 @@ class controller_home {
      * Register page for user.
      */
     function actionRegister() {
+        $jobs = model_job::getAllJobs();
         if (isset($_POST['btn-register'])) {
             $nume = $_POST['form']['nume'];
             $prenume = $_POST['form']['prenume'];
@@ -53,7 +54,6 @@ class controller_home {
             $password = $_POST['form']['password'];
             $confirmPassword = $_POST['form']['confirmPass'];
             $job = $_POST['form']['job'];
-
             if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
                 header('Location: login');
                 die();
