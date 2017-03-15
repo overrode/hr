@@ -1,25 +1,22 @@
-<?php @include APP_PATH . 'view/snippets/header.tpl.php'; ?>
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <link href="../css/custom.css" rel="stylesheet">
-    <link href="../css/fontawesome.css" rel="stylesheet">
-    <link href="../fonts/FontAwesome.otf" rel="stylesheet">
-    <script src="../js/jquery-3.1.1.js"></script>
-    <script src="../js/custom.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
+<?php
+@include APP_PATH . 'view/snippets/header.tpl.php';
+?>
+
+<?php if ($msg) : ?>
+    <p><em>Passwords don't match. Try again.</em></p>
+<?php endif; ?>
 
     <div class="container">
-
         <h2 align="center">Inregistrare</h2>
-
         <div class="center">
             <form method="post" action="<?php echo APP_URL; ?>register"
-                  class="form-horizontal" role="form" align="center">
+                  class="form-horizontal" role="form">
                 <div class="form-group" align="center">
                     <label class="control-label col-sm-2"
                            for="form[nume]">Nume<em>*</em></label>
                     <div class="col-sm-6">
                         <input type="text" name="form[nume]" id="form[user]"
-                               placeholder="nume" required="true"
+                               placeholder="lastname" required="true"
                                class="form-control"/>
                     </div>
                 </div>
@@ -28,7 +25,7 @@
                            for="form[prenume]">Prenume<em>*</em></label>
                     <div class="col-sm-6">
                         <input type="text" name="form[prenume]"
-                               id="form[prenume]" placeholder="prenume"
+                               id="form[prenume]" placeholder="firstname"
                                required="true" class="form-control"/>
                     </div>
                 </div>
@@ -50,24 +47,29 @@
                                required="true" class="form-control"/>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="control-label col-sm-2"
-                           for="form[confirmPass]">Confirma parola<em>*</em></label>
+                           for="form[confirmPass]">Confirma
+                        parola<em>*</em></label>
                     <div class="col-sm-6">
                         <input type="password" name="form[confirmPass]"
-                               id="form[confirmPass]" placeholder=""
+                               id="form[confirmPass]" placeholder="confirm password"
                                required="true" class="form-control"/>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="control-label col-sm-2"
                            for="form[job]">Job<em>*</em></label>
                     <div class="col-sm-6">
-                        <input type="text" name="form[job]"
-                               id="form[job]" placeholder="job"
-                               required="true" class="form-control"/>
+                        <select name="form[job]"
+                                id="form[job]"
+                                required="true" class="form-control">
+                            <?php
+                            foreach ($jobs as $val) {
+                                ?>
+                                <option value="<?php echo $val['job']; ?>"> <?php echo $val['job']; ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -80,4 +82,6 @@
         </div>
     </div>
 
-<?php @include APP_PATH . 'view/snippets/footer.tpl.php'; ?>
+<?php
+@include APP_PATH . 'view/snippets/footer.tpl.php';
+?>

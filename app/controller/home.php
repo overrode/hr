@@ -21,8 +21,8 @@ class controller_home {
         $login_email = $_POST['form']['user'];
         $login_password = $_POST['form']['password'];
 
-        //Checks email and password for validation
-        if(isset($_POST['form']['action'])) {
+            //Checks email and passwordfor validation
+                if(isset($_POST['form']['action'])) {
             $user_login = model_user::getByEmail($login_email);
             $user_email = $user_login->email;
 
@@ -51,6 +51,9 @@ class controller_home {
      * Register page for user.
      */
     function action_register() {
+        $msg = FALSE;
+
+        $jobs = model_job::getAllJobs();
         if (isset($_POST['btn-register'])) {
             $nume = $_POST['form']['nume'];
             $prenume = $_POST['form']['prenume'];
@@ -59,12 +62,16 @@ class controller_home {
             $confirmPassword = $_POST['form']['confirmPass'];
             $job = $_POST['form']['job'];
 
-            if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
-                header('Location: login');
-                die();
+            if ($password != $confirmPassword) {
+                $msg = TRUE;
             }
             else {
-                header('Location: register');
+                if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
+                    header('Location: login');
+                }
+                else {
+                    header('Location: register');
+                }
             }
         }
         @include_once APP_PATH . 'view/user_register.tpl.php';
