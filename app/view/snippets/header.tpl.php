@@ -23,6 +23,9 @@
         </a>
         <div class="col-md-2 col-xs-5 text-center pull-right " id="header_user">
             <i class="fa fa-user-o" style="font-size: 20px;"></i>
+            <?php if($_SESSION['logged']) {?>
+            <a href="/home/logout" id="logout" title="LOGOUT"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            <?php } ?>
             <?php if($_SESSION['logged']) { ?>
             <h1 class="text-uppercase"><?php echo $_SESSION['user']; ?></h1>
             <?php } else { ?>

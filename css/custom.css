@@ -7,6 +7,11 @@
     border-radius: 5px;
     padding-top: 5px;
 }
+#logout {
+    font-size: 20px;
+    color: #fff;
+    padding-left: 15px;
+}
 #header_time-it h1, #header_user h1 {
     font-size:22px;
     margin-top: 10px;

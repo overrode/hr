@@ -16,24 +16,35 @@ class controller_home {
      * Login page for user.
      */
     public function action_login() {
+
         //Saving form values in variables
         $login_email = $_POST['form']['user'];
         $login_password = $_POST['form']['password'];
-        //Chaching the form errors
-        $form_error = array('email' => empty($login_email) ? "Please insert your email" : false,
-            'password' => empty($login_password) ? "Please insert your password" : false
-            );
+
         //Checks email and password for validation
         if(isset($_POST['form']['action'])) {
             $user_login = model_user::getByEmail($login_email);
-            if (!empty($user_login) && $user_login->checkPassword($login_password)) {
+            $user_email = $user_login->email;
+
+            //Chaching the form errors
+            $form_error = array(
+                'no_email' => empty($login_email) ? "Please insert your email" : "",
+                'no_password' => empty($login_password) ? "Please insert your password" : "",
+                'wrong_email' => ($user_email != $login_email) ? "Wrong e-mail" : "",
+                'wrong_password' => $user_login->password ? "Wrong password" : "",
+
+            );
+            if ($user_email === $login_email && $user_login->checkPassword($login_password)) {
                 $_SESSION['logged'] = TRUE;
+                $_SESSION['user_id'] = $user_login->id;
                 $_SESSION['user'] = $user_login->lastname;
-                header('Location: track');
+                $_SESSION['user_session'] = session_id();
+                header('Location: /home/track');
             }
         }
         @include_once APP_PATH . 'view/home_index.tpl.php';
-        
+
+
     }
 
     /**
@@ -60,6 +71,18 @@ class controller_home {
     }
 
     function action_track() {
-        @include_once APP_PATH . 'view/track_page.tpl.php';
+        if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
+            $_SESSION['logged'] = false;
+            header('Location: /home/login');
+        } else {
+            $_SESSION['logged'] = true;
+            // Include view for this page
+            @include_once APP_PATH . 'view/track_page.tpl.php';
+        }
+    }
+
+    function action_logout() {
+        session_destroy();
+        header('Location: /home/login');
     }
 }
