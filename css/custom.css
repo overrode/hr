@@ -73,8 +73,6 @@ html,body{
     color: #fff;
     background: #d9534f;
     font-size:20px;
-    -webkit-border-radius:;
-    -moz-border-radius:;
     border-radius:5px;
 }
 
@@ -116,7 +114,6 @@ html,body{
     text-align: center;
     height:40px;
     border: 1px solid #ccc;;
-    background: #fafafa;
     transition:0.2s ease-in-out;
 
 }
@@ -126,20 +123,7 @@ html,body{
     background: #eee;
 }
 
-.form-box input[type="text"]{
-    border-radius: 5px 5px 0 0;
-    text-transform: lowercase;
-}
 
-.form-box input[type="password"]{
-    border-radius: 0 0 5px 5px;
-    border-top: 0;
-}
-
-.form-box button.login{
-    margin-top:15px;
-    padding: 10px 20px;
-}
 
 .animated {
     -webkit-animation-duration: 1s;
