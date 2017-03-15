@@ -21,8 +21,8 @@ class controller_home {
         $login_email = $_POST['form']['user'];
         $login_password = $_POST['form']['password'];
 
-            //Checks email and passwordfor validation
-                if(isset($_POST['form']['action'])) {
+        //Checks email and passwordfor validation
+        if(isset($_POST['form']['action'])) {
             $user_login = model_user::getByEmail($login_email);
             $user_email = $user_login->email;
 
@@ -66,12 +66,13 @@ class controller_home {
                 $msg = TRUE;
             }
             else {
-                if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
+                try {
+                    $user = model_user::addUser($nume, $prenume, $email, $password, $job);
                     header('Location: login');
+                } catch (Exception $e) {
+                    var_dump($e);
                 }
-                else {
-                    header('Location: register');
-                }
+                //header('Location: register');
             }
         }
         @include_once APP_PATH . 'view/user_register.tpl.php';
