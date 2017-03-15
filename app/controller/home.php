@@ -21,10 +21,11 @@ class controller_home {
             $login_password = $_POST['form']['password'];
             $form_error = "";
 
-            if(empty($login_email)){
+            if (empty($login_email)) {
                 $form_error = "Please insert e-mail!";
                 header('Location: login');
-            } elseif (empty($login_password)) {
+            }
+            elseif (empty($login_password)) {
                 $form_error = "Please insert password!";
                 header('Location: login');
             }
@@ -44,7 +45,9 @@ class controller_home {
     /**
      * Register page for user.
      */
-    function actionRegister() {
+    function action_register() {
+        $msg = FALSE;
+
         $jobs = model_job::getAllJobs();
         if (isset($_POST['btn-register'])) {
             $nume = $_POST['form']['nume'];
@@ -53,17 +56,23 @@ class controller_home {
             $password = $_POST['form']['password'];
             $confirmPassword = $_POST['form']['confirmPass'];
             $job = $_POST['form']['job'];
-            if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
-                header('Location: login');
+
+            if ($password != $confirmPassword) {
+                $msg = TRUE;
             }
             else {
-                header('Location: register');
+                if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
+                    header('Location: login');
+                }
+                else {
+                    header('Location: register');
+                }
             }
         }
         @include_once APP_PATH . 'view/user_register.tpl.php';
     }
 
-    function actionTrack() {
+    function action_track() {
         @include_once APP_PATH . 'view/track_page.tpl.php';
     }
 }

@@ -2,6 +2,10 @@
 @include APP_PATH . 'view/snippets/header.tpl.php';
 ?>
 
+<?php if ($msg) : ?>
+    <p><em>Passwords don't match. Try again.</em></p>
+<?php endif; ?>
+
     <div class="container">
         <h2 align="center">Inregistrare</h2>
         <div class="center">
@@ -12,7 +16,7 @@
                            for="form[nume]">Nume<em>*</em></label>
                     <div class="col-sm-6">
                         <input type="text" name="form[nume]" id="form[user]"
-                               placeholder="nume" required="true"
+                               placeholder="lastname" required="true"
                                class="form-control"/>
                     </div>
                 </div>
@@ -21,7 +25,7 @@
                            for="form[prenume]">Prenume<em>*</em></label>
                     <div class="col-sm-6">
                         <input type="text" name="form[prenume]"
-                               id="form[prenume]" placeholder="prenume"
+                               id="form[prenume]" placeholder="firstname"
                                required="true" class="form-control"/>
                     </div>
                 </div>
@@ -49,7 +53,7 @@
                         parola<em>*</em></label>
                     <div class="col-sm-6">
                         <input type="password" name="form[confirmPass]"
-                               id="form[confirmPass]" placeholder=""
+                               id="form[confirmPass]" placeholder="confirm password"
                                required="true" class="form-control"/>
                     </div>
                 </div>

@@ -97,4 +97,22 @@ class model_job{
         }
         return isset($val) ? $val : FALSE;
     }
+
+    /**
+     * Gets the jobs id.
+     *
+     * @return id
+     */
+    public function getId(){
+        return $this->id;
+    }
+
+    /**
+     * Gets the jobs name.
+     *
+     * @return name
+     */
+    public function getName(){
+        return $this->name;
+    }
 }
