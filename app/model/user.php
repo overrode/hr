@@ -1,132 +1,250 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Freshbyte01
- * Date: 3/8/2017
- * Time: 6:06 AM
+ * Class model_user
  */
+class model_user {
 
-class model_user{
-
-    var $id;
-    var $nume;
-    var $prenume;
-    var $email;
-    var $password;
-    var $job;
+    public $id;
+    public $lastname;
+    public $firstname;
+    public $email;
+    public $password;
+    public $job;
 
     /**
      * model_user constructor.
-     * @param $model_user
+     *
+     * @param string $model_user
      */
     public function __construct($model_user) {
         $this->id = $model_user['id'];
-        $this->nume = $model_user['nume'];
-        $this->prenume = $model_user['prenume'];
+        $this->lastname = $model_user['lastname'];
+        $this->firstname = $model_user['firstname'];
         $this->email = $model_user['email'];
         $this->password = $model_user['password'];
         $this->job = $model_user['job'];
     }
 
     /**
+     * Function used to validate the users data.
+     *
+     * @param string $email
+     *   The users email.
+     * @param string $password
+     *   The users password.
+     *
+     * @return bool
+     *   Returns FALSE on fail, TRUE otherwise.
+     */
+    public static function validate($email) {
+        //$password will can be used after the encryption part is ready
+        if ($result = self::getByEmail($email)) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    /**
      * Retrieves an user by id.
-     * @param $id int id
+     *
+     * @param int $id
+     *   The users id.
+     *
      * @return bool|model_user
-     * @throws \Exception
-     * @internal param $model_user
-     * @internal param int $id id
+     *   Returns FALSE on fail, model_user on success.
+     *
+     * @throws Exception
      */
     public static function getById($id) {
         $db = model_database::instance();
-        $sql = 'select user.id, user.nume, user.prenume, user.email, user.password, job.job
-         from users user join jobs job on job.jobs_id= user.jobs_id where id=' . intval($id);
+        $sql = 'select user.id, user.firstname, user.lastname, user.email, user.password, job.job
+         from users user join jobs job on job.jobs_id= user.jobs_id where id= :id';
+        $query = $db->prepare($sql);
+        $query->bindValue(':id', $id);
+        $query->execute();
         try {
-            $result = $db->getRow($sql);
+            $result = $query->fetch();
+            if ($result){
             $user = new model_user($result);
         }
-        catch (PDOException $e) {
+       } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
-        return $user;
+        return isset($user) ? $user : FALSE;
     }
 
     /**
      * Retrieves an user by email.
-     * @param $email string email
+     *
+     * @param string $email
+     *
      * @return FALSE|model_user
+     *   Returns FALSE on fail, model_user on success.
+     *
      * @throws \Exception
      */
     public static function getByEmail($email) {
         $db = model_database::instance();
-        $sql = 'select user.id, user.nume, user.prenume, user.email, user.password, job.job from users user
-                join jobs job on job.jobs_id= user.jobs_id where email = ' . "'$email'";
+        $sql = 'select user.id, user.firstname, user.lastname, user.email, user.password, job.job from users user
+                join jobs job on job.jobs_id= user.jobs_id where email = :email';
+        $query = $db->prepare($sql);
+        $query->bindValue(':email', $email);
+        $query->execute();
         try {
-            $result = $db->getRow($sql);
-            $user = new model_user($result);
-
-        }catch (PDOException $e){
+            $result = $query->fetch();
+            if ($result) {
+                $user = new model_user($result);
+            }
+        }catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
-        return $user;
+        return isset($user) ? $user : FALSE;
     }
 
     /**
      * Adds a new user in database.
-     * @param $nume string nume
-     * @param $prenume string prenume
-     * @param $email string email
-     * @param $password string password
-     * @param $job string job
+     *
+     * @param string $lastname
+     *    The users name.
+     * @param string $firstname
+     *    The users firstname.
+     * @param string $email
+     *    The users email.
+     * @param string $password
+     *    The users password.
+     * @param string $job
+     *    The users job.
+     *
      * @return bool
+     *   Returns FALSE on fail, TRUE otherwise.
+     *
      * @throws \Exception
      */
-    public static function addUser($nume, $prenume, $email, $password, $job){
+    public static function addUser($lastname, $firstname, $email, $password, $job) {
+        $password = self::hashPassword($password);
         $db = model_database::instance();
+        $jobs = model_job::getByJob($job);
+        $id_job = $jobs->getId();
         try {
-            $sql = $db->prepare('insert into users(id,nume,prenume,email,password,jobs_id) VALUES (NULL,?,?,?,?,?)');
-            $sql->execute([$nume, $prenume,$email,$password, $job]);
-        }catch (PDOException  $e){
+            $sql = $db->prepare('insert into users(id,firstname,lastname,email,password,jobs_id) VALUES (NULL,?,?,?,?,?)');
+            $result = $sql->execute([$lastname, $firstname, $email, $password, $id_job]);
+        } catch (PDOException  $e) {
             throw new Exception(DB_ERROR);
         }
-        return FALSE;
+        return $result;
     }
 
     /**
      * Updates a user by id.
-     * @param $id int id
-     * @param $nume string nume
-     * @param $prenume string prenume
-     * @param $email string email
-     * @param $password string password
-     * @param $job string job
+     *
+     * @param int $id
+     *    The users id.
+     * @param string $lastname
+     *    The users lastname.
+     * @param string $firstname
+     *    The users firstname.
+     * @param string $email
+     *    The users email.
+     * @param string $password
+     *    The users password.
+     * @param string $job
+     *    The users job.
+     *
      * @return bool
+     *   Returns FALSE on fail, TRUE otherwise.
+     *
      * @throws \Exception
      */
-    public static function updateUser($id, $nume, $prenume, $email, $password, $job){
+    public static function updateUser($id, $lastname, $firstname, $email, $password, $job) {
+        $password = self::hashPassword($password);
         $db = model_database::instance();
-        try{
-            $sql = $db->prepare('update users set nume = ?, prenume = ?, email= ?, password= ?, jobs_id=? where id= ?');
-            $sql->execute([$nume, $prenume, $email, $password, $job, $id ]);
-        }catch(PDOException $e){
+        try {
+            $sql = $db->prepare('update users set firstname = ?, lastname = ?, email= ?, password= ?, jobs_id=? where id= ?');
+            $sql->execute([$lastname, $firstname, $email, $password, $job, $id]);
+        } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
-        return FALSE;
+        return TRUE;
     }
 
     /**
      * Deletes an user by id.
-     * @param $id int id
+     *
+     * @param int $id
+     *
      * @return bool
-     * @throws \Exception
+     *   Returns FALSE on fail, TRUE otherwise.
+     *
+     * @throws Exception
      */
-    public static function deleteUser($id){
+    public static function deleteUser($id) {
         $db = model_database::instance();
-        try{
+        try {
             $sql = $db->prepare('delete from users where id= ?');
             $sql->execute([$id]);
-        }catch(PDOException $e){
+        } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
-        return FALSE;
+        return TRUE;
+    }
+
+    /**
+     * Check password
+     * @param $text string text
+     * @return bool
+     */
+    public function checkPassword($password) {
+        $hash_password = $this->password;
+        $password_hash = hash('sha256', $password);
+        return password_verify($password_hash, $hash_password);
+    }
+
+    /**
+     * Hases the password.
+     * @param $param string password
+     * @return string hash password
+     */
+    private static function hashPassword($param) {
+        $option = ['cost' => PASSWORD_COST];
+        return password_hash(hash('sha256', $param), PASSWORD_DEFAULT, $option);
+    }
+
+    /**
+     * Validates the email.
+     *
+     * @param string $email
+     *
+     * @return bool
+     *   Returns FALSE on fail, TRUE otherwise.
+     */
+    public static function validateEmailDomain($email){
+        $val = preg_match('/^\w+@freshbyteinc\.com$/i', $email);
+        return $val>0 ? TRUE : FALSE;
+    }
+
+    /**
+     * Checks if a email exists in db.
+     * @param String $email
+     *   The users email.
+     *
+     * @return bool
+     *   Return FALSE on fail, TRUE otherwise.
+     *
+     * @throws \Exception
+     */
+    public static function isEmailRegistered($email){
+        $db = model_database::instance();
+        $sql = 'select user.id, user.firstname, user.lastname, user.email, user.password, job.job from users user
+                join jobs job on job.jobs_id= user.jobs_id where email = :email';
+        $query = $db->prepare($sql);
+        $query->bindValue(':email', $email);
+        $query->execute();
+        try {
+            $result = $query->fetch();
+        }catch (PDOException $e) {
+            throw new Exception(DB_ERROR);
+        }
+        return $result;
     }
 }
