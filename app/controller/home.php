@@ -33,6 +33,7 @@ class controller_home {
             }
 
             $user_login = model_user::getByEmail($login_email);
+            //die($user_login);
             $password_validate = $user_login->checkPassword($login_password);
 
             if (!empty($user_login) && $password_validate) {
@@ -49,8 +50,8 @@ class controller_home {
      */
     function action_register() {
         $msg = FALSE;
-
         $jobs = model_job::getAllJobs();
+
         if (isset($_POST['btn-register'])) {
             $nume = $_POST['form']['nume'];
             $prenume = $_POST['form']['prenume'];
@@ -58,11 +59,23 @@ class controller_home {
             $password = $_POST['form']['password'];
             $confirmPassword = $_POST['form']['confirmPass'];
             $job = $_POST['form']['job'];
+            $emailDomain = model_user::validateEmailDomain($email);
+            $emailExist = model_user::isEmailRegistered($email);
+            $displayError = FALSE;
 
+            if ($emailExist) {
+                $emailMsg = "This email is already registered.";
+                $displayError = TRUE;
+            }
+            if (!$emailDomain) {
+                $emailMsg = "Your email should end with @freshbyteinc.com";
+                $displayError = TRUE;
+            }
             if ($password != $confirmPassword) {
                 $msg = TRUE;
+                $displayError = TRUE;
             }
-            else {
+            if (!$displayError) {
                 if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
                     header('Location: login');
                 }
