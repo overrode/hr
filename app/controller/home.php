@@ -43,8 +43,6 @@ class controller_home {
             }
         }
         @include_once APP_PATH . 'view/home_index.tpl.php';
-
-
     }
 
     /**
@@ -70,7 +68,7 @@ class controller_home {
                     $user = model_user::addUser($nume, $prenume, $email, $password, $job);
                     header('Location: login');
                 } catch (Exception $e) {
-                    var_dump($e);
+                    header('Location: /500/index');
                 }
                 //header('Location: register');
             }
