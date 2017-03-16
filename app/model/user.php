@@ -65,10 +65,10 @@ class model_user {
         $query->execute();
         try {
             $result = $query->fetch();
-            if ($result){
-            $user = new model_user($result);
-        }
-       } catch (PDOException $e) {
+            if ($result) {
+                $user = new model_user($result);
+            }
+        } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
         return isset($user) ? $user : FALSE;
@@ -96,7 +96,7 @@ class model_user {
             if ($result) {
                 $user = new model_user($result);
             }
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
         return isset($user) ? $user : FALSE;
@@ -128,7 +128,13 @@ class model_user {
         $id_job = $jobs->getId();
         try {
             $sql = $db->prepare('insert into users(id,firstname,lastname,email,password,jobs_id) VALUES (NULL,?,?,?,?,?)');
-            $result = $sql->execute([$lastname, $firstname, $email, $password, $id_job]);
+            $result = $sql->execute([
+                $lastname,
+                $firstname,
+                $email,
+                $password,
+                $id_job
+            ]);
         } catch (PDOException  $e) {
             throw new Exception(DB_ERROR);
         }
@@ -161,7 +167,14 @@ class model_user {
         $db = model_database::instance();
         try {
             $sql = $db->prepare('update users set firstname = ?, lastname = ?, email= ?, password= ?, jobs_id=? where id= ?');
-            $sql->execute([$lastname, $firstname, $email, $password, $job, $id]);
+            $sql->execute([
+                $lastname,
+                $firstname,
+                $email,
+                $password,
+                $job,
+                $id
+            ]);
         } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
@@ -218,9 +231,9 @@ class model_user {
      * @return bool
      *   Returns FALSE on fail, TRUE otherwise.
      */
-    public static function validateEmailDomain($email){
+    public static function validateEmailDomain($email) {
         $val = preg_match('/^\w+@freshbyteinc\.com$/i', $email);
-        return $val>0 ? TRUE : FALSE;
+        return $val > 0 ? TRUE : FALSE;
     }
 
     /**
@@ -233,7 +246,7 @@ class model_user {
      *
      * @throws \Exception
      */
-    public static function isEmailRegistered($email){
+    public static function isEmailRegistered($email) {
         $db = model_database::instance();
         $sql = 'select user.id, user.firstname, user.lastname, user.email, user.password, job.job from users user
                 join jobs job on job.jobs_id= user.jobs_id where email = :email';
@@ -242,10 +255,10 @@ class model_user {
         $query->execute();
         try {
             $result = $query->fetch();
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
-        return $result;
+        return $result ? TRUE : FALSE;
     }
 
 }

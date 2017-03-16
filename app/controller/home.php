@@ -9,6 +9,7 @@ class controller_home {
      * This is the homepage.
      */
     function action_index($params) {
+        // Include view for this page
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
 
@@ -49,58 +50,84 @@ class controller_home {
      * Register page for user.
      */
     function action_register() {
-        $msg = FALSE;
         $jobs = model_job::getAllJobs();
 
         if (isset($_POST['btn-register'])) {
-            $nume = $_POST['form']['nume'];
-            $prenume = $_POST['form']['prenume'];
-            $email = $_POST['form']['email'];
-            $password = $_POST['form']['password'];
-            $confirmPassword = $_POST['form']['confirmPass'];
-            $job = $_POST['form']['job'];
-            $emailDomain = model_user::validateEmailDomain($email);
-            $emailExist = model_user::isEmailRegistered($email);
+            $user_data = array(
+                'lastname' => $_POST['form']['lastname'],
+                'firstname' => $_POST['form']['firstname'],
+                'email' => $_POST['form']['email'],
+                'password' => $_POST['form']['password'],
+                'confirmPassword' => $_POST['form']['confirmPass'],
+                'job' => $_POST['form']['job'],
+            );
+            $form_errors = array(
+                'emailMessage' => '',
+                'errorEmail' => FALSE,
+                'errorPassword' => FALSE,
+                'errorConfirmPass' => FALSE,
+                'errorLastName' => FALSE,
+                'errorFirstName'  => FALSE,
+                'isPasswordNotMatching' => FALSE,
+                );
+
+            $emailDomain = model_user::validateEmailDomain($user_data['email']);
+            $emailExist = model_user::isEmailRegistered($user_data['email']);
             $displayError = FALSE;
 
+            // Check if user's email exists.
             if ($emailExist) {
-                $emailMsg = "This email is already registered.";
+                $form_errors['emailMessage'] = "This email is already registered.";
                 $displayError = TRUE;
             }
+            // Check user's email domain.
             if (!$emailDomain) {
-                $emailMsg = "Your email should end with @freshbyteinc.com";
-                $displayError = TRUE;
-                $errorEmail = TRUE;
-            }
-            if ($password != $confirmPassword) {
-                $msg = TRUE;
-                $displayError = TRUE;
-                $errPassword = TRUE;
-                $errConfirmPass = TRUE;
-            }
-            if (empty($nume)) {
-                $errLastName = TRUE;
+                $form_errors['emailMessage'] = "Your email should end with @freshbyteinc.com";
+                $form_errors['errorEmail'] = TRUE;
                 $displayError = TRUE;
             }
-            if (empty($prenume)) {
-                $errFirstName = TRUE;
+            // Check if passwords match.
+            if ($user_data['password'] != $user_data['confirmPassword']) {
+                $form_errors['isPasswordNotMatching'] = TRUE;
+                $displayError = TRUE;
+                $form_errors['errorPassword'] = TRUE;
+                $form_errors['errorConfirmPass']= TRUE;
+            }
+            // Check if user's lastname is set.
+            if (empty($user_data['lastname'])) {
+                $form_errors['errorLastName'] = TRUE;
                 $displayError = TRUE;
             }
-            if (empty($email)) {
-                $errorEmail = TRUE;
+            // Check if user's firstname is set.
+            if (empty($user_data['firstname'])) {
+                $form_errors['errorFirstName'] = TRUE;
                 $displayError = TRUE;
             }
-            if (empty($password)) {
-                $errPassword = TRUE;
+            // Check if user's email is set.
+            if (empty($user_data['email'])) {
+                $form_errors['errorEmail'] = TRUE;
                 $displayError = TRUE;
             }
-            if (empty($confirmPassword)) {
-                $errConfirmPass = TRUE;
-                $displayError  = TRUE;
+            // Check if user's password is set.
+            if (empty($user_data['password'])) {
+                $form_errors['errorPassword'] = TRUE;
+                $displayError = TRUE;
             }
+            // Check if user's confirm password is set.
+            if (empty($user_data['confirmPassword'])) {
+                $form_errors['errorConfirmPass'] = TRUE;
+                $displayError = TRUE;
+            }
+            // If there are no errors displayed, attempt to add the user.
             if (!$displayError) {
                 try {
-                    $user = model_user::addUser($nume, $prenume, $email, $password, $job);
+                    $user = model_user::addUser(
+                    $user_data['lastname'],
+                    $user_data['firstname'],
+                    $user_data['email'],
+                    $user_data['password'],
+                    $user_data['job']
+                );
                     header('Location: login');
                 } catch (Exception $e) {
                     header('Location: /500/index');
