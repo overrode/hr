@@ -1,14 +1,14 @@
 <?php
 @include APP_PATH . 'view/snippets/header.tpl.php';
-?>
 
-<?php if ($form_errors['isPasswordNotMatching']) : ?>
+if ($form_errors['isPasswordNotMatching']) : ?>
     <p style="text-align: center; color: #f70b03;"><em>Passwords don't match. Try again.</em></p>
-<?php endif; ?>
+<?php endif;
 
-<?php if (isset($form_errors['emailMessage'])) : ?>
+if (isset($form_errors['emailMessage'])) : ?>
     <p style="text-align: center; color: #f70b03; "><em><?php echo $form_errors['emailMessage'] ; ?></em></p>
-<?php endif; ?>
+<?php endif;
+?>
 
 <div class="container">
     <h2 align="center">Inregistrare</h2>
