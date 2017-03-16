@@ -10,19 +10,6 @@ if (isset($form_errors['emailMessage'])) : ?>
 <?php endif;
 ?>
 
-<div class="container">
-    <h2 align="center">Inregistrare</h2>
-    <div class="center">
-        <form method="post" action="<?php echo APP_URL; ?>register"
-              class="form-horizontal" role="form" novalidate="novalidate">
-            <div class="form-group" align="center">
-                <label class="control-label col-sm-2"
-                       for="form[nume]">Lastname<em>*</em></label>
-                <div class="col-sm-6">
-                    <input type="text" name="form[lastname]" id="form[user]"
-                           placeholder="lastname" required="true" value="<?php echo $_POST['form']['lastname'];?>"
-                           class="form-control <?php echo ($form_errors['errorLastName']) ? "errorClass" : "" ?>""/>
-                </div>
 <div class="login-container">
     <div id="output">
         <?php if ($msg) : ?>
