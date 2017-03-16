@@ -100,6 +100,10 @@ html,body{
     border-radius:5px;
 }
 
+.margin_bottom {
+    margin-bottom: 25px;
+}
+
 #output.alert-success{
     background: rgb(25, 204, 25);
 }
@@ -131,12 +135,24 @@ html,body{
 
 }
 
+/*.form-box input{*/
+/*width: 100%;*/
+/*padding: 10px;*/
+/*text-align: center;*/
+/*height:40px;*/
+/*transition:0.2s ease-in-out;*/
+/*}*/
+
 .form-box input{
     width: 100%;
-    padding: 10px;
     text-align: center;
-    height:40px;
-    transition:0.2s ease-in-out;
+    height: 40px;
+    padding: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(204, 204, 204);
+    border-image: initial;
+    transition: 0.2s ease-in-out;
 }
 
 .form-box input:focus{
