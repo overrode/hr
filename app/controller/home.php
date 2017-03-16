@@ -67,32 +67,35 @@ class controller_home {
             if (!$emailDomain) {
                 $emailMsg = "Your email should end with @freshbyteinc.com";
                 $displayError = TRUE;
-            }
-            if (empty($nume)) {
-                $errLastName = TRUE;
-                $isError = TRUE;
-            }
-            if (empty($prenume)) {
-                $errFirstName = TRUE;
-                $isError = TRUE;
-            }
-            if (empty($email)) {
                 $errorEmail = TRUE;
-                $isError = TRUE;
-            }
-            if (empty($password)) {
-                $errPassword = TRUE;
-                $isError = TRUE;
-            }
-            if (empty($confirmPassword)) {
-                $errConfirmPass = TRUE;
-                $isError = TRUE;
             }
             if ($password != $confirmPassword) {
                 $msg = TRUE;
-                $isError = TRUE;
+                $displayError = TRUE;
+                $errPassword = TRUE;
+                $errConfirmPass = TRUE;
             }
-            if (!$isError) {
+            if (empty($nume)) {
+                $errLastName = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($prenume)) {
+                $errFirstName = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($email)) {
+                $errorEmail = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($password)) {
+                $errPassword = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($confirmPassword)) {
+                $errConfirmPass = TRUE;
+                $displayError  = TRUE;
+            }
+            if (!$displayError) {
                 if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
                     header('Location: login');
                 }

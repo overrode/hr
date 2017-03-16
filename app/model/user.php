@@ -210,4 +210,42 @@ class model_user {
         return password_hash(hash('sha256', $param), PASSWORD_DEFAULT, $option);
     }
 
+    /**
+     * Validates the email.
+     *
+     * @param string $email
+     *
+     * @return bool
+     *   Returns FALSE on fail, TRUE otherwise.
+     */
+    public static function validateEmailDomain($email){
+        $val = preg_match('/^\w+@freshbyteinc\.com$/i', $email);
+        return $val>0 ? TRUE : FALSE;
+    }
+
+    /**
+     * Checks if a email exists in db.
+     * @param String $email
+     *   The users email.
+     *
+     * @return bool
+     *   Return FALSE on fail, TRUE otherwise.
+     *
+     * @throws \Exception
+     */
+    public static function isEmailRegistered($email){
+        $db = model_database::instance();
+        $sql = 'select user.id, user.firstname, user.lastname, user.email, user.password, job.job from users user
+                join jobs job on job.jobs_id= user.jobs_id where email = :email';
+        $query = $db->prepare($sql);
+        $query->bindValue(':email', $email);
+        $query->execute();
+        try {
+            $result = $query->fetch();
+        }catch (PDOException $e) {
+            throw new Exception(DB_ERROR);
+        }
+        return $result;
+    }
+
 }
