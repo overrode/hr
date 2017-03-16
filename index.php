@@ -1,4 +1,5 @@
 <?php
+ini_set('error_reporting', E_ERROR);
 // Session
 session_start();
 

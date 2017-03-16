@@ -4,9 +4,6 @@
     <link href="../css/custom.css" rel="stylesheet">
     <link href="../css/fontawesome.css" rel="stylesheet">
     <link href="../fonts/FontAwesome.otf" rel="stylesheet">
-    <script src="../js/jquery-3.1.1.js"></script>
-    <script src="../js/custom.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
     <title>
         <?php if (isset($html_head_title)) : ?>
             <?php echo $html_head_title; ?> |
@@ -18,13 +15,22 @@
 
 <header class="container-fluid">
     <div class="row">
-        <div class="col-md-4 col-xs-12 text-center well" id="header_time-it">
-            <i class="fa fa-clock-o" style="font-size: 25px;"></i>
+        <a href="/home/login">
+        <div class="col-md-2 col-xs-5 text-center " id="header_time-it">
+            <i class="fa fa-clock-o" style="font-size: 20px;"></i>
             <h1>TIME IT</h1>
         </div>
-        <div class="col-md-4 col-xs-12 text-center pull-right well" id="header_user">
-            <i class="fa fa-user-o" style="font-size: 25px;"></i>
-            <h1><?php echo "User"; ?></h1>
+        </a>
+        <div class="col-md-2 col-xs-5 text-center pull-right " id="header_user">
+            <i class="fa fa-user-o" style="font-size: 20px;"></i>
+            <?php if($_SESSION['logged']) {?>
+            <a href="/home/logout" id="logout" title="LOGOUT"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            <?php } ?>
+            <?php if($_SESSION['logged']) { ?>
+            <h1 class="text-uppercase"><?php echo $_SESSION['user']; ?></h1>
+            <?php } else { ?>
+            <h1 class="text-uppercase"><?php echo "Welcome"; ?></h1>
+            <?php } ?>
         </div>
     </div>
 </header>
