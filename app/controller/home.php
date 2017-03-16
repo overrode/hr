@@ -96,7 +96,7 @@ class controller_home {
                 $form_errors['errorLastName'] = TRUE;
                 $displayError = TRUE;
             }
-            //  Check if user's firstname is set.
+            // Check if user's firstname is set.
             if (empty($user_data['firstname'])) {
                 $form_errors['errorFirstName'] = TRUE;
                 $displayError = TRUE;
@@ -106,12 +106,12 @@ class controller_home {
                 $form_errors['errorEmail'] = TRUE;
                 $displayError = TRUE;
             }
-            //Check if user's password is set.
+            // Check if user's password is set.
             if (empty($user_data['password'])) {
                 $form_errors['errorPassword'] = TRUE;
                 $displayError = TRUE;
             }
-            //Check if user's confirm password is set.
+            // Check if user's confirm password is set.
             if (empty($user_data['confirmPassword'])) {
                 $form_errors['errorConfirmPass'] = TRUE;
                 $displayError = TRUE;
