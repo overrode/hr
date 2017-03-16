@@ -1,60 +1,52 @@
 <?php
 @include APP_PATH . 'view/snippets/header.tpl.php';
-
-if ($form_errors['isPasswordNotMatching']) : ?>
-    <p style="text-align: center; color: #f70b03;"><em>Passwords don't match. Try again.</em></p>
-<?php endif;
-
-if (isset($form_errors['emailMessage'])) : ?>
-    <p style="text-align: center; color: #f70b03; "><em><?php echo $form_errors['emailMessage'] ; ?></em></p>
-<?php endif;
 ?>
 
 <div class="login-container">
     <div id="output">
-        <?php if ($msg) : ?>
+        <?php if ( $form_errors['isPasswordNotMatching']) : ?>
             <p><em>Passwords don't match. Try again.</em></p>
         <?php endif; ?>
-        <?php if (isset($emailMsg)) : ?>
-            <p><em><?php echo $emailMsg ; ?></em></p>
+        <?php if (isset($form_errors['emailMessage'])): ?>
+            <p><em><?php echo $form_errors['emailMessage'] ; ?></em></p>
         <?php endif; ?>
     </div>
     <div class="form-box">
-        <form action="<?php echo APP_URL; ?>register" method="post">
+        <form action="<?php echo APP_URL; ?>register" method="post" novalidate="novalidate">
             <!--First Name-->
             <div style="margin-bottom: 25px" class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 </span>
-                <input type="text" class="form-control <?php echo ($errFirstName) ? "errorClass" : "" ?>" name="form[firstname]" value="<?php echo $_POST['form']['firstname'];?>" placeholder="First name">
+                <input type="text" class="form-control <?php echo ($form_errors['errorFirstName']) ? "errorClass" : "" ?>" name="form[firstname]" value="<?php echo $_POST['form']['firstname'];?>" placeholder="First name">
             </div>
             <!--Last Name-->
             <div style="margin-bottom: 25px" class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                 </span>
-                <input type="text" class="form-control <?php echo ($errLastName) ? "errorClass" : "" ?>" name="form[lastname]" value="<?php echo $_POST['form']['lastname'];?>" placeholder="Last name">
+                <input type="text" class="form-control <?php echo ($form_errors['errorLastName']) ? "errorClass" : "" ?>" name="form[lastname]" value="<?php echo $_POST['form']['lastname'];?>" placeholder="Last name">
             </div>
             <!--E-mail-->
             <div style="margin-bottom: 25px" class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-at" aria-hidden="true"></i>
                 </span>
-                <input type="email" class="form-control <?php echo ($errorEmail) ? "errorClass" : "" ?>" name="form[email]" placeholder="E-mail" value="<?php echo $_POST['form']['email'];?>">
+                <input type="email" class="form-control <?php echo ($form_errors['errorEmail']) ? "errorClass" : "" ?>" name="form[email]" placeholder="E-mail" value="<?php echo $_POST['form']['email'];?>">
             </div>
             <!--Password-->
             <div style="margin-bottom: 25px" class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-user-secret" aria-hidden="true"></i>
                 </span>
-                <input type="password" class="form-control <?php echo ($errPassword) ? "errorClass" : "" ?>" name="form[password]" placeholder="Password" value="<?php echo $_POST['form']['password'];?>">
+                <input type="password" class="form-control <?php echo ($form_errors['errorPassword']) ? "errorClass" : "" ?>" name="form[password]" placeholder="Password" value="<?php echo $_POST['form']['password'];?>">
             </div>
             <!--Re password-->
             <div style="margin-bottom: 25px" class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-user-secret" aria-hidden="true"></i>
                 </span>
-                <input type="password" class="form-control <?php echo ($errConfirmPass) ? "errorClass" : "" ?>" name="form[confirmPass]" placeholder="Confirm Password" value="<?php echo $_POST['form']['confirmPass'];?>">
+                <input type="password" class="form-control <?php echo ($form_errors['errorConfirmPass']) ? "errorClass" : "" ?>" name="form[confirmPass]" placeholder="Confirm Password" value="<?php echo $_POST['form']['confirmPass'];?>">
             </div>
             <!--Job Name-->
             <div style="margin-bottom: 25px" class="input-group">
