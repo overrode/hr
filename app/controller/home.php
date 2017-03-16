@@ -18,21 +18,22 @@ class controller_home {
      */
     public function action_login() {
 
-        //Saving form values in variables
-        $login_email = $_POST['form']['user'];
-        $login_password = $_POST['form']['password'];
-
         //Checks email and passwordfor validation
         if(isset($_POST['form']['action'])) {
+
+            //Saving form values in variables
+            $login_email = $_POST['form']['user'];
+            $login_password = $_POST['form']['password'];
+
             $user_login = model_user::getByEmail($login_email);
             $user_email = $user_login->email;
 
             //Chaching the form errors
             $form_error = array(
-                'no_email' => empty($login_email) ? "Please insert your email" : "",
-                'no_password' => empty($login_password) ? "Please insert your password" : "",
-                'wrong_email' => ($user_email != $login_email) ? "Wrong e-mail" : "",
-                'wrong_password' => $user_login->password ? "Wrong password" : "",
+                'no_email' => empty($login_email) ? "Please insert your email" : FALSE,
+                'no_password' => empty($login_password) ? "Please insert your password" : FALSE,
+                'wrong_email' => ($user_email != $login_email) ? "Wrong e-mail" : FALSE,
+                'wrong_password' => (! empty($login_password) && $user_login->password) ? "Wrong password" : FALSE,
 
             );
             if ($user_email === $login_email && $user_login->checkPassword($login_password)) {
@@ -128,7 +129,7 @@ class controller_home {
                     $user_data['password'],
                     $user_data['job']
                 );
-                    header('Location: login');
+                    header('Location: /home/login');
                 } catch (Exception $e) {
                     header('Location: /500/index');
                 }

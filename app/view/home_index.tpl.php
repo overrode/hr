@@ -2,9 +2,13 @@
 
     <div class="login-container">
         <div id="output">
+            <p>
+                <em>
             <?php if(isset($form_error)) {
-                foreach ($form_error as $errors) { echo $errors; echo "<br/>"; }
+                foreach ($form_error as $errors) { echo $errors; }
             }?>
+                </em>
+            </p>
         </div>
         <div class="form-box">
             <form action="<?php echo APP_URL; ?>login" method="post">
