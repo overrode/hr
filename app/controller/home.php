@@ -50,7 +50,6 @@ class controller_home {
      */
     function action_register() {
         $msg = FALSE;
-
         $jobs = model_job::getAllJobs();
         if (isset($_POST['btn-register'])) {
             $nume = $_POST['form']['nume'];
@@ -70,7 +69,6 @@ class controller_home {
                 } catch (Exception $e) {
                     header('Location: /500/index');
                 }
-                //header('Location: register');
             }
         }
         @include_once APP_PATH . 'view/user_register.tpl.php';

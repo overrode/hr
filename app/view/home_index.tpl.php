@@ -1,7 +1,7 @@
 <?php @include APP_PATH . 'view/snippets/header.tpl.php'; ?>
 
     <div class="login-container">
-        <div id="output" class="vcenter ">
+        <div id="output">
             <?php if(isset($form_error)) {
                 foreach ($form_error as $errors) { echo $errors; echo "<br/>"; }
             }?>

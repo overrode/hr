@@ -12,13 +12,19 @@
                 <span class="input-group-addon">
                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 </span>
-                <input type="text" class="form-control" name="form[prenume]" value="" placeholder="First name">
+                <input type="text" class="form-control" name="form[nume]" value="" placeholder="First name">
             </div>
             <div style="margin-bottom: 25px" class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                 </span>
-                <input type="text" class="form-control" name="form[nume]" value="" placeholder="Last name">
+                <input type="text" class="form-control" name="form[prenume]" value="" placeholder="Last name">
+            </div>
+            <div style="margin-bottom: 25px" class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-at" aria-hidden="true"></i>
+                </span>
+                <input type="email" class="form-control" name="form[email]" placeholder="E-mail">
             </div>
             <div style="margin-bottom: 25px" class="input-group">
                 <span class="input-group-addon">

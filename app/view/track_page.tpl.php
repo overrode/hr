@@ -3,6 +3,7 @@
 <main class="container-fluid">
     <div class="row main_main_top"></div>
     <button type="button" class="center-block btn btn-danger" id="main_button" name="start_tracking">START TRACKING</button>
+    <!--<a href="/home/" class="btn" id="main_button">START TRACKING</a>-->
     <div class="main_main_bottom"></div>
 </main>
 
