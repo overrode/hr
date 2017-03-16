@@ -51,6 +51,7 @@ class controller_home {
     function action_register() {
         $msg = FALSE;
         $jobs = model_job::getAllJobs();
+
         if (isset($_POST['btn-register'])) {
             $nume = $_POST['form']['nume'];
             $prenume = $_POST['form']['prenume'];
@@ -58,11 +59,46 @@ class controller_home {
             $password = $_POST['form']['password'];
             $confirmPassword = $_POST['form']['confirmPass'];
             $job = $_POST['form']['job'];
+            $emailDomain = model_user::validateEmailDomain($email);
+            $emailExist = model_user::isEmailRegistered($email);
+            $displayError = FALSE;
 
+            if ($emailExist) {
+                $emailMsg = "This email is already registered.";
+                $displayError = TRUE;
+            }
+            if (!$emailDomain) {
+                $emailMsg = "Your email should end with @freshbyteinc.com";
+                $displayError = TRUE;
+                $errorEmail = TRUE;
+            }
             if ($password != $confirmPassword) {
                 $msg = TRUE;
+                $displayError = TRUE;
+                $errPassword = TRUE;
+                $errConfirmPass = TRUE;
             }
-            else {
+            if (empty($nume)) {
+                $errLastName = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($prenume)) {
+                $errFirstName = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($email)) {
+                $errorEmail = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($password)) {
+                $errPassword = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($confirmPassword)) {
+                $errConfirmPass = TRUE;
+                $displayError  = TRUE;
+            }
+            if (!$displayError) {
                 try {
                     $user = model_user::addUser($nume, $prenume, $email, $password, $job);
                     header('Location: login');
