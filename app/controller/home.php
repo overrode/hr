@@ -101,7 +101,7 @@ class controller_home {
             if (!$displayError) {
                 try {
                     $user = model_user::addUser($nume, $prenume, $email, $password, $job);
-                    header('Location: login');
+                    header('Location: /home/login');
                 } catch (Exception $e) {
                     header('Location: /500/index');
                 }

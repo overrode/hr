@@ -16,14 +16,14 @@
     <div class="row">
         <a href="/home/login">
         <div class="col-md-2 col-xs-5 text-center " id="header_time-it">
-            <i class="fa fa-clock-o" style="font-size: 20px;"></i>
+            <i class="fa fa-clock-o margin_top"></i>
             <h1>TIME IT</h1>
         </div>
         </a>
         <div class="col-md-2 col-xs-5 text-center pull-right " id="header_user">
-            <i class="fa fa-user-o" style="font-size: 20px;"></i>
+            <i class="fa fa-user-o margin_top"></i>
             <?php if($_SESSION['logged']) {?>
-            <a href="/home/logout" id="logout" title="LOGOUT"><i class="fa fa-power-off" style="color:#f70b03" aria-hidden="true"></i></a>
+            <a href="/home/logout" id="logout" title="LOGOUT"><i class="fa fa-power-off margin_top" aria-hidden="true"></i></a>
             <?php } ?>
             <?php if($_SESSION['logged']) { ?>
             <h1 class="text-uppercase"><?php echo $_SESSION['user']; ?></h1>

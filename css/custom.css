@@ -8,6 +8,11 @@
 }
 #header_time-it h1, #header_user h1 {
     font-size:22px;
+    margin: 5px auto;
+}
+.margin_top {
+    margin-top: 5px;
+    font-size: 20px !important;
 }
 .main_main_top {
     height: 300px;
@@ -25,8 +30,15 @@
     background: transparent;
     border: 2px solid #f70b03;
 }
-#main_button:hover {
+
+#logout {
+    padding-left: 15px;
+    font-size:20px;
     color: #f70b03;
+}
+
+#main_button:hover {
+    color: #fff;
 }
 #footer_text {
     margin-top: 60px;
@@ -69,6 +81,10 @@ html,body{
     border: 1px solid #ccc;
 }
 
+.login_home {
+    padding: 10px 20px;
+}
+
 #output{
     position: absolute;
     width: 300px;
@@ -76,7 +92,7 @@ html,body{
     left: 50px;
     color: #fff;
     background: #d9534f;
-    font-size:17px;
+    font-size:20px;
     border-radius:5px;
 }
 
@@ -87,7 +103,6 @@ html,body{
 #output.alert-danger{
     background: rgb(228, 105, 105);
 }
-
 
 .login-container::before,.login-container::after{
     content: "";
@@ -118,24 +133,12 @@ html,body{
     text-align: center;
     height:40px;
     border: 1px solid #ccc;;
-    background: #fafafa;
     transition:0.2s ease-in-out;
 
 }
 
 .form-box input:focus{
     outline: 0;
-    background: #eee;
-}
-
-.form-box input[type="text"]{
-    border-radius: 5px 5px 0 0;
-    text-transform: lowercase;
-}
-
-.form-box input[type="password"]{
-    border-radius: 0 0 5px 5px;
-    border-top: 0;
 }
 
 .form-box button.login{
@@ -186,7 +189,7 @@ html,body{
 }
 
 .errorClass{
-    border: solid red;
+    border: solid #FF0000;
 }
 
 /*END LOGIN*/

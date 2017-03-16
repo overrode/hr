@@ -121,14 +121,14 @@ class model_user {
      *
      * @throws \Exception
      */
-    public static function addUser($lastname, $firstname, $email, $password, $job) {
+    public static function addUser($firstname, $lastname, $email, $password, $job) {
         $password = self::hashPassword($password);
         $db = model_database::instance();
         $jobs = model_job::getByJob($job);
         $id_job = $jobs->getId();
         try {
             $sql = $db->prepare('insert into users(id,firstname,lastname,email,password,jobs_id) VALUES (NULL,?,?,?,?,?)');
-            $result = $sql->execute([$lastname, $firstname, $email, $password, $id_job]);
+            $result = $sql->execute([$firstname, $lastname, $email, $password, $id_job]);
         } catch (PDOException  $e) {
             throw new Exception(DB_ERROR);
         }
