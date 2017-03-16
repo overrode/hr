@@ -70,10 +70,33 @@ class controller_home {
             if (!$emailDomain) {
                 $emailMsg = "Your email should end with @freshbyteinc.com";
                 $displayError = TRUE;
+                $errorEmail = TRUE;
             }
             if ($password != $confirmPassword) {
                 $msg = TRUE;
                 $displayError = TRUE;
+                $errPassword = TRUE;
+                $errConfirmPass = TRUE;
+            }
+            if (empty($nume)) {
+                $errLastName = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($prenume)) {
+                $errFirstName = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($email)) {
+                $errorEmail = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($password)) {
+                $errPassword = TRUE;
+                $displayError = TRUE;
+            }
+            if (empty($confirmPassword)) {
+                $errConfirmPass = TRUE;
+                $displayError  = TRUE;
             }
             if (!$displayError) {
                 if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {

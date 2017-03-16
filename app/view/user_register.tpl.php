@@ -14,14 +14,14 @@
     <h2 align="center">Inregistrare</h2>
     <div class="center">
         <form method="post" action="<?php echo APP_URL; ?>register"
-              class="form-horizontal" role="form">
+              class="form-horizontal" role="form" novalidate="novalidate">
             <div class="form-group" align="center">
                 <label class="control-label col-sm-2"
                        for="form[nume]">Nume<em>*</em></label>
                 <div class="col-sm-6">
                     <input type="text" name="form[nume]" id="form[user]"
                            placeholder="lastname" required="true" value="<?php echo $_POST['form']['nume'];?>"
-                           class="form-control"/>
+                           class="form-control <?php echo ($errLastName) ? "errorClass" : "" ?>""/>
                 </div>
             </div>
             <div class="form-group">
@@ -30,7 +30,7 @@
                 <div class="col-sm-6">
                     <input type="text" name="form[prenume]"
                            id="form[prenume]" placeholder="firstname" value="<?php echo $_POST['form']['prenume'];?>"
-                           required="true" class="form-control"/>
+                           required="true" class="form-control  <?php echo ($errFirstName) ? "errorClass" : "" ?>""/>
                 </div>
             </div>
             <div class="form-group">
@@ -39,7 +39,7 @@
                 <div class="col-sm-6">
                     <input type="text" name="form[email]"
                            id="form[email]" placeholder="email" value="<?php echo $_POST['form']['email'];?>"
-                           required="true" class="form-control"/>
+                           required="true" class="form-control <?php echo ($errorEmail) ? "errorClass" : "" ?>""/>
                 </div>
             </div>
             <div class="form-group">
@@ -48,7 +48,7 @@
                 <div class="col-sm-6">
                     <input type="password" name="form[password]"
                            id="form[password]" placeholder="password" value="<?php echo $_POST['form']['password'];?>"
-                           required="true" class="form-control"/>
+                           required="true" class="form-control <?php echo ($errPassword) ? "errorClass" : "" ?>""/>
                 </div>
             </div>
             <div class="form-group">
@@ -58,7 +58,7 @@
                 <div class="col-sm-6">
                     <input type="password" name="form[confirmPass]"
                            id="form[confirmPass]" placeholder="confirm password" value="<?php echo $_POST['form']['confirmPass'];?>"
-                           required="true" class="form-control"/>
+                           required="true" class="form-control <?php echo ($errConfirmPass) ? "errorClass" : "" ?>""/>
                 </div>
             </div>
             <div class="form-group">

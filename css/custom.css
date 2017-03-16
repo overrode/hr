@@ -174,4 +174,8 @@ html,body{
     -webkit-animation-name: fadeInUp;
     animation-name: fadeInUp;
 }
+
+.errorClass{
+    border: solid red;
+}
 /*END LOGIN*/
