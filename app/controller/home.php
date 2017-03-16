@@ -8,7 +8,7 @@ class controller_home {
     /**
      * This is the homepage.
      */
-    function actionIndex($params) {
+    function action_index($params) {
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
 
@@ -47,8 +47,8 @@ class controller_home {
      */
     function action_register() {
         $msg = FALSE;
-
         $jobs = model_job::getAllJobs();
+
         if (isset($_POST['btn-register'])) {
             $nume = $_POST['form']['nume'];
             $prenume = $_POST['form']['prenume'];
@@ -56,7 +56,18 @@ class controller_home {
             $password = $_POST['form']['password'];
             $confirmPassword = $_POST['form']['confirmPass'];
             $job = $_POST['form']['job'];
+            $emailDomain = model_user::validateEmailDomain($email);
+            $emailExist = model_user::isEmailRegistered($email);
+            $displayError = FALSE;
 
+            if ($emailExist) {
+                $emailMsg = "This email is already registered.";
+                $displayError = TRUE;
+            }
+            if (!$emailDomain) {
+                $emailMsg = "Your email should end with @freshbyteinc.com";
+                $displayError = TRUE;
+            }
             if (empty($nume)) {
                 $errLastName = TRUE;
                 $isError = TRUE;
@@ -88,7 +99,6 @@ class controller_home {
                 else {
                     header('Location: register');
                 }
-
             }
         }
         @include_once APP_PATH . 'view/user_register.tpl.php';
