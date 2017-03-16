@@ -57,16 +57,38 @@ class controller_home {
             $confirmPassword = $_POST['form']['confirmPass'];
             $job = $_POST['form']['job'];
 
+            if (empty($nume)) {
+                $errLastName = TRUE;
+                $isError = TRUE;
+            }
+            if (empty($prenume)) {
+                $errFirstName = TRUE;
+                $isError = TRUE;
+            }
+            if (empty($email)) {
+                $errorEmail = TRUE;
+                $isError = TRUE;
+            }
+            if (empty($password)) {
+                $errPassword = TRUE;
+                $isError = TRUE;
+            }
+            if (empty($confirmPassword)) {
+                $errConfirmPass = TRUE;
+                $isError = TRUE;
+            }
             if ($password != $confirmPassword) {
                 $msg = TRUE;
+                $isError = TRUE;
             }
-            else {
+            if (!$isError) {
                 if ($user = model_user::addUser($nume, $prenume, $email, $password, $job)) {
                     header('Location: login');
                 }
                 else {
                     header('Location: register');
                 }
+
             }
         }
         @include_once APP_PATH . 'view/user_register.tpl.php';
