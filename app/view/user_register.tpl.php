@@ -16,14 +16,14 @@
                 <span class="input-group-addon">
                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 </span>
-                <input type="text" class="form-control <?php echo ($errFirstName) ? "errorClass" : "" ?>" name="form[prenume]" value="<?php echo $_POST['form']['prenume'];?>" placeholder="First name">
+                <input type="text" class="form-control <?php echo ($errFirstName) ? "errorClass" : "" ?>" name="form[firstname]" value="<?php echo $_POST['form']['firstname'];?>" placeholder="First name">
             </div>
             <!--Last Name-->
             <div style="margin-bottom: 25px" class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                 </span>
-                <input type="text" class="form-control <?php echo ($errLastName) ? "errorClass" : "" ?>" name="form[nume]" value="<?php echo $_POST['form']['nume'];?>" placeholder="Last name">
+                <input type="text" class="form-control <?php echo ($errLastName) ? "errorClass" : "" ?>" name="form[lastname]" value="<?php echo $_POST['form']['lastname'];?>" placeholder="Last name">
             </div>
             <!--E-mail-->
             <div style="margin-bottom: 25px" class="input-group">

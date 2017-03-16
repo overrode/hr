@@ -1,5 +1,9 @@
 /* Custom CSS */
 
+.errorClass{
+    border: solid 2px #FF0000 !important;
+}
+
 #header_time-it, #header_user {
     color: #fff;
     background: transparent;
@@ -132,9 +136,7 @@ html,body{
     padding: 10px;
     text-align: center;
     height:40px;
-    border: 1px solid #ccc;;
     transition:0.2s ease-in-out;
-
 }
 
 .form-box input:focus{
@@ -187,9 +189,4 @@ html,body{
     -webkit-animation-name: fadeInUp;
     animation-name: fadeInUp;
 }
-
-.errorClass{
-    border: solid #FF0000;
-}
-
 /*END LOGIN*/

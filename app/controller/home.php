@@ -17,21 +17,23 @@ class controller_home {
      */
     public function action_login() {
 
-        //Saving form values in variables
-        $login_email = $_POST['form']['user'];
-        $login_password = $_POST['form']['password'];
-
         //Checks email and passwordfor validation
         if(isset($_POST['form']['action'])) {
+
+            //Saving form values in variables
+            $login_email = $_POST['form']['user'];
+            $login_password = $_POST['form']['password'];
+
             $user_login = model_user::getByEmail($login_email);
             $user_email = $user_login->email;
 
             //Chaching the form errors
+            $form_error = FALSE;
             $form_error = array(
-                'no_email' => empty($login_email) ? "Please insert your email" : "",
-                'no_password' => empty($login_password) ? "Please insert your password" : "",
-                'wrong_email' => ($user_email != $login_email) ? "Wrong e-mail" : "",
-                'wrong_password' => $user_login->password ? "Wrong password" : "",
+                'no_email' => empty($login_email) ? "Please insert your email" : FALSE,
+                'no_password' => empty($login_password) ? "Please insert your password" : FALSE,
+                'wrong_email' => ($user_email != $login_email) ? "Wrong e-mail" : FALSE,
+                'wrong_password' => (! empty($login_password) && $user_login->password) ? "Wrong password" : FALSE,
 
             );
             if ($user_email === $login_email && $user_login->checkPassword($login_password)) {
@@ -53,8 +55,8 @@ class controller_home {
         $jobs = model_job::getAllJobs();
 
         if (isset($_POST['btn-register'])) {
-            $nume = $_POST['form']['nume'];
-            $prenume = $_POST['form']['prenume'];
+            $lastname = $_POST['form']['lastname'];
+            $firstname = $_POST['form']['firstname'];
             $email = $_POST['form']['email'];
             $password = $_POST['form']['password'];
             $confirmPassword = $_POST['form']['confirmPass'];
@@ -78,11 +80,11 @@ class controller_home {
                 $errPassword = TRUE;
                 $errConfirmPass = TRUE;
             }
-            if (empty($nume)) {
+            if (empty($lastname)) {
                 $errLastName = TRUE;
                 $displayError = TRUE;
             }
-            if (empty($prenume)) {
+            if (empty($firstname)) {
                 $errFirstName = TRUE;
                 $displayError = TRUE;
             }
@@ -100,7 +102,7 @@ class controller_home {
             }
             if (!$displayError) {
                 try {
-                    $user = model_user::addUser($nume, $prenume, $email, $password, $job);
+                    $user = model_user::addUser($firstname, $lastname, $email, $password, $job);
                     header('Location: /home/login');
                 } catch (Exception $e) {
                     header('Location: /500/index');
