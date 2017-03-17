@@ -226,7 +226,7 @@ class model_user {
      *   Returns FALSE on fail, TRUE otherwise.
      */
     public static function validateEmailDomain($email) {
-        $val = preg_match('/^\w+@freshbyteinc\.com$/i', $email);
+        $val = preg_match('/^.+@freshbyteinc\.com$/i', $email);
         return $val > 0 ? TRUE : FALSE;
     }
 
