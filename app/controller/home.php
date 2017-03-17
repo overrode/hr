@@ -9,7 +9,8 @@ class controller_home {
      * This is the homepage.
      */
     function action_index($params) {
-        // Include view for this page
+        header('Location: /home/login');
+        // Include view for this page.
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
 
@@ -17,18 +18,17 @@ class controller_home {
      * Login page for user.
      */
     public function action_login() {
-
-        //Checks email and passwordfor validation
+        // Checks email and passwordfor validation.
         if(isset($_POST['form']['action'])) {
 
-            //Saving form values in variables
+            // Saving form values in variables.
             $login_email = $_POST['form']['user'];
             $login_password = $_POST['form']['password'];
 
             $user_login = model_user::getByEmail($login_email);
             $user_email = $user_login->email;
 
-            //Chaching the form errors
+            // Caching the form errors.
             $form_error = array(
                 'no_email' => empty($login_email) ? "Please insert your email" : FALSE,
                 'no_password' => empty($login_password) ? "Please insert your password" : FALSE,
@@ -144,7 +144,7 @@ class controller_home {
             header('Location: /home/login');
         } else {
             $_SESSION['logged'] = true;
-            // Include view for this page
+            // Include view for this page.
             @include_once APP_PATH . 'view/track_page.tpl.php';
         }
     }
