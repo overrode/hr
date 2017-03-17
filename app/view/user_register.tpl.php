@@ -5,10 +5,10 @@
 <div class="login-container">
     <div id="output">
         <?php if ( $form_errors['isPasswordNotMatching']) : ?>
-            <p><em>Passwords don't match. Try again.</em></p>
+            <em>Passwords don't match. Try again.</em>
         <?php endif; ?>
         <?php if (isset($form_errors['emailMessage'])): ?>
-            <p><em><?php echo $form_errors['emailMessage'] ; ?></em></p>
+           <em><?php echo $form_errors['emailMessage'] ; ?></em>
         <?php endif; ?>
     </div>
     <div class="form-box">
