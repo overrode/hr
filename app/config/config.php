@@ -19,7 +19,7 @@ $config = array(
 
     'default_controller' => 'home',
 
-    'default_action' => 'login',
+    'default_action' => 'index',
 
 );
 
