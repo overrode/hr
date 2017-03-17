@@ -70,7 +70,8 @@ if (isset($form_errors['emailMessage'])) : ?>
                 </select>
             </div>
 
-            <input name="btn-register" type="submit" id="trimite" value="Sign Up" class="btn btn-danger">
+            <input name="btn-register" type="submit" id="trimite" value="Sign Up" class="btn btn-danger login_home">
+            <a href="/home/login" class="login_home btn btn-success login" >Back</a>
         </form>
     </div>
 </div>

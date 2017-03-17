@@ -9,6 +9,7 @@ class controller_home {
      * This is the homepage.
      */
     function action_index($params) {
+        header('Location: /home/login');
         // Include view for this page
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
