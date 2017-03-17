@@ -10,10 +10,10 @@ class controller_404 {
      */
     function action_index($params) {
 
-        // Set a title to be displayed in browser bar
+        // Set a title to be displayed in browser bar.
         $html_head_title = 'Bad request';
 
-        // Include view for this page
+        // Include view for this page.
         @include_once APP_PATH . 'view/404_index.tpl.php';
     }
 

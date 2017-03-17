@@ -61,8 +61,7 @@
                     <?php } ?>
                 </select>
             </div>
-
-            <input name="btn-register" type="submit" id="trimite" value="Sign Up" class="btn btn-danger login_home">
+            <button class="login_home btn btn-danger btn-block login" name="btn-register">Sign Up</button>
             <a href="/home/login" class="login_home btn btn-success login" >Back</a>
         </form>
     </div>
