@@ -12,7 +12,7 @@
         <?php endif; ?>
     </div>
     <div class="form-box">
-        <form action="<?php echo APP_URL; ?>register" method="post" novalidate="novalidate">
+        <form action="<?php echo APP_URL; ?>/home/register" method="post" novalidate="novalidate">
             <!--First Name-->
             <div class="input-group margin_bottom">
                 <span class="input-group-addon">
@@ -62,7 +62,7 @@
                 </select>
             </div>
             <button class="login_home btn btn-danger btn-block login" name="btn-register">Sign Up</button>
-            <a href="/home/login" class="login_home btn btn-success login" >Back</a>
+            <a href="/" class="login_home btn btn-success login" >Back</a>
         </form>
     </div>
 </div>

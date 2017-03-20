@@ -3,7 +3,7 @@
 <main class="container-fluid">
     <div class="center-block text-center">
         <h2 class="lead">404 - Ooooops! Page not available</h2>
-        <p>The page you requested does not exist. Try this instead <a href="<?php echo APP_URL;?>home/login">HOME PAGE</a>.</p>
+        <p>The page you requested does not exist. Try this instead <a href="<?php echo APP_URL;?>/home/login">HOME PAGE</a>.</p>
     </div>
     <div class="main_main_bottom"></div>
 </main>

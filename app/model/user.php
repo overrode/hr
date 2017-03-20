@@ -198,7 +198,7 @@ class model_user {
 
     /**
      * Check password
-     * @param $text string text
+     * @param $password string password
      * @return bool
      */
     public function checkPassword($password) {

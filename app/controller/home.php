@@ -8,8 +8,8 @@ class controller_home {
     /**
      * This is the homepage.
      */
-    function action_index($params) {
-        header('Location: /home/login');
+    function action_index() {
+        //header('Location: /');
         // Include view for this page.
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
@@ -138,6 +138,11 @@ class controller_home {
         @include_once APP_PATH . 'view/user_register.tpl.php';
     }
 
+    /**
+     * This is the track page.
+     *
+     * @include the track view template
+     */
     function action_track() {
         if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
             $_SESSION['logged'] = false;
@@ -149,8 +154,30 @@ class controller_home {
         }
     }
 
+    /**
+     * This is the logout page.
+     *
+     */
     function action_logout() {
         session_destroy();
         header('Location: /home/login');
     }
+
+    /**
+     * This is the track page.
+     *
+     * @include the track view template
+     */
+    function action_userLogged() {
+        if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
+            $_SESSION['logged'] = false;
+            header('Location: /');
+        } else {
+            $_SESSION['logged'] = true;
+            header('Location: /home/track');
+            // Include view for this page.
+            @include_once APP_PATH . 'view/track_page.tpl.php';
+        }
+    }
+
 }

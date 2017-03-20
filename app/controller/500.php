@@ -8,7 +8,7 @@ class controller_500 {
     /**
      * Default action for 500 controller.
      */
-    function action_index($params) {
+    function action_index() {
         // Set a title to be displayed in browser bar.
         $html_head_title = 'Internal Server Error';
 

@@ -8,7 +8,7 @@ class controller_home {
     /**
      * This is the index action.
      */
-    public function action_index($params) {
+    public function action_index() {
         // Include view for this page.
         @include_once APP_PATH . 'view/track_page.tpl.php';
     }

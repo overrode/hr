@@ -14,7 +14,7 @@
 
 <header class="container-fluid">
     <div class="row">
-        <a href="/home/login">
+        <a href="/">
         <div class="col-md-2 col-xs-5 text-center " id="header_time-it">
             <i class="fa fa-clock-o margin_top"></i>
             <h1>TIME IT</h1>
