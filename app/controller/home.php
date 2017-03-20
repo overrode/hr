@@ -9,7 +9,9 @@ class controller_home {
      * This is the homepage.
      */
     function action_index() {
-        //header('Location: /');
+        if($_SESSION[logged_in]) {
+            self::userLoggedIn();
+        }
         // Include view for this page.
         @include_once APP_PATH . 'view/home_index.tpl.php';
     }
@@ -18,6 +20,9 @@ class controller_home {
      * Login page for user.
      */
     public function action_login() {
+        if($_SESSION[logged_in]) {
+            self::userLoggedIn();
+        }
         // Checks email and passwordfor validation.
         if(isset($_POST['form']['action'])) {
 
@@ -37,7 +42,7 @@ class controller_home {
 
             );
             if ($user_email === $login_email && $user_login->checkPassword($login_password)) {
-                $_SESSION['logged'] = TRUE;
+                $_SESSION['logged_in'] = TRUE;
                 $_SESSION['user_id'] = $user_login->id;
                 $_SESSION['user'] = $user_login->lastname;
                 $_SESSION['user_session'] = session_id();
@@ -51,6 +56,9 @@ class controller_home {
      * Register page for user.
      */
     function action_register() {
+        if($_SESSION[logged_in]) {
+            self::userLoggedIn();
+        }
         $jobs = model_job::getAllJobs();
 
         if (isset($_POST['btn-register'])) {
@@ -144,11 +152,11 @@ class controller_home {
      * @include the track view template
      */
     function action_track() {
-        if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
-            $_SESSION['logged'] = false;
+        if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+            $_SESSION['logged_in'] = FALSE;
             header('Location: /home/login');
         } else {
-            $_SESSION['logged'] = true;
+            $_SESSION['logged_in'] = TRUE;
             // Include view for this page.
             @include_once APP_PATH . 'view/track_page.tpl.php';
         }
@@ -159,6 +167,7 @@ class controller_home {
      *
      */
     function action_logout() {
+        session_unset();
         session_destroy();
         header('Location: /home/login');
     }
@@ -168,15 +177,13 @@ class controller_home {
      *
      * @include the track view template
      */
-    function action_userLogged() {
-        if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
-            $_SESSION['logged'] = false;
-            header('Location: /');
+    function userLoggedIn() {
+        if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+            $_SESSION['logged_in'] = FALSE;
+            header('Location: /home/login');
         } else {
-            $_SESSION['logged'] = true;
+            $_SESSION['logged_in'] = TRUE;
             header('Location: /home/track');
-            // Include view for this page.
-            @include_once APP_PATH . 'view/track_page.tpl.php';
         }
     }
 
