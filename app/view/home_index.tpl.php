@@ -3,7 +3,7 @@
     <div class="login-container">
         <div id="output">
             <?php if(isset($form_error)) {
-                foreach ($form_error as $errors) { echo $errors; }
+                foreach ($form_error as $errors) { echo $errors ; }
             }?>
         </div>
         <div class="form-box">

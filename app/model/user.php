@@ -128,7 +128,13 @@ class model_user {
         $id_job = $jobs->getId();
         try {
             $sql = $db->prepare('insert into users(id,firstname,lastname,email,password,jobs_id) VALUES (NULL,?,?,?,?,?)');
-            $result = $sql->execute([$firstname, $lastname, $email, $password, $id_job]);
+            $result = $sql->execute([
+                $firstname,
+                $lastname,
+                $email,
+                $password,
+                $id_job
+            ]);
         } catch (PDOException  $e) {
             throw new Exception(DB_ERROR);
         }
@@ -226,7 +232,7 @@ class model_user {
      *   Returns FALSE on fail, TRUE otherwise.
      */
     public static function validateEmailDomain($email) {
-        $val = preg_match('/^\w+@freshbyteinc\.com$/i', $email);
+        $val = preg_match('/^.+@freshbyteinc\.com$/i', $email);
         return $val > 0 ? TRUE : FALSE;
     }
 
@@ -255,4 +261,43 @@ class model_user {
         return $result ? TRUE : FALSE;
     }
 
+    /**
+     *Checks for the user's input length.
+     *
+     * @param String $str
+     *   The user's input.
+     * @param String $min
+     *   The minimum value for an accepted string.
+     * @param String $max
+     *    The maximum value for an accepted string.
+     * 
+     * @return bool|string
+     *   Return TRUE on success, FALSE on fail.
+     */
+    public static function limitString($str, $min, $max) {
+        $length = strlen($str);
+        if (($length < $min) || ($length > $max)) {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    /**
+     * Sanitize the user's input.
+     *
+     * @param $value
+     *   The user's input.
+     *
+     * @return string
+     *   Return the sanitize user's input.
+     */
+    public static function sanitizeInput($value) {
+        // Remove empty spaces.
+        $value = trim($value);
+        // Strip any whitespace
+        $value = preg_replace('/\s+/', '', $value);
+        // Remove html tags
+        $value = strip_tags($value);
+        return $value;
+    }
 }
