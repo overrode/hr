@@ -9,7 +9,11 @@
         <?php endif; ?>
         <?php if (isset($form_errors['emailMessage'])): ?>
            <em><?php echo $form_errors['emailMessage'] ; ?></em>
-        <?php endif; ?>
+        <?php endif;
+        if (isset($form_errors['limitMessage'])): ?>
+            <em><?php echo $form_errors['limitMessage'] ; ?></em>
+        <?php endif;
+        ?>
     </div>
     <div class="form-box">
         <form action="<?php echo APP_URL; ?>/home/register" method="post" novalidate="novalidate">

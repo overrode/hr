@@ -408,8 +408,9 @@ class model_user {
             $display_error = TRUE;
         }
         // Check if user's email exists.
-        $emailExist= model_user::validateEmailDomain($user_data['email']);
-        $emailDomain = model_user::isEmailRegistered($user_data['email']);
+        $emailDomain= model_user::validateEmailDomain($user_data['email']);
+        $emailExist = model_user::isEmailRegistered($user_data['email']);
+
         if ($emailExist) {
             $form_errors['emailMessage'] = "This email is already registered.";
             $display_error = TRUE;
