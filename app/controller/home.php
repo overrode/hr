@@ -103,13 +103,23 @@ class controller_home {
             }
             else {
                 $limitLastName = model_user::limitString($user_data['lastname'], 2, 15);
-
-                if (!$limitLastName) {
+                $containsOnlyLetters = model_user::validateString($user_data['lastname']);
+                // Check if user's lastname contains only letters.
+                if (!$containsOnlyLetters) {
                     $form_errors['errorLastName'] = TRUE;
-                    $form_errors['limitMessage'] = 'The input should be between 2 & 15 characters!';
+                    $form_errors['limitMessage'] = 'The lastname & firstname can contain only letters.';
+                    $displayError = TRUE;
                 }
                 else {
-                    $form_errors['errorLastName'] = FALSE;
+                    // Check if the lastname has the precise limit.
+                    if (!$limitLastName) {
+                        $form_errors['errorLastName'] = TRUE;
+                        $form_errors['limitMessage'] = 'The input should be between 2 & 15 characters!';
+                        $displayError = TRUE;
+                    }
+                    else {
+                        $form_errors['errorLastName'] = FALSE;
+                    }
                 }
             }
             // Check if user's firstname is set.
@@ -119,12 +129,23 @@ class controller_home {
             }
             else {
                 $limitFirstName = model_user::limitString($user_data['firstname'], 2, 15);
-                if (!$limitFirstName) {
+                $containsOnlyLetters = model_user::validateString($user_data['firstname']);
+                // Check if user's firstname contains only letters.
+                if (!$containsOnlyLetters) {
                     $form_errors['errorFirstName'] = TRUE;
-                    $form_errors['limitMessage'] = 'The input should be between 2 & 15 characters!';
+                    $form_errors['limitMessage'] = 'The lastname & firstname can contain only letters!';
+                    $displayError = TRUE;
                 }
                 else {
-                    $form_errors['errorFirstName'] = FALSE;
+                    // Check if the firstname has the precise limit.
+                    if (!$limitFirstName) {
+                        $form_errors['errorFirstName'] = TRUE;
+                        $form_errors['limitMessage'] = 'The input should be between 2 & 15 characters!';
+                        $displayError = TRUE;
+                    }
+                    else {
+                        $form_errors['errorFirstName'] = FALSE;
+                    }
                 }
             }
             // Check if user's email is set.

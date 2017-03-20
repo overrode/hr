@@ -270,7 +270,7 @@ class model_user {
      *   The minimum value for an accepted string.
      * @param String $max
      *    The maximum value for an accepted string.
-     * 
+     *
      * @return bool|string
      *   Return TRUE on success, FALSE on fail.
      */
@@ -299,5 +299,18 @@ class model_user {
         // Remove html tags
         $value = strip_tags($value);
         return $value;
+    }
+
+    /**
+     * Check if the string contains only letters.
+     *
+     * @param String $string
+     *   The user's input.
+     *
+     * @return bool
+     *   Return TRUE on success, FALSE on fail.
+     */
+    public static function validateString($string){
+        return ctype_alpha($string) ? TRUE : FALSE;
     }
 }
