@@ -13,7 +13,7 @@ class model_user {
     public $job;
 
     /**
-     * Model_user constructor.
+     * model_user constructor.
      *
      * @param string $model_user
      */
@@ -252,7 +252,7 @@ class model_user {
     }
 
     /**
-     * Check for the user's input length.
+     *Checks for the user's input length.
      *
      * @param String $str
      *   The user's input.
@@ -261,7 +261,7 @@ class model_user {
      * @param String $max
      *    The maximum value for an accepted string.
      *
-     * @return bool
+     * @return bool|string
      *   Return TRUE on success, FALSE on fail.
      */
     public static function limitString($str, $min, $max) {
@@ -300,10 +300,9 @@ class model_user {
      * @return bool
      *   Return TRUE on success, FALSE on fail.
      */
-    public static function validateString($string) {
+    public static function validateString($string){
         return ctype_alpha($string) ? TRUE : FALSE;
     }
-
     /**
      * Check if passwords match.
      *
