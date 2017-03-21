@@ -15,8 +15,10 @@ class controller_track {
 
     public function action_getDate($id) {
         $get_work = model_work::getWork(1);
-        return json_encode($get_work);
+        print json_encode($get_work);
     }
+
+
 
 }
 

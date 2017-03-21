@@ -1,16 +1,18 @@
 /* Custom javascript */
 
 $(document).ready(function(){
-
     $("#calendar").click(function() {
-
         $.ajax({
             type: "POST",
             dataType: "json",
             url: "/track/getDate",
             data: '',
             success: function(response){
-                alert(response);
+                $('#form_project').val(response.project);
+                $('#form_task').val(response.task);
+                $('#form_details').val(response.details);
+                $('#form_hours').val(response.hour);
+                $('#form_date').val(response.date);
             },
             error: function(err) {
                 alert(err);
