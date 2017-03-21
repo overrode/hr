@@ -1,5 +1,13 @@
-<?php
-@include APP_PATH . 'view/snippets/header.tpl.php';
+<?php @include APP_PATH . 'view/snippets/header.tpl.php';
+
+/**
+ * @var array $form_errors
+ *   array with validation errors.
+ *
+ * @var array $jobs
+ *   array with the user jobs.
+ */
+
 ?>
 
 <div class="login-container">

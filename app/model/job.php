@@ -3,10 +3,23 @@
 /**
  * Class model_job
  */
-class model_job{
+class model_job {
 
-    var $id;
-    var $name;
+    /**
+     * @return int
+     *   Returns the job id.
+     */
+    function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     *   Returns the job name.
+     */
+    function getName() {
+        return $this->name;
+    }
 
     /**
      * model_job constructor.
@@ -98,21 +111,4 @@ class model_job{
         return isset($val) ? $val : FALSE;
     }
 
-    /**
-     * Gets the jobs id.
-     *
-     * @return id
-     */
-    public function getId(){
-        return $this->id;
-    }
-
-    /**
-     * Gets the jobs name.
-     *
-     * @return name
-     */
-    public function getName(){
-        return $this->name;
-    }
 }

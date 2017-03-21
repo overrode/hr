@@ -33,6 +33,9 @@ class model_database extends PDO {
 
     /**
      * Returns singleton database connection. If connection doesn't exist it is created.
+     *
+     * @return self instance
+     *
      */
     public static function instance() {
         // First it checks if connection was already created

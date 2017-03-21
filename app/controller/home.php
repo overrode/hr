@@ -27,20 +27,22 @@ class controller_home {
         if (isset($_POST['form']['action'])) {
 
             // Saving form values in variables.
-            $login_email = $_POST['form']['user'];
-            $login_password = $_POST['form']['password'];
+            $form_data = array(
+                'login_email' => $_POST['form']['user'],
+                'login_password' => $_POST['form']['password'],
+            );
 
-            $user_login = model_user::getByEmail($login_email);
+            $user_login = model_user::getByEmail( $form_data['login_email']);
             $user_email = $user_login->email;
 
             // Caching the form errors.
             $form_error = array(
-                'no_email' => empty($login_email) ? "Please insert your email!" : FALSE,
-                'no_password' => empty($login_password) ? "Please insert your password!" : FALSE,
-                'wrong_email' => ($user_email != $login_email) ? "Wrong e-mail!" : FALSE,
-                'wrong_password' => (!empty($login_password) && $user_login->password) ? "Wrong password!" : FALSE,
+                'no_email' => empty($form_data['login_email']) ? "Please insert your email!" : FALSE,
+                'no_password' => empty($form_data['login_password']) ? "Please insert your password!" : FALSE,
+                'wrong_email' => ($user_email != $form_data['login_email']) ? "Wrong e-mail!" : FALSE,
+                'wrong_password' => (!empty($form_data['login_password']) && $user_login->password) ? "Wrong password!" : FALSE,
             );
-            if ($user_email === $login_email && $user_login->checkPassword($login_password)) {
+            if ($user_email === $form_data['login_email'] && $user_login->checkPassword($form_data['login_password'])) {
                 $_SESSION['user'] = $user_email;
                 $_SESSION['id'] = $user_login->id;
                 header('Location: /home/track');
@@ -131,4 +133,22 @@ class controller_home {
         session_destroy();
         header('Location: /home/login');
     }
+
+    /**
+     * This is the track page.
+     *
+     * @include the track view template
+     */
+    function action_userLogged() {
+        if (!isset($_SESSION['logged']) || !$_SESSION['logged']) {
+            $_SESSION['logged'] = false;
+            header('Location: /');
+        } else {
+            $_SESSION['logged'] = true;
+            header('Location: /home/track');
+            // Include view for this page.
+            @include_once APP_PATH . 'view/track_page.tpl.php';
+        }
+    }
+
 }
