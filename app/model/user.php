@@ -255,4 +255,20 @@ class model_user {
         return $result ? TRUE : FALSE;
     }
 
+    /**
+     * Checks if a user is logged in
+     * @return bool
+     *   Return FALSE on fail, TRUE otherwise
+     */
+    static function userLoggedIn() {
+        $user_id = !empty($_SESSION['id']) ? $_SESSION['id'] : FALSE;
+        if($user_id) {
+            $user = self::getById($user_id);
+            if (!empty($user)) {
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
+
 }
