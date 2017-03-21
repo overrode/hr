@@ -4,6 +4,12 @@
     border: solid 2px #FF0000 !important;
 }
 
+.track_bg {
+    padding: 30px 0px;
+    background: #436477;
+    margin-top: 10px;
+}
+
 #header_time-it, #header_user {
     color: #fff;
     background: transparent;
