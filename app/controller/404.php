@@ -9,7 +9,6 @@ class controller_404 {
      * Default action for 404 controller.
      */
     function action_index() {
-
         // Set a title to be displayed in browser bar.
         $html_head_title = 'Bad request';
 

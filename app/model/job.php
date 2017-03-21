@@ -6,6 +6,18 @@
 class model_job {
 
     /**
+     * @var int $id
+     *   Retuns job's id.
+     */
+    public $id;
+
+    /**
+     * @var string $name
+     *   Returns job's name.
+     */
+    public $name;
+
+    /**
      * @return int
      *   Returns the job id.
      */

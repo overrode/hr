@@ -5,11 +5,40 @@
  */
 class model_user {
 
+    /**
+     * @var int $id
+     *   The user's id.
+     */
     public $id;
+
+    /**
+     * @var string $lastname
+     *   The user's lastname.
+     */
     public $lastname;
+
+    /**
+     * @var string $firstname
+     *   The user's firstname.
+     */
     public $firstname;
+
+    /**
+     * @var string $email
+     *   The user's email.
+     */
     public $email;
+
+    /**
+     * @var string $password
+     *   The user's password.
+     */
     public $password;
+
+    /**
+     * @var string $job
+     *   Returns user's job.
+     */
     public $job;
 
     /**

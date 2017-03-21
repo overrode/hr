@@ -2,10 +2,10 @@
 
 /**
  * @var array $form_errors
- *   array with validation errors.
+ *   Array with validation errors.
  *
  * @var array $jobs
- *   array with the user jobs.
+ *   Array with the user jobs.
  */
 
 ?>

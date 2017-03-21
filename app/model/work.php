@@ -5,11 +5,40 @@
  */
 class model_work {
 
+    /**
+     * @var int $id_work
+     *   Returns work's id.
+     */
     public $id_work;
+
+    /**
+     * @var int $date
+     *   Returns work's date.
+     */
     public $date;
+
+    /**
+     * @var string $project
+     *   Returns work's project.
+     */
     public $project;
+
+    /**
+     * @var string $task
+     *   Returns work's task.
+     */
     public $task;
+
+    /**
+     * @var string $details
+     *   Returns work's details.
+     */
     public $details;
+
+    /**
+     * @var int $user_id
+     *   Returns user's id.
+     */
     public $user_id;
 
     /**
