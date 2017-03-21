@@ -22,11 +22,9 @@
         </a>
         <div class="col-md-2 col-xs-5 text-center pull-right " id="header_user">
             <i class="fa fa-user-o margin_top"></i>
-            <?php if($_SESSION['logged_in']) {?>
-                <a href="/home/logout" id="logout" title="LOGOUT"><i class="fa fa-power-off margin_top" aria-hidden="true"></i></a>
-            <?php } ?>
-            <?php if($_SESSION['logged_in']) { ?>
-                <h1 class="text-uppercase"><?php echo $_SESSION['user']; ?></h1>
+            <?php if($_SESSION['id']) {?>
+            <a href="/home/logout" id="logout" title="LOGOUT"><i class="fa fa-power-off margin_top" aria-hidden="true"></i></a>
+            <h1 class="text-uppercase"><?php echo $_SESSION['user']; ?></h1>
             <?php } else { ?>
                 <h1 class="text-uppercase"><?php echo "Welcome"; ?></h1>
             <?php } ?>
