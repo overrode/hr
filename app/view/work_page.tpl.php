@@ -35,8 +35,8 @@
                     </form>
                 </div>
             </div>
-            <div class="col-lg-12 col-md-12- col-xs-12">
-                <table class="table table-striped">
+            <div class="col-lg-10 col-md-10- col-xs-12">
+                <table class="table table-condensed">
                     <thead>
                     <tr>
                         <th>Project</th>
@@ -48,14 +48,13 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td><?php echo "HR"; ?></td>
-                        <td><?php echo "Calendar"; ?></td>
-                        <td><?php echo "8"; ?></td>
-                        <td><?php echo "Implement calendar functionality"; ?></td>
-                        <td><?php echo "2017-03-21"; ?></td>
+                        <td id="td_project"></td>
+                        <td id="td_task"></td>
+                        <td id="td_hours"></td>
+                        <td id="td_details"></td>
+                        <td id="td_date"></td>
                         <td><button class="btn btn-danger">EDIT</button></td>
                     </tr>
-
                     </tbody>
                 </table>
             </div>

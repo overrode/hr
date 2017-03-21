@@ -1,18 +1,27 @@
 /* Custom javascript */
 
+function ajaxSuccessWorkResponse(response) {
+    $('#td_project').append(response.project);
+    $('#td_task').append(response.task);
+    $('#td_details').append(response.details);
+    $('#td_hours').append(response.hour);
+    $('#td_date').append(response.date);
+}
+
 $(document).ready(function(){
     $("#calendar").click(function() {
+        if() {}
         $.ajax({
             type: "POST",
             dataType: "json",
             url: "/track/getDate",
             data: '',
             success: function(response){
-                $('#form_project').val(response.project);
-                $('#form_task').val(response.task);
-                $('#form_details').val(response.details);
-                $('#form_hours').val(response.hour);
-                $('#form_date').val(response.date);
+                $('#td_project').append(response.project);
+                $('#td_task').append(response.task);
+                $('#td_details').append(response.details);
+                $('#td_hours').append(response.hour);
+                $('#td_date').append(response.date);
             },
             error: function(err) {
                 alert(err);
@@ -26,8 +35,7 @@ $(document).ready(function(){
         weekends: false,
         defaultFormat: 'YYYY-MM-DD',
         dayClick: function(date) {
-            var data_da = date.format();
-            //alert(data_da);
+            var work_date = date.format();
         },
 
     });
