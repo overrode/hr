@@ -71,6 +71,8 @@ class model_work {
      *   The work project.
      * @param string $task
      *   The work task.
+     * @param int $hours
+     *   The work hours.
      * @param string $details
      *   The work detail.
      * @param int $user_id
@@ -129,10 +131,10 @@ class model_work {
      * @param $date int id
      *   The user's date.
      *
-     * @return $work array
+     * @return array $work array
      *   Return model_user in case of SUCCESS, FALSE otherwise.
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public static function getWorkByDate($date) {
         $work = array();
@@ -160,6 +162,8 @@ class model_work {
      *   The work project.
      * @param string $task
      *   The work task.
+     * @param string $hours
+     *   The work hours.
      * @param string $details
      *   The work detail.
      * @param int $id_work
@@ -167,14 +171,15 @@ class model_work {
      *
      * @throws Exception
      */
-    public static function updateWork($date, $project, $task, $details, $id_work) {
+    public static function updateWork($date, $project, $task, $hours , $details, $id_work) {
         $db = model_database::instance();
-        $sql = "UPDATE work SET date = ?, project = ?, task = ?, details = ? WHERE id_work = ?";
+        $sql = "UPDATE work SET date = ?, project = ?, task = ?, hours = ?, details = ? WHERE id_work = ?";
         try {
             $db->prepare($sql)->execute([
                 $date,
                 $project,
                 $task,
+                $hours,
                 $details,
                 $id_work
             ]);
