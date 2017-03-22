@@ -5,21 +5,24 @@
             <div class="col-lg-12 col-md-12- colxs-12">
                 <div class="col-md-6" id='calendar'></div>
                 <div class="col-md-6">
-                    <form action="" method="post">
+                    <form action="<?php echo APP_URL; ?>/track/add" method="post">
                         <!--Project-->
                         <label>Project</label>
                         <div class=" margin_bottom">
-                            <input id="form_project" type="text" class="form-control" name="project" value=""  rows="3">
+                            <input id="form_project" type="text" class="form-control <?php echo ($form_errors['errorProject']) ? "errorClass" : "" ?>"
+                                   name="project" value=""  rows="3">
                         </div>
                         <!--Task-->
                         <label>Task</label>
                         <div class=" margin_bottom">
-                            <input id="form_task" type="text" class="form-control" name="task" value="" rows="3">
+                            <input id="form_task" type="text" class="form-control <?php echo ($form_errors['errorTask']) ? "errorClass" : "" ?>"
+                                   name="task" value="" rows="3">
                         </div>
                         <!--Details-->
                         <label>Details</label>
                         <div class=" margin_bottom">
-                            <textarea id="form_details" type="text" class="form-control" name="details" value="" rows="3"></textarea>
+                            <textarea id="form_details" type="text" class="form-control <?php echo ($form_errors['errorDetails']) ? "errorClass" : "" ?>"
+                                      name="details" value="" rows="3"></textarea>
                         </div>
                         <!--Hours-->
                         <label>Hours</label>

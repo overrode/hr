@@ -177,7 +177,37 @@ class model_work {
      * @return bool
      *   Return TRUE on success, FALSE on fail.
      */
-    public static function validateStringDigits($string){
+    public static function validateStringDigits($string) {
         return ctype_digit($string) ? TRUE : FALSE;
+    }
+
+    /**
+     * Check user's input.
+     *
+     * @param array $form_errors
+     *   The form errors.
+     * @param $project_data
+     * @param boolean $display_error
+     *   The error display flag.
+     * @internal param array $user_data The user data.*   The user data.
+     */
+    public static function validateInput(&$form_errors, &$project_data, &$display_error) {
+        // Check if user's lastname is set.
+        if (empty($project_data['project'])) {
+            $form_errors['errorProject'] = TRUE;
+            $display_error = TRUE;
+        }
+        else {
+            $projectContainsOnlyDigits = model_work::validateStringDigits($project_data['project']);
+
+            // Check if user's project contains only digits.
+            if (!$projectContainsOnlyDigits) {
+                $form_errors['errorProject'] = TRUE;
+                $display_error = TRUE;
+            }
+            else {
+                $form_errors['errorLastName'] = FALSE;
+            }
+        }
     }
 }

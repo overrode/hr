@@ -22,8 +22,9 @@ class controller_track {
      * Add a work.
      */
     public function action_add() {
-        $displayError = FALSE;
+        $display_error = FALSE;
         if (isset($_POST['submit_work'])) {
+
 
             $project_data = array(
                 'project' => $_POST['project'],
@@ -32,8 +33,17 @@ class controller_track {
                 'details' => $_POST['details'],
             );
 
-            model_user::validateInput($form_errors, $project_data, $displayError);
-           // if (!$displayError) {
+            $form_errors = array(
+                'errorProject' => FALSE,
+                'errorTask' => FALSE,
+                'errorHours' => FALSE,
+                'errorDetails' => FALSE,
+            );
+
+
+            model_work::validateInput($form_errors, $project_data, $display_error);
+
+            if (!$display_error) {
                 try {
                     $work = model_work::createWork(
                         "2017-12-12 12:12:12",
@@ -47,8 +57,9 @@ class controller_track {
                 } catch (Exception $e) {
                     header('Location: /500/index');
                 }
-          //  }
+           }
         }
+        @include_once APP_PATH . 'view/work_page.tpl.php';
     }
 
 }
