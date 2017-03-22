@@ -5,6 +5,8 @@
 <script src="../js/jquery-3.1.1.js"></script>
 <script src="../js/custom.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src="../js/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.js"></script>
 </body>
 
 </html>

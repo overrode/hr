@@ -36,6 +36,12 @@ class model_work {
     public $details;
 
     /**
+     * @var string $hours
+     *   Returns work's hours.
+     */
+    public $hours;
+
+    /**
      * @var int $user_id
      *   Returns user's id.
      */
@@ -52,6 +58,7 @@ class model_work {
         $this->project = $model_work['project'];
         $this->task = $model_work['task'];
         $this->details = $model_work['details'];
+        $this->hours = $model_work['hours'];
         $this->user_id = $model_work['user_id'];
     }
 
@@ -68,22 +75,25 @@ class model_work {
      *   The work detail.
      * @param int $user_id
      *   The work id.
+     * @return bool
      * @throws \Exception
      */
-    public static function createWork($date, $project, $task, $details, $user_id) {
+    public static function createWork($date, $project, $task, $hours, $details, $user_id) {
         $db = model_database::instance();
-        $sql = "INSERT INTO `work`(`date`, `project`, `task`, `details`, `user_id`) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO `work`(`date`, `project`, `task`, `hours`,`details`, `user_id`) VALUES (?, ?, ?, ?, ?, ?)";
         try {
-            $db->prepare($sql)->execute([
+            $result = $db->prepare($sql)->execute([
                 $date,
                 $project,
                 $task,
+                $hours,
                 $details,
                 $user_id
             ]);
         } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
+        return $result;
     }
 
     /**
@@ -111,6 +121,34 @@ class model_work {
             throw new Exception(DB_ERROR);
         }
         return isset($work) ? $work : FALSE;
+    }
+
+    /**
+     * Retrieve work by date.
+     *
+     * @param $date int id
+     *   The user's date.
+     *
+     * @return $work array
+     *   Return model_user in case of SUCCESS, FALSE otherwise.
+     *
+     * @throws Exception
+     */
+    public static function getWorkByDate($date) {
+        $work = array();
+        $db = model_database::instance();
+        try {
+            $sql = 'SELECT * FROM work WHERE date = :date';
+            $query = $db->prepare($sql);
+            $query->bindValue(':date', $date);
+            $query->execute();
+            while ($result = $query->fetch()) {
+                $work[] = $result;
+            }
+        } catch (PDOException $e) {
+            throw new Exception(DB_ERROR);
+        }
+        return $work;
     }
 
     /**
@@ -161,5 +199,18 @@ class model_work {
         } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
+    }
+
+    /**
+     * Check if the string contains only digits.
+     *
+     * @param String $string
+     *   The user's input.
+     *
+     * @return bool
+     *   Return TRUE on success, FALSE on fail.
+     */
+    public static function validateStringDigits($string){
+        return ctype_digit($string) ? TRUE : FALSE;
     }
 }
