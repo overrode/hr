@@ -14,7 +14,7 @@ class controller_track {
     }
 
     public function action_getDate() {
-        $get_work = model_work::getWork(1);
+        $get_work = model_work::getWorkByDate('2017-03-20');
         print json_encode($get_work);
     }
 

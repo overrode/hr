@@ -10,7 +10,7 @@ function ajaxSuccessWorkResponse(response) {
 
 $(document).ready(function(){
     $("#calendar").click(function() {
-        if() {}
+        event.preventDefault();
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -22,6 +22,7 @@ $(document).ready(function(){
                 $('#td_details').append(response.details);
                 $('#td_hours').append(response.hour);
                 $('#td_date').append(response.date);
+
             },
             error: function(err) {
                 alert(err);
@@ -34,6 +35,7 @@ $(document).ready(function(){
     $('#calendar').fullCalendar({
         weekends: false,
         defaultFormat: 'YYYY-MM-DD',
+        arrowNext: true,
         dayClick: function(date) {
             var work_date = date.format();
         },

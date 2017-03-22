@@ -90,6 +90,33 @@ class model_work {
     }
 
     /**
+     * Retrieve work by date.
+     *
+     * @param $date int id
+     *   The user's date.
+     *
+     * @return bool|model_user
+     *   Return model_user in case of SUCCESS, FALSE otherwise.
+     *
+     * @throws Exception
+     */
+    public static function getWorkByDate($date) {
+        $db = model_database::instance();
+        try {
+            $sql = 'SELECT * FROM work WHERE date = :date';
+            $query = $db->prepare($sql);
+            $query->bindValue(':date', $date);
+            $query->execute();
+            if ($result = $query->fetch()) {
+                $work = new model_work($result);
+            }
+        } catch (PDOException $e) {
+            throw new Exception(DB_ERROR);
+        }
+        return isset($work) ? $work : FALSE;
+    }
+
+    /**
      * Update work.
      *
      * @param type date $date
