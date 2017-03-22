@@ -15,9 +15,17 @@ $(document).ready(function(){
                 url: "/track/getDate",
                 data: {data:datePicker},
                 success: function(response){
-                    $('#adina').each(response, function(){
-                        console.log(response);
-                    })
+                    $('#tbody').empty();
+                    $.each(response, function(index, val) {
+                        var eachrow = "<tr>"
+                            + "<td>" + val.project + "</td>"
+                            + "<td>" + val.task + "</td>"
+                            + "<td>" + val.hours + "</td>"
+                            + "<td>" + val.details + "</td>"
+                            + "<td>" + val.date + "</td>"
+                            + "</tr>";
+                        $('#tbody').append(eachrow);
+                    });
                 },
                 error: function(err) {
                     alert(err);

@@ -46,15 +46,7 @@
                         <th>Date</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr id="adina">
-                        <td id="td_project"></td>
-                        <td id="td_task"></td>
-                        <td id="td_hours"></td>
-                        <td id="td_details"></td>
-                        <td id="td_date"></td>
-                        <td><button class="btn btn-danger">EDIT</button></td>
-                    </tr>
+                    <tbody id="tbody">
                     </tbody>
                 </table>
             </div>
