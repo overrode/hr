@@ -36,10 +36,15 @@ class model_work {
     public $details;
 
     /**
+     * @var string $hours
+     *   Returns work's hours.
+     */
+    public $hours;
+
+    /**
      * @var int $user_id
      *   Returns user's id.
      */
-    public $hours;
     public $user_id;
 
     /**
@@ -116,6 +121,34 @@ class model_work {
             throw new Exception(DB_ERROR);
         }
         return isset($work) ? $work : FALSE;
+    }
+
+    /**
+     * Retrieve work by date.
+     *
+     * @param $date int id
+     *   The user's date.
+     *
+     * @return $work array
+     *   Return model_user in case of SUCCESS, FALSE otherwise.
+     *
+     * @throws Exception
+     */
+    public static function getWorkByDate($date) {
+        $work = array();
+        $db = model_database::instance();
+        try {
+            $sql = 'SELECT * FROM work WHERE date = :date';
+            $query = $db->prepare($sql);
+            $query->bindValue(':date', $date);
+            $query->execute();
+            while ($result = $query->fetch()) {
+                $work[] = $result;
+            }
+        } catch (PDOException $e) {
+            throw new Exception(DB_ERROR);
+        }
+        return $work;
     }
 
     /**
