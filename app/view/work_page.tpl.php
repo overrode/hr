@@ -47,7 +47,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr id="adina">
                         <td id="td_project"></td>
                         <td id="td_task"></td>
                         <td id="td_hours"></td>
