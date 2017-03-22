@@ -3,6 +3,7 @@
 $(document).ready(function () {
     /*Calendar options*/
     $('#calendar').fullCalendar({
+        selectable: true,
         weekends: false,
         defaultFormat: 'YYYY-MM-DD',
         dayClick: function (date) {
@@ -21,7 +22,7 @@ $(document).ready(function () {
                             + "<td>" + val.task + "</td>"
                             + "<td>" + val.hours + "</td>"
                             + "<td>" + val.details + "</td>"
-                            + "<button>Edit</button>" +
+                            + "<td class='btn btn-danger'>Edit</td>" +
                             + "</tr>";
                         $('#tbody').append(eachrow);
                     });
