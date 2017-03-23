@@ -77,6 +77,7 @@ class model_work {
      *   The work detail.
      * @param int $user_id
      *   The work id.
+     *
      * @return bool
      * @throws \Exception
      */
@@ -106,7 +107,6 @@ class model_work {
      *
      * @return bool|model_user
      *   Return model_user in case of SUCCESS, FALSE otherwise.
-     *
      * @throws Exception
      */
     public static function getWork($user_id) {
@@ -133,7 +133,6 @@ class model_work {
      *
      * @return array $work array
      *   Return model_user in case of SUCCESS, FALSE otherwise.
-     *
      * @throws \Exception
      */
     public static function getWorkByDate($date) {
