@@ -1,5 +1,7 @@
 <?php @include APP_PATH . 'view/snippets/header.tpl.php'; ?>
 
+
+
     <main class="container track_bg">
         <div class="row">
             <div class="col-lg-12 col-md-12- col-xs-12">
@@ -9,17 +11,18 @@
                         <!--Project-->
                         <label>Project</label>
                         <div class=" margin_bottom">
-                            <input id="form_project" type="text" class="form-control" name="project" value="">
+                            <input id="form_project" type="text" class="form-control <?php echo ($form_errors['errorProject']) ? "errorClass" : "" ?>"
+                                   name="project" value="<?php echo $_POST['project']; ?>">
                         </div>
                         <!--Task-->
                         <label>Task</label>
                         <div class=" margin_bottom">
-                            <input id="form_task" type="text" class="form-control" name="task" value="">
+                            <input id="form_task" type="text" class="form-control <?php echo ($form_errors['errorTask']) ? "errorClass" : "" ?>" name="task" value="<?php echo $_POST['task']; ?>">
                         </div>
                         <!--Details-->
                         <label>Details</label>
                         <div class=" margin_bottom">
-                            <textarea id="form_details" type="text" class="form-control" name="details" value="" rows="3"></textarea>
+                            <textarea id="form_details" type="text" class="form-control <?php echo ($form_errors['errorDetails']) ? "errorClass" : "" ?>" name="details" rows="3" ><?php echo $_POST['details']; ?></textarea>
                         </div>
                         <!--Hours-->
                         <label>Hours</label>
@@ -29,7 +32,7 @@
                         <!--Date-->
                         <label>Date</label>
                         <div class=" margin_bottom">
-                            <input id="form_date" type="text" class="form-control"  name="date"  value="" disabled >
+                            <input id="form_date" type="text" class="form-control"  name="date"  value="" >
                         </div>
                         <button class="login_home btn btn-info btn-block login" name="submit_work">SAVE</button>
                     </form>

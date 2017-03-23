@@ -171,7 +171,7 @@ class model_work {
      *
      * @throws Exception
      */
-    public static function updateWork($date, $project, $task, $hours , $details, $id_work) {
+    public static function updateWork($date, $project, $task, $hours, $details, $id_work) {
         $db = model_database::instance();
         $sql = "UPDATE work SET date = ?, project = ?, task = ?, hours = ?, details = ? WHERE id_work = ?";
         try {
@@ -220,6 +220,59 @@ class model_work {
     }
 
     /**
+     * Check if the string contains only digits,letters(uppercase), - and -.
+     *
+     * @param String $string
+     *   The user's input.
+     *
+     * @return bool
+     *   Return TRUE on success, FALSE on fail.
+     */
+    public static function validateTask($string) {
+        if (preg_match("/^[A-Z0-9-_]+$/", $string)) {
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
+    }
+
+    /**
+     * Check if the string limit word is 500.
+     *
+     * @param String $string
+     *   The user's input.
+     *
+     * @return bool
+     *   Return TRUE on success, FALSE on fail.
+     */
+    public static function limitTextarea($string) {
+        $count = str_word_count($string);
+        if ($count > 500) {
+            return FALSE;
+        }
+        else {
+            return TRUE;
+        }
+    }
+
+    /**
+     * @param date $date
+     *   The work's date.
+     *
+     * @return false|string
+     */
+    public static function dateFormat($date){
+        $tmpDate = date("Y-m-d", strtotime($date));
+        if($tmpDate){
+           return $tmpDate;
+        }
+        else{
+            return FALSE;
+        }
+    }
+
+    /**
      * Check user's input.
      *
      * @param array $form_errors
@@ -230,21 +283,54 @@ class model_work {
      * @internal param array $user_data The user data.*   The user data.
      */
     public static function validateInput(&$form_errors, &$project_data, &$display_error) {
-        // Check if user's lastname is set.
+        // Check if user's project is set.
         if (empty($project_data['project'])) {
             $form_errors['errorProject'] = TRUE;
             $display_error = TRUE;
         }
         else {
             $projectContainsOnlyDigits = model_work::validateStringDigits($project_data['project']);
-
             // Check if user's project contains only digits.
             if (!$projectContainsOnlyDigits) {
                 $form_errors['errorProject'] = TRUE;
                 $display_error = TRUE;
             }
             else {
-                $form_errors['errorLastName'] = FALSE;
+                $form_errors['errorProject'] = FALSE;
+            }
+        }
+
+        // Check if user's task is set.
+        if (empty($project_data['task'])) {
+            $form_errors['errorTask'] = TRUE;
+            $display_error = TRUE;
+        }
+        else {
+            $isTaskValid = model_work::validateTask($project_data['task']);
+            // Check if user's task is valid.
+            if (!$isTaskValid) {
+                $form_errors['errorTask'] = TRUE;
+                $display_error = TRUE;
+            }
+            else {
+                $form_errors['errorTask'] = FALSE;
+            }
+        }
+
+        // Check if user's details are set.
+        if (empty($project_data['details'])) {
+            $form_errors['errorDetails'] = TRUE;
+            $display_error = TRUE;
+        }
+        else {
+            $isLimitWordCorrect = model_work::limitTextarea($project_data['details']);
+            // Check if user's task is valid.
+            if (!$isLimitWordCorrect) {
+                $form_errors['errorDetails'] = TRUE;
+                $display_error = TRUE;
+            }
+            else {
+                $form_errors['errorDetails'] = FALSE;
             }
         }
     }
