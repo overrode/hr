@@ -5,6 +5,7 @@
 }
 
 .track_bg {
+    border-radius: 5px;
     padding: 30px 0px;
     background: #436477;
     margin-top: 10px;

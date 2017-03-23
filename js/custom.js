@@ -1,15 +1,15 @@
 /* Custom javascript */
 
 $(document).ready(function () {
-    /**
-     *  UPDATE WORK
-     */
-    $('#tbody').on('click', '.work', function () {
+
+     /* UPDATE WORK */
+
+    $('#work_list').on('click', '.work_edit', function () {
         var allData = {
-            project: $('#project_td').html(),
-            task   : $('#task_td').html(),
-            details: $('#details_td').html(),
-            hours  : $('#hours_td').html()
+            project: $('#project_' + this.id).html(),
+            task   : $('#task_' + this.id).html(),
+            details: $('#details_' + this.id).html(),
+            hours  : $('#hours_' + this.id).html()
         };
         $('#form_project').val(allData.project);
         $('#form_task')   .val(allData.task);
@@ -28,23 +28,23 @@ $(document).ready(function () {
             $('#form_project, #form_task, #form_details, #form_hours').val('');
             var datePicker = date.format();
             $('#form_date').val(datePicker);
-            /* GET WORK AJAX*/
+            /* GET WORK by date AJAX*/
             $.ajax({
                 type    : "POST",
                 dataType: "json",
                 url     : "/track/getDate",
                 data    : {data: datePicker},
                 success : function(response) {
-                    $('#tbody').empty();
+                    $('#work_list').empty();
                     $.each(response, function (index, val) {
                         var eachrow = "<tr>"
-                            + "<td id='project_td'>" + val.project + "</td>"
-                            + "<td id='task_td'>" + val.task + "</td>"
-                            + "<td id='hours_td'>" + val.hours + "</td>"
-                            + "<td id='details_td'>" + val.details + "</td>"
-                            + "<td class='btn btn-danger work' id='edit_work_"+val.id_work+"'>Edit</td>" +
+                            + "<td class='work_td' id='project_"+val.id_work+"'>" + val.project + "</td>"
+                            + "<td class='work_td' id='task_"+val.id_work+"'>" + val.task + "</td>"
+                            + "<td class='work_td' id='hours_"+val.id_work+"'>" + val.hours + "</td>"
+                            + "<td class='work_td' id='details_"+val.id_work+"'>" + val.details + "</td>"
+                            + "<td class='btn btn-danger work_edit' id='"+val.id_work+"'>Edit</td>" +
                             + "</tr>";
-                        $('#tbody').append(eachrow);
+                        $('#work_list').append(eachrow);
                     });
                 },
                 error   : function(err) {alert(err);}
