@@ -5,7 +5,7 @@
             <div class="col-lg-12 col-md-12- colxs-12">
                 <div class="col-md-6" id='calendar'></div>
                 <div class="col-md-6">
-                    <form action="" method="post">
+                    <form id="work_form" action="" method="post">
                         <!--Project-->
                         <label>Project</label>
                         <div class=" margin_bottom">
