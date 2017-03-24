@@ -25,7 +25,6 @@ $(document).ready(function () {
         weekends     : false,
         defaultFormat: 'YYYY-MM-DD',
         dayClick     : function (date) {
-            $('#form_project, #form_task, #form_details, #form_hours').val('');
             var datePicker = date.format();
             $('#form_date').val(datePicker);
             /* GET WORK by date AJAX*/
