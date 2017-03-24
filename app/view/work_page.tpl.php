@@ -23,7 +23,8 @@
                             <textarea id="form_details" type="text" class="form-control <?php echo ($form_errors['errorDetails']) ? "errorClass" : "" ?>" name="details" rows="3" ><?php echo $_POST['details']; ?></textarea>
                         <!--Hours-->
                         <label>Hours</label>
-                            <input id="form_hours" type="number" class="form-control" name="hours" value="" >
+                        <input id="form_hours" type="number" class="form-control" name="hours" value="" >
+                        <input type="text" id="form_job_entry_id" name="id_work" >
                         <!--Date-->
                         <label>Date</label>
                             <input id="form_date" type="text" class="form-control  <?php echo ($form_errors['errorDate']) ? "errorClass" : "" ?>"  name="date"  value="" readonly>
@@ -41,7 +42,7 @@
                         <th>Details</th>
                     </tr>
                     </thead>
-                    <tbody id="work_list">
+                    <tbody id="work_list" class="work_class">
                     </tbody>
                 </table>
             </div>

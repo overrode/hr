@@ -3,18 +3,22 @@
 $(document).ready(function () {
 
      /* UPDATE WORK */
+     $('#work_list').on("click", '.btn-danger', function() {
+         $('#form_job_entry_id').val(this.getAttribute("id"));
+     });
 
-    $('#work_list').on('click', '.work_edit', function () {
+    $('.work_class').on('click', '.work_td', function () {
+        console.log(this);
         var allData = {
             project: $('#project_' + this.id).html(),
-            task   : $('#task_' + this.id).html(),
+            task: $('#task_' + this.id).html(),
             details: $('#details_' + this.id).html(),
-            hours  : $('#hours_' + this.id).html()
+            hours: $('#hours_' + this.id).html(),
         };
         $('#form_project').val(allData.project);
-        $('#form_task')   .val(allData.task);
+        $('#form_task').val(allData.task);
         $('#form_details').val(allData.details);
-        $('#form_hours')  .val(allData.hours);
+        $('#form_hours').val(allData.hours);
     });
 
     /**
@@ -40,7 +44,7 @@ $(document).ready(function () {
                             + "<td class='work_td' id='task_"+val.id_work+"'>" + val.task + "</td>"
                             + "<td class='work_td' id='hours_"+val.id_work+"'>" + val.hours + "</td>"
                             + "<td class='work_td' id='details_"+val.id_work+"'>" + val.details + "</td>"
-                            + "<td class='btn btn-danger work_edit' id='"+val.id_work+"'>Edit</td>" +
+                            + "<td class='work_td'><a href='javascript:void(0)' id='" + val.id_work + " ' class='btn-danger'>Edit</a></td>" +
                             + "</tr>";
                         $('#work_list').append(eachrow);
                     });

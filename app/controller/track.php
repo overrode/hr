@@ -29,7 +29,7 @@ class controller_track {
     public function action_add() {
         $display_error = FALSE;
         if (isset($_POST['submit_work'])) {
-
+            $id_work = $_POST['id_work'];
             $project_data = array(
                 'project' => $_POST['project'],
                 'task' => $_POST['task'],
@@ -47,6 +47,8 @@ class controller_track {
 
             $dateFormat = model_work::dateFormat($project_data['dateCurrent']);
             model_work::validateInput($form_errors, $project_data, $display_error);
+            /*Check user w*/
+//            if
 
             if (!$display_error && $dateFormat) {
                 try {
