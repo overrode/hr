@@ -77,6 +77,7 @@ class model_work {
      *   The work detail.
      * @param int $user_id
      *   The work id.
+     *
      * @return bool
      * @throws \Exception
      */
@@ -105,8 +106,7 @@ class model_work {
      *   The user's id.
      *
      * @return bool|model_user
-     *   Return model_user in case of SUCCESS, FALSE otherwise.
-     *
+     *   Return model_user in case of SUCCESS, FALSE otherwise.     *
      * @throws Exception
      */
     public static function getWork($user_id) {
@@ -132,8 +132,7 @@ class model_work {
      *   The user's date.
      *
      * @return array $work array
-     *   Return model_user in case of SUCCESS, FALSE otherwise.
-     *
+     *   Return model_user in case of SUCCESS, FALSE otherwise.     *
      * @throws \Exception
      */
     public static function getWorkByDate($date) {
@@ -156,7 +155,7 @@ class model_work {
     /**
      * Update work.
      *
-     * @param type date $date
+     * @param date $date
      *   The work date.
      * @param string $project
      *   The work project.
@@ -232,9 +231,8 @@ class model_work {
         if (preg_match("/^[A-Z0-9-_ ]+$/", $string)) {
             return TRUE;
         }
-        else {
-            return FALSE;
-        }
+
+        return FALSE;
     }
 
     /**
@@ -251,9 +249,8 @@ class model_work {
         if ($count > 500) {
             return FALSE;
         }
-        else {
-            return TRUE;
-        }
+
+        return TRUE;
     }
 
     /**
@@ -264,6 +261,7 @@ class model_work {
      */
     public static function dateFormat($date) {
         $tmpDate = date("Y-m-d", strtotime($date));
+
         return $tmpDate;
     }
 
@@ -275,7 +273,8 @@ class model_work {
      * @param $project_data
      * @param boolean $display_error
      *   The error display flag.
-     * @internal param array $user_data The user data.*   The user data.
+     * @internal param array $user_data The user data.
+     *   The user data.
      */
     public static function validateInput(&$form_errors, &$project_data, &$display_error) {
         // Check if user's project is set.
