@@ -229,7 +229,7 @@ class model_work {
      *   Return TRUE on success, FALSE on fail.
      */
     public static function validateTask($string) {
-        if (preg_match("/^[A-Z0-9-_]+$/", $string)) {
+        if (preg_match("/^[A-Z0-9-_ ]+$/", $string)) {
             return TRUE;
         }
         else {
@@ -262,14 +262,9 @@ class model_work {
      *
      * @return false|string
      */
-    public static function dateFormat($date){
+    public static function dateFormat($date) {
         $tmpDate = date("Y-m-d", strtotime($date));
-        if($tmpDate){
-           return $tmpDate;
-        }
-        else{
-            return FALSE;
-        }
+        return $tmpDate;
     }
 
     /**

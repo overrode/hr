@@ -1,7 +1,10 @@
-<?php @include APP_PATH . 'view/snippets/header.tpl.php'; ?>
+<?php @include APP_PATH . 'view/snippets/header.tpl.php';
 
-
-
+/**
+ * @var array $form_errors
+ *
+**/
+?>
     <main class="container track_bg">
         <div class="row">
             <div class="col-lg-12 col-md-12- col-xs-12">
@@ -32,7 +35,7 @@
                         <!--Date-->
                         <label>Date</label>
                         <div class=" margin_bottom">
-                            <input id="form_date" type="text" class="form-control"  name="date"  value="" >
+                            <input id="form_date" type="text" class="form-control  <?php echo ($form_errors['errorDate']) ? "errorClass" : "" ?>"  name="date"  value="" readonly>
                         </div>
                         <button class="login_home btn btn-info btn-block login" name="submit_work">SAVE</button>
                     </form>
