@@ -4,6 +4,13 @@
     border: solid 2px #FF0000 !important;
 }
 
+#message_succes {
+    display: none;
+    font-size: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
 .track_bg {
     padding: 30px 0px;
     background: #436477;

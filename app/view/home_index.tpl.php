@@ -1,9 +1,10 @@
 <?php @include APP_PATH . 'view/snippets/header.tpl.php'; ?>
 
     <div class="login-container">
+        <div class="alert-success" id="message_succes" style="display: <?php echo $_SESSION['sign_up_success']?>">Message was success!</div>
         <div id="output">
             <?php if(isset($form_error)) {
-                foreach ($form_error as $errors) { echo $errors ; }
+                    foreach ($form_error as $errors) { echo $errors ; }
             }?>
         </div>
         <div class="form-box">

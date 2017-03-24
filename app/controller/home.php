@@ -101,6 +101,7 @@ class controller_home {
                         $user_data['password'],
                         $user_data['job']
                     );
+                    $_SESSION['sign_up_success'] = "block";
                     header('Location: /home/login');
                 } catch (Exception $e) {
                     header('Location: /500/index');
