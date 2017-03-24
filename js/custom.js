@@ -5,9 +5,8 @@ $(document).ready(function () {
     $('#calendar').fullCalendar({
         selectable: true,
         weekends: false,
-        defaultFormat: 'YYYY-MM-DD',
         dayClick: function (date) {
-            var datePicker = date.format();
+            var datePicker = date.format('MM/DD/YYYY');
             $('#form_date').val(datePicker);
             $.ajax({
                 type: "POST",
