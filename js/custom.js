@@ -21,11 +21,10 @@ $(document).ready(function () {
      *  Calendar options
      */
     $('#calendar').fullCalendar({
-        selectable   : true,
-        weekends     : false,
-        defaultFormat: 'YYYY-MM-DD',
-        dayClick     : function (date) {
-            var datePicker = date.format();
+        selectable: true,
+        weekends: false,
+        dayClick: function (date) {
+            var datePicker = date.format('MM/DD/YYYY');
             $('#form_date').val(datePicker);
             /* GET WORK by date AJAX*/
             $.ajax({
@@ -50,8 +49,6 @@ $(document).ready(function () {
             });
         }
     });
-
-
 });
 
 

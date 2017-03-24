@@ -18,7 +18,8 @@ class controller_track {
      */
     public function action_getDate() {
         $date = $_POST['data'];
-        $get_work = model_work::getWorkByDate($date);
+        $tmpDate = model_work::dateFormat($date);
+        $get_work = model_work::getWorkByDate($tmpDate);
         print json_encode($get_work);
     }
 
@@ -26,6 +27,7 @@ class controller_track {
      * Add a work.
      */
     public function action_add() {
+        $display_error = FALSE;
         if (isset($_POST['submit_work'])) {
 
             $project_data = array(
@@ -35,20 +37,34 @@ class controller_track {
                 'dateCurrent' => $_POST['date'],
                 'details' => $_POST['details'],
             );
-            try {
-                $work = model_work::createWork(
-                    $project_data['dateCurrent'],
-                    $project_data['project'],
-                    $project_data['task'],
-                    $project_data['hours'],
-                    $project_data['details'],
-                    $_SESSION['id']
-                );
-                header('Location: /track/index');
-            } catch (Exception $e) {
-                header('Location: /500/index');
+
+            $form_errors = array(
+                'errorProject' => FALSE,
+                'errorTask' => FALSE,
+                'errorHours' => FALSE,
+                'errorDetails' => FALSE,
+            );
+
+            $dateFormat = model_work::dateFormat($project_data['dateCurrent']);
+            model_work::validateInput($form_errors, $project_data, $display_error);
+
+            if (!$display_error && $dateFormat) {
+                try {
+                    $work = model_work::createWork(
+                        $dateFormat,
+                        $project_data['project'],
+                        $project_data['task'],
+                        $project_data['hours'],
+                        $project_data['details'],
+                        $_SESSION['id']
+                    );
+                    header('Location: /track/index');
+                } catch (Exception $e) {
+                    header('Location: /500/index');
+                }
             }
         }
+        @include_once APP_PATH . 'view/work_page.tpl.php';
     }
 }
 

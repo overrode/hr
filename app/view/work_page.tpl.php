@@ -1,5 +1,10 @@
-<?php @include APP_PATH . 'view/snippets/header.tpl.php'; ?>
+<?php @include APP_PATH . 'view/snippets/header.tpl.php';
 
+/**
+ * @var array $form_errors
+ *
+**/
+?>
     <main class="container track_bg">
         <div class="row">
             <div class="col-lg-12 col-md-12- col-xs-12">
@@ -8,19 +13,20 @@
                     <form action="<?php echo APP_URL; ?>/track/add" method="post">
                         <!--Project-->
                         <label>Project</label>
-                            <input id="form_project" type="text" class="form-control" name="project" value="">
+                            <input id="form_project" type="text" class="form-control <?php echo ($form_errors['errorProject']) ? "errorClass" : "" ?>"
+                                   name="project" value="<?php echo $_POST['project']; ?>">
                         <!--Task-->
                         <label>Task</label>
-                            <input id="form_task" type="text" class="form-control" name="task" value="">
+                            <input id="form_task" type="text" class="form-control <?php echo ($form_errors['errorTask']) ? "errorClass" : "" ?>" name="task" value="<?php echo $_POST['task']; ?>">
                         <!--Details-->
                         <label>Details</label>
-                            <textarea id="form_details" type="text" class="form-control" name="details" value="" rows="3"></textarea>
+                            <textarea id="form_details" type="text" class="form-control <?php echo ($form_errors['errorDetails']) ? "errorClass" : "" ?>" name="details" rows="3" ><?php echo $_POST['details']; ?></textarea>
                         <!--Hours-->
                         <label>Hours</label>
                             <input id="form_hours" type="number" class="form-control" name="hours" value="" >
                         <!--Date-->
                         <label>Date</label>
-                            <input id="form_date" type="text" class="form-control"  name="date"  value="" disabled >
+                            <input id="form_date" type="text" class="form-control  <?php echo ($form_errors['errorDate']) ? "errorClass" : "" ?>"  name="date"  value="" readonly>
                         <button class="login_home btn btn-info btn-block login" name="submit_work">SAVE</button>
                     </form>
                 </div>
