@@ -261,6 +261,20 @@ class model_work {
     }
 
     /**
+     * @param String $string
+     * @return bool
+     *   Return TRUE on success, FALSE otherwise.
+     */
+    public static function isValidPositiveDigit($string){
+        $len = strlen((string)$string);
+        if(preg_match("/^-?(?:\d+|\d*\.\d+)$/", $string) && ($len < 6)){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+
+    /**
      * Check if the string limit word is 500.
      *
      * @param String $string
@@ -350,5 +364,22 @@ class model_work {
                 $form_errors['errorDetails'] = FALSE;
             }
         }
+        // Check if user's hours are set.
+        if (empty($project_data['hours'])) {
+            $form_errors['errorHours'] = TRUE;
+            $display_error = TRUE;
+        }
+        else {
+            $isHourValid = model_work::isValidPositiveDigit($project_data['hours']);
+            // Check if user's hours is valid.
+            if (!$isHourValid) {
+                $form_errors['errorHours'] = TRUE;
+                $display_error = TRUE;
+            }
+            else {
+                $form_errors['errorHours'] = FALSE;
+            }
+        }
+
     }
 }
