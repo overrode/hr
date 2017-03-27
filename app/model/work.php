@@ -100,7 +100,7 @@ class model_work {
     }
 
     /**
-     * Retrieve work by id.
+     * Retrieve work by user id.
      *
      * @param $user_id int id
      *   The user's id.
@@ -115,6 +115,32 @@ class model_work {
             $sql = 'SELECT * FROM work WHERE user_id = :id';
             $query = $db->prepare($sql);
             $query->bindValue(':id', $user_id);
+            $query->execute();
+            if ($result = $query->fetch()) {
+                $work = new model_work($result);
+            }
+        } catch (PDOException $e) {
+            throw new Exception(DB_ERROR);
+        }
+        return isset($work) ? $work : FALSE;
+    }
+
+    /**
+     * Retrieve work by id.
+     *
+     * @param $id_work int id
+     *   The work id.
+     *
+     * @return bool|model_user
+     *   Return model_user in case of SUCCESS, FALSE otherwise.     *
+     * @throws Exception
+     */
+    public static function getWorkByWorkId($id_work) {
+        $db = model_database::instance();
+        try {
+            $sql = 'SELECT * FROM work WHERE id_work = :id';
+            $query = $db->prepare($sql);
+            $query->bindValue(':id', $id_work);
             $query->execute();
             if ($result = $query->fetch()) {
                 $work = new model_work($result);
@@ -231,7 +257,6 @@ class model_work {
         if (preg_match("/^[A-Z0-9-_ ]+$/", $string)) {
             return TRUE;
         }
-
         return FALSE;
     }
 
@@ -249,19 +274,17 @@ class model_work {
         if ($count > 500) {
             return FALSE;
         }
-
         return TRUE;
     }
 
     /**
-     * @param date $date
+     * @param string $date
      *   The work's date.
      *
      * @return false|string
      */
     public static function dateFormat($date) {
         $tmpDate = date("Y-m-d", strtotime($date));
-
         return $tmpDate;
     }
 

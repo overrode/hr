@@ -29,7 +29,7 @@ class controller_track {
     public function action_add() {
         $display_error = FALSE;
         if (isset($_POST['submit_work'])) {
-            $id_work = $_POST['id_work'];
+            $idWork = $_POST['id_work'];
             $project_data = array(
                 'project' => $_POST['project'],
                 'task' => $_POST['task'],
@@ -47,10 +47,16 @@ class controller_track {
 
             $dateFormat = model_work::dateFormat($project_data['dateCurrent']);
             model_work::validateInput($form_errors, $project_data, $display_error);
-            /*Check user w*/
-//            if
-
-            if (!$display_error && $dateFormat) {
+            /* Update user's work by work's id */
+            if(model_work::getWorkByWorkId($idWork)) {
+                try {
+                    model_work::updateWork($dateFormat, $project_data['project'], $project_data['task'], $project_data['hours'], $project_data['details'], $idWork);
+                } catch (Exception $e) {
+                    header('Location: /500/index');
+                }
+            }
+            /* Create work */
+            elseif (!$display_error && $dateFormat) {
                 try {
                     $work = model_work::createWork(
                         $dateFormat,
