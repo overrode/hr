@@ -163,11 +163,13 @@ class model_work {
      */
     public static function getWorkByDate($date) {
         $work = array();
+        $user_id = $_SESSION['id'];
         $db = model_database::instance();
         try {
-            $sql = 'SELECT * FROM work WHERE date = :date';
+            $sql = 'SELECT * FROM work WHERE user_id= :user_id AND date = :date';
             $query = $db->prepare($sql);
             $query->bindValue(':date', $date);
+            $query->bindValue(':user_id', $user_id);
             $query->execute();
             while ($result = $query->fetch()) {
                 $work[] = $result;
