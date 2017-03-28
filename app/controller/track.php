@@ -28,7 +28,6 @@ class controller_track {
      */
     public function action_add() {
         $display_error = FALSE;
-        if (isset($_POST['submit_work'])) {
             $idWork = $_POST['id_work'];
             $project_data = array(
                 'project' => $_POST['project'],
@@ -71,7 +70,6 @@ class controller_track {
                     header('Location: /500/index');
                 }
             }
-        }
         @include_once APP_PATH . 'view/work_page.tpl.php';
     }
 }

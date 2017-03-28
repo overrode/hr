@@ -26,14 +26,16 @@ $(document).ready(function () {
             details : $('#form_details').val(),
             hours : $('#form_hours').val()
         };
-        var functionSuccess = function(data,status,xhr){
-            return data, status, xhr;
-        };
         var dataType = 'json';
-        $.post(url, data, functionSuccess, dataType
-
-        );
-        console.log(data);
+        $.post( url,
+                data,
+                function(success){
+                    console.log( success );
+                },
+                dataType
+        ).fail(function(error) {
+                console.log(error);
+            });
     });
 
     /*Form fill from work*/
