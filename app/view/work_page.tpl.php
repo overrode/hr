@@ -10,7 +10,7 @@
             <div class="col-lg-12 col-md-12- col-xs-12">
                 <div class="col-md-6 col-xs-6" id='calendar'></div>
                 <div class="col-md-5 col-xs-5 col-md-offset-1">
-                    <form action="<?php echo APP_URL; ?>/track/add" method="post">
+                    <form id="form_submit_work" action="<?php echo APP_URL; ?>/track/add" method="post">
                         <!--Project-->
                         <label>Project</label>
                             <input id="form_project" type="text" class="form-control <?php echo ($form_errors['errorProject']) ? "errorClass" : "" ?>"
