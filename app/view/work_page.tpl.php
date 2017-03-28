@@ -23,7 +23,7 @@
                             <textarea id="form_details" type="text" class="form-control <?php echo ($form_errors['errorDetails']) ? "errorClass" : "" ?>" name="details" rows="3" ><?php echo $_POST['details']; ?></textarea>
                         <!--Hours-->
                         <label>Hours</label>
-                        <input id="form_hours" type="text" class="form-control  <?php echo ($form_errors['errorHours']) ? "errorClass" : "" ?>" name="hours" value="<?php echo $_POST['hours']; ?>">
+                        <input id="form_hours" type="text" class="numbersOnly form-control  <?php echo ($form_errors['errorHours']) ? "errorClass" : "" ?>" name="hours" value="<?php echo $_POST['hours']; ?>">
                         <input type="hidden" id="form_job_entry_id" name="id_work" >
                         <!--Date-->
                         <label>Date</label>

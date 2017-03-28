@@ -267,7 +267,7 @@ class model_work {
      */
     public static function isValidPositiveDigit($string){
         $len = strlen((string)$string);
-        if(preg_match("/^-?(?:\d+|\d*\.\d+)$/", $string) && ($len < 6)){
+        if($string > 0 && ($len < 6)){
             return TRUE;
         }else{
             return FALSE;
@@ -298,8 +298,7 @@ class model_work {
      * @return false|string
      */
     public static function dateFormat($date) {
-        $tmpDate = date("Y-m-d", strtotime($date));
-        return $tmpDate;
+         return date("Y-m-d", strtotime($date));
     }
 
     /**
@@ -321,13 +320,20 @@ class model_work {
         }
         else {
             $projectContainsOnlyDigits = model_work::validateStringDigits($project_data['project']);
+            $limitProject = model_user::limitString($project_data['project'],1,10);
+
             // Check if user's project contains only digits.
             if (!$projectContainsOnlyDigits) {
                 $form_errors['errorProject'] = TRUE;
                 $display_error = TRUE;
             }
             else {
-                $form_errors['errorProject'] = FALSE;
+                if (!$limitProject) {
+                    $form_errors['errorProject'] = TRUE;
+                    $display_error = TRUE;
+                }else{
+                    $form_errors['errorProject'] = FALSE;
+                }
             }
         }
 
