@@ -24,7 +24,8 @@ $(document).ready(function () {
             project : $('#form_project').val(),
             task    : $('#form_task').val(),
             details : $('#form_details').val(),
-            hours : $('#form_hours').val()
+            hours   : $('#form_hours').val(),
+            date    :$('#form_date').val()
         };
         var dataType = 'json';
         $.post( url,
