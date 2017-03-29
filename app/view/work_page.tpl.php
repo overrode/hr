@@ -18,23 +18,23 @@
                         <!--Project-->
                         <label>Project</label>
                         <label id="label_project"></label>
-                            <input id="form_project" type="text" class="form-control" name="project" value="<?php echo $_POST['project']; ?>">
+                            <input id="form_project" type="text" class="form-control" name="project" value="<?php echo $_POST['project']; ?>" title="Project">
                         <!--Task-->
                         <label>Task</label>
                         <label id="label_task"></label>
-                            <input id="form_task" type="text" class="form-control" name="task" value="<?php echo $_POST['task']; ?>">
+                            <input id="form_task" type="text" class="form-control" name="task" value="<?php echo $_POST['task']; ?>" title="Task">
                         <!--Details-->
                         <label>Details</label>
                         <label id="label_details"></label>
-                            <textarea id="form_details" type="text" class="form-control" name="details" rows="3" ><?php echo $_POST['details']; ?></textarea>
+                            <textarea id="form_details" type="text" class="form-control" name="details" rows="3" title="Details"><?php echo $_POST['details']; ?></textarea>
                         <!--Hours-->
                         <label>Hours</label>
                         <label id="label_hours"></label>
-                        <input id="form_hours" type="text" class="form-control" name="hours" value="<?php echo $_POST['hours']; ?>">
+                        <input id="form_hours" type="text" class="form-control" name="hours" value="<?php echo $_POST['hours']; ?>" title="Hours">
                         <input type="hidden" id="form_job_entry_id" name="id_work" >
                         <!--Date-->
                         <label>Date</label>
-                            <input id="form_date" type="text" class="form-control "  name="date"  value="" readonly>
+                            <input id="form_date" type="text" class="form-control "  name="date"  value="" readonly title="Hidden ID">
                         <button class="login_home btn btn-info btn-block login" name="submit_work">SAVE</button>
                     </form>
                 </div>

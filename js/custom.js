@@ -83,16 +83,15 @@ $(document).ready(function () {
     $('#calendar').fullCalendar({
         dayClick: function (date) {
             /*Highlight selected date*/
+            var oneDate = date.format('YYYY-MM-DD');
             $(".fc-state-highlight").removeClass("fc-state-highlight");
-            $("td[data-date="+date.format('YYYY-MM-DD')+"]").addClass("fc-state-highlight");
+            $("td[data-date="+ oneDate +"]").addClass("fc-state-highlight");
 
             /*Limit date till today*/
             var myDate = new Date();
-            var daysToAdd = 0;
-            myDate.setDate(myDate.getDate() + daysToAdd);
             if (date > myDate) {
-                var moment = $('#calendar').fullCalendar('getDate');
-                var dateToday =  moment.format('MM/DD/YYYY');
+                var dayWrapper = moment(myDate);
+                var dateToday = dayWrapper.format("MM/DD/YYYY");
                 $('#form_date').val(dateToday);
                 alert("You cannot pick a future date. Today date is used " + dateToday);
                 $("td[data-date="+date.format('YYYY-MM-DD')+"]").removeClass("fc-state-highlight");
