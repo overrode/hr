@@ -35,7 +35,7 @@ class controller_track {
                 'task' => $_POST['task'],
                 'hours' => $_POST['hours'],
                 'dateCurrent' => $_POST['date'],
-                'details' => $_POST['details'],
+                'details' => ($_POST['details']),
             );
 
             $form_errors = array(
@@ -44,7 +44,6 @@ class controller_track {
                 'errorHours' => FALSE,
                 'errorDetails' => FALSE,
             );
-
             $dateFormat = model_work::dateFormat($project_data['dateCurrent']);
             model_work::validateInput($form_errors, $project_data, $display_error);
             /* Update user's work by work's id */

@@ -48,6 +48,13 @@ $(document).ready(function () {
             });
         }
     });
+
+    $('.numbersOnly').on('blur',function () {
+            this.value = this.value.replace(/[^0-9\.]/g,'');
+            if(this.value % 1 != 0)
+                this.value = Number((Math.round(this.value * 4) / 4).toFixed(2))
+    });
+
 });
 
 

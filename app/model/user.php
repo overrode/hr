@@ -281,6 +281,24 @@ class model_user {
     }
 
     /**
+     * Get the work for all the users.
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public static function getWorkOfAllUsers(){
+        $db = model_database::instance();
+        $sql = 'SELECT w.date, user.firstname, user.lastname, w.project, w.task,
+                w.hours, w.details FROM users user JOIN work w ON w.user_id= user.id';
+        try {
+            $query = $db->query($sql)->fetchAll();
+        } catch (PDOException $e) {
+            throw new Exception(DB_ERROR);
+        }
+        return $query;
+    }
+
+    /**
      *Checks for the user's input length.
      *
      * @param String $str
@@ -496,5 +514,74 @@ class model_user {
         }
         return FALSE;
     }
+
+    /**
+     * Create a csv file with all work of all users.
+     */
+    static function create_csv_string() {
+        $data = model_user::getWorkOfAllUsers();
+        $header = array('Date', 'Name', 'Project', 'Task', 'Hours', 'Details');
+
+        $fp = fopen('exportData.csv', 'w');
+        fputcsv($fp, $header);
+
+        // name and firstname
+        foreach($data as $row){
+            $date = $row['date'];
+            $name = $row['lastname'] . " " . $row['firstname'];
+            $project = $row['project'];
+            $task = $row['task'];
+            $hours = $row['hours'];
+            $details = $row['details'];
+            $array = array($date, $name, $project, $task, $hours, $details);
+            fputcsv($fp, $array);
+        }
+        fclose($fp)  or die("Can't close the file.");
+    }
+
+    /**
+     * @param $csvData
+     * @param $body
+     * @param string $to
+     * @param string $subject
+     * @param string $from
+     * @return bool
+     */
+//    static function send_csv_mail() {
+//        $body = '';
+//          $to = 'adinna.vlasin@yahoo.com';
+//          $subject = 'Time it Report';
+//          $from = 'noreply@blabla.com';
+//        // This will provide plenty adequate entropy
+//        $multipartSep = '-----'.md5(time()).'-----';
+//
+//        // Arrays are much more readable
+//        $headers = array(
+//            "From: $from",
+//            "Reply-To: $from",
+//            "Content-Type: multipart/mixed; boundary=\"$multipartSep\""
+//        );
+//
+//        // Make the attachment
+//        $attachment = chunk_split(base64_encode(self::create_csv_string()));
+//
+//        // Make the body of the message
+//        $body = "--$multipartSep\r\n"
+//            . "Content-Type: text/plain; charset=ISO-8859-1; format=flowed\r\n"
+//            . "Content-Transfer-Encoding: 7bit\r\n"
+//            . "\r\n"
+//            . "$body\r\n"
+//            . "--$multipartSep\r\n"
+//            . "Content-Type: text/csv\r\n"
+//            . "Content-Transfer-Encoding: base64\r\n"
+//            . "Content-Disposition: attachment; filename=\"Website-Report-" . date("F-j-Y") . ".csv\"\r\n"
+//            . "\r\n"
+//            . "$attachment\r\n"
+//            . "--$multipartSep--";
+//
+//        // Send the email, return the result
+//        return @mail($to, $subject, $body, implode("\r\n", $headers));
+//
+//    }
 
 }
