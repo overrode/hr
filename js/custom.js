@@ -14,6 +14,36 @@ function getWorkAjax(response){
     });
 }
 
+function getFormErrorsAjax(data) {
+    if(data.status == 'failed') {
+        if(data.message.errorProject == true) {
+            $('#form_project').addClass('errorClass');
+            $('#label_project').html('PLease insert numbers only!');
+        }
+        if(data.message.errorTask == true) {
+            $('#form_task').addClass('errorClass');
+            $('#label_task').html('PLease insert TI-01!');
+        }
+        if(data.message.errorDetails == true) {
+            $('#form_details').addClass('errorClass');
+            $('#label_details').html('Please insert the details');
+        }
+        if(data.message.errorHours == true) {
+            $('#form_hours').addClass('errorClass');
+            $('#label_hours').html('Hours cannot be empty');
+        }
+    }
+    if(data.status == 'success') {
+        var add_edit = data.work;
+        $('#success_modify_1').addClass('alert alert-success alert-dismissable');
+        $('#success_modify_2').html(add_edit);
+        $('#x_close').css('display', 'block');
+        // if(add_edit == 'Work added!') {
+        //     $('#form_project, #form_task, #form_details, #form_hours').val('');
+        // }
+    }
+}
+
 $(document).ready(function () {
 
     /*CRUD work Ajax*/
@@ -21,22 +51,15 @@ $(document).ready(function () {
         event.preventDefault();
         var url = '/track/add';
         var dataType = 'json';
-        var data = {
+        var work = {
             project : $('#form_project').val(),
             task    : $('#form_task').val(),
             details : $('#form_details').val(),
             hours   : $('#form_hours').val(),
-            date    :$('#form_date').val()
+            date    :$('#form_date').val(),
+            id_work :$('#form_job_entry_id').val()
         };
-        $.post( url, data, function(success){
-            console.log( "success" +  success );
-        }, dataType )
-            .done(function(message) {
-                console.log( message);
-            })
-            .fail(function(status) {
-                console.log(status + "fail");
-            });
+        $.post( url, work, function(data){ getFormErrorsAjax(data); }, dataType );
     });
 
     /*Form fill from work*/

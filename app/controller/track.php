@@ -46,14 +46,24 @@ class controller_track {
 
         $dateFormat = model_work::dateFormat($project_data['dateCurrent']);
         model_work::validateInput($form_errors, $project_data, $display_error);
+        $query = FALSE;
+        $success_message = array();
+
         /* Update user's work by work's id */
-        if(model_work::getWorkByWorkId($idWork)) {
+        if(model_work::getWorkByWorkId($idWork) && !$display_error) {
             try {
-                $query = model_work::updateWork($dateFormat, $project_data['project'], $project_data['task'], $project_data['hours'], $project_data['details'], $idWork);
-            } catch (Exception $e) {
-                header('Location: /500/index');
-            }
+                $query = model_work::updateWork(
+                    $dateFormat,
+                    $project_data['project'],
+                    $project_data['task'],
+                    $project_data['hours'],
+                    $project_data['details'],
+                    $idWork
+                );
+                $success_message = "Work updated!";
+            } catch (Exception $e) {}
         }
+
         /* Create work */
         elseif (!$display_error && $dateFormat) {
             try {
@@ -65,18 +75,18 @@ class controller_track {
                     $project_data['details'],
                     $_SESSION['id']
                 );
-                header('Location: /track/index');
+                $success_message = "Work added!";
             } catch (Exception $e) {}
         }
-        if (!isset($query) && $query) {
+        if ($query) {
             $return = new stdClass();
             $return->status = 'success';
+            $return->work = $success_message;
         }
         else {
             $return = new stdClass();
             $return->status = 'failed';
             $return->message = $form_errors;
-            $return->display = $display_error;
         }
         print json_encode($return);
 //        @include_once APP_PATH . 'view/work_page.tpl.php';

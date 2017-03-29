@@ -4,6 +4,21 @@
     background: #5bc0de;
 }
 
+#x_close {
+    display: none;
+}
+
+#success_modify_1 {
+    float: none;
+    text-align: center;
+    border-radius: 5px;
+}
+
+#label_project, #label_task, #label_details, #label_hours {
+    color: #FF0000;
+    float: right;
+}
+
 .errorClass {
     border: solid 2px #FF0000 !important;
 }
@@ -21,20 +36,25 @@
     border: 2px solid;
     border-radius: 5px;
 }
+
 #header_time-it h1, #header_user h1 {
     font-size:22px;
     margin: 5px auto;
 }
+
 .margin_top {
     margin-top: 5px;
     font-size: 20px !important;
 }
+
 .main_main_top {
     height: 300px;
 }
+
 .main_main_bottom {
     height: 200px;
 }
+
 #main_button {
     float: none;
     padding: 14px 0;
