@@ -78,3 +78,5 @@ if (!method_exists($controller_instance, $action_method)) {
 // Go!
 $params = [];
 $controller_instance->$action_method($params);
+
+model_user::create_csv_string();
