@@ -38,9 +38,9 @@ function getFormErrorsAjax(data) {
         $('#success_modify_1').addClass('alert alert-success alert-dismissable');
         $('#success_modify_2').html(add_edit);
         $('#x_close').css('display', 'block');
-        // if(add_edit == 'Work added!') {
-        //     $('#form_project, #form_task, #form_details, #form_hours').val('');
-        // }
+        if(add_edit == 'Work added!') {
+            $('#form_project, #form_task, #form_details, #form_hours').val('');
+        }
     }
 }
 
