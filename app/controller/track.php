@@ -28,49 +28,58 @@ class controller_track {
      */
     public function action_add() {
         $display_error = FALSE;
-            $idWork = $_POST['id_work'];
-            $project_data = array(
-                'project' => $_POST['project'],
-                'task' => $_POST['task'],
-                'hours' => $_POST['hours'],
-                'dateCurrent' => $_POST['date'],
-                'details' => $_POST['details'],
-            );
+        $idWork = $_POST['id_work'];
+        $project_data = array(
+            'project' => $_POST['project'],
+            'task' => $_POST['task'],
+            'hours' => $_POST['hours'],
+            'dateCurrent' => $_POST['date'],
+            'details' => $_POST['details'],
+        );
 
-            $form_errors = array(
-                'errorProject' => FALSE,
-                'errorTask' => FALSE,
-                'errorHours' => FALSE,
-                'errorDetails' => FALSE,
-            );
+        $form_errors = array(
+            'errorProject' => FALSE,
+            'errorTask' => FALSE,
+            'errorHours' => FALSE,
+            'errorDetails' => FALSE,
+        );
 
-            $dateFormat = model_work::dateFormat($project_data['dateCurrent']);
-            model_work::validateInput($form_errors, $project_data, $display_error);
-            /* Update user's work by work's id */
-            if(model_work::getWorkByWorkId($idWork)) {
-                try {
-                    model_work::updateWork($dateFormat, $project_data['project'], $project_data['task'], $project_data['hours'], $project_data['details'], $idWork);
-                } catch (Exception $e) {
-                    header('Location: /500/index');
-                }
+        $dateFormat = model_work::dateFormat($project_data['dateCurrent']);
+        model_work::validateInput($form_errors, $project_data, $display_error);
+        /* Update user's work by work's id */
+        if(model_work::getWorkByWorkId($idWork)) {
+            try {
+                $query = model_work::updateWork($dateFormat, $project_data['project'], $project_data['task'], $project_data['hours'], $project_data['details'], $idWork);
+            } catch (Exception $e) {
+                header('Location: /500/index');
             }
-            /* Create work */
-            elseif (!$display_error && $dateFormat) {
-                try {
-                    $work = model_work::createWork(
-                        $dateFormat,
-                        $project_data['project'],
-                        $project_data['task'],
-                        $project_data['hours'],
-                        $project_data['details'],
-                        $_SESSION['id']
-                    );
-                    header('Location: /track/index');
-                } catch (Exception $e) {
-                    header('Location: /500/index');
-                }
-            }
-        @include_once APP_PATH . 'view/work_page.tpl.php';
+        }
+        /* Create work */
+        elseif (!$display_error && $dateFormat) {
+            try {
+                $query = model_work::createWork(
+                    $dateFormat,
+                    $project_data['project'],
+                    $project_data['task'],
+                    $project_data['hours'],
+                    $project_data['details'],
+                    $_SESSION['id']
+                );
+                header('Location: /track/index');
+            } catch (Exception $e) {}
+        }
+        if (!isset($query) && $query) {
+            $return = new stdClass();
+            $return->status = 'success';
+        }
+        else {
+            $return = new stdClass();
+            $return->status = 'failed';
+            $return->message = $form_errors;
+            $return->display = $display_error;
+        }
+        print json_encode($return);
+//        @include_once APP_PATH . 'view/work_page.tpl.php';
     }
 }
 

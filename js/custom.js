@@ -20,6 +20,7 @@ $(document).ready(function () {
     $('#form_submit_work').submit(function(event) {
         event.preventDefault();
         var url = '/track/add';
+        var dataType = 'json';
         var data = {
             project : $('#form_project').val(),
             task    : $('#form_task').val(),
@@ -27,15 +28,14 @@ $(document).ready(function () {
             hours   : $('#form_hours').val(),
             date    :$('#form_date').val()
         };
-        var dataType = 'json';
-        $.post( url,
-                data,
-                function(success){
-                    console.log( success );
-                },
-                dataType
-        ).fail(function(error) {
-                console.log(error);
+        $.post( url, data, function(success){
+            console.log( "success" +  success );
+        }, dataType )
+            .done(function(message) {
+                console.log( message);
+            })
+            .fail(function(status) {
+                console.log(status + "fail");
             });
     });
 
@@ -46,7 +46,7 @@ $(document).ready(function () {
             project: $('#project_' + this.id).html(),
             task:    $('#task_' + this.id).html(),
             details: $('#details_' + this.id).html(),
-            hours:   $('#hours_' + this.id).html(),
+            hours:   $('#hours_' + this.id).html()
         };
         $('#form_project').val(allData.project);
         $('#form_task').val(allData.task);
@@ -71,7 +71,7 @@ $(document).ready(function () {
                 var moment = $('#calendar').fullCalendar('getDate');
                 var dateToday =  moment.format('MM/DD/YYYY');
                 $('#form_date').val(dateToday);
-                alert("You cannot pick a future date. Today date is used " + dateToday)
+                alert("You cannot pick a future date. Today date is used " + dateToday);
                 $("td[data-date="+date.format('YYYY-MM-DD')+"]").removeClass("fc-state-highlight");
             }
 
@@ -90,7 +90,6 @@ $(document).ready(function () {
                 success : function(response) { getWorkAjax(response); },
                 error   : function(err) {alert(err);}
             });
-
         }
     });
 });

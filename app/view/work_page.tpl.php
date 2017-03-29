@@ -13,13 +13,16 @@
                     <form id="form_submit_work" action="<?php echo APP_URL; ?>/track/add" method="post">
                         <!--Project-->
                         <label>Project</label>
+                        <label id="label_project"></label>
                             <input id="form_project" type="text" class="form-control <?php echo ($form_errors['errorProject']) ? "errorClass" : "" ?>"
                                    name="project" value="<?php echo $_POST['project']; ?>">
                         <!--Task-->
                         <label>Task</label>
+                        <label id="label_task"></label>
                             <input id="form_task" type="text" class="form-control <?php echo ($form_errors['errorTask']) ? "errorClass" : "" ?>" name="task" value="<?php echo $_POST['task']; ?>">
                         <!--Details-->
                         <label>Details</label>
+                        <label id="label_details"></label>
                             <textarea id="form_details" type="text" class="form-control <?php echo ($form_errors['errorDetails']) ? "errorClass" : "" ?>" name="details" rows="3" ><?php echo $_POST['details']; ?></textarea>
                         <!--Hours-->
                         <label>Hours</label>

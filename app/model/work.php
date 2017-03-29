@@ -96,7 +96,7 @@ class model_work {
         } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
-        return $result;
+        return TRUE;
     }
 
     /**
@@ -194,6 +194,8 @@ class model_work {
      * @param int $id_work
      *   The work id.
      *
+     * @return bool
+     *
      * @throws Exception
      */
     public static function updateWork($date, $project, $task, $hours, $details, $id_work) {
@@ -211,6 +213,7 @@ class model_work {
         } catch (PDOException $e) {
             throw new Exception(DB_ERROR);
         }
+        return TRUE;
     }
 
     /**
