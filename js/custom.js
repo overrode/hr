@@ -1,8 +1,8 @@
 /* Custom javascript */
 
-function getWorkAjax(response){
+function getWorkAjax(data){
     $('#work_list').empty();
-    $.each(response, function (index, val) {
+    $.each(data, function (index, val) {
         var eachrow = "<tr>"
             + "<td class='work_td' id='project_"+val.id_work+"'>" + val.project + "</td>"
             + "<td class='work_td' id='task_"+val.id_work+"'>" + val.task + "</td>"
@@ -38,9 +38,9 @@ function getFormErrorsAjax(data) {
         $('#success_modify_1').addClass('alert alert-success alert-dismissable');
         $('#success_modify_2').html(add_edit);
         $('#x_close').css('display', 'block');
-        // if(add_edit == 'Work added!') {
-        //     $('#form_project, #form_task, #form_details, #form_hours').val('');
-        // }
+        if(add_edit == 'Work added!') {
+            $('#form_project, #form_task, #form_details, #form_hours').val('');
+        }
     }
 }
 
@@ -59,7 +59,7 @@ $(document).ready(function () {
             date    :$('#form_date').val(),
             id_work :$('#form_job_entry_id').val()
         };
-        $.post( url, work, function(data){ getFormErrorsAjax(data); }, dataType );
+        $.post( url, work, function(data){ getFormErrorsAjax(data); getWorkAjax()}, dataType );
     });
 
     /*Form fill from work*/
@@ -109,7 +109,7 @@ $(document).ready(function () {
                 dataType: "json",
                 url     : "/track/getDate",
                 data    : {data: datePicker},
-                success : function(response) { getWorkAjax(response); },
+                success : function(data) { getWorkAjax(data); },
                 error   : function(err) {alert(err);}
             });
         }
