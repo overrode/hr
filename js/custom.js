@@ -67,9 +67,9 @@ $(document).ready(function () {
         $('#form_job_entry_id').val(this.getAttribute("id"));
         var allData = {
             project: $('#project_' + this.id).html(),
-            task:    $('#task_' + this.id).html(),
+            task: $('#task_' + this.id).html(),
             details: $('#details_' + this.id).html(),
-            hours:   $('#hours_' + this.id).html()
+            hours: $('#hours_' + this.id).html(),
         };
         $('#form_project').val(allData.project);
         $('#form_task').val(allData.task);
