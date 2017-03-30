@@ -8,7 +8,7 @@ function getWorkAjax(data){
             + "<td class='work_td' id='task_"+val.id_work+"'>" + val.task + "</td>"
             + "<td class='work_td' id='hours_"+val.id_work+"'>" + val.hours + "</td>"
             + "<td class='work_td' id='details_"+val.id_work+"'>" + val.details + "</td>"
-            + "<td class='work_td'><a href='javascript:void(0)' id='" + val.id_work + " ' class='btn-danger work_edit_button'>EDIT</a></td>" +
+            + "<td class='work_td'><a href='javascript:void(0)' id='" + val.id_work + " ' class='work_edit_button'>EDIT</a></td>" +
             + "</tr>";
         $('#work_list').append(eachrow);
     });
@@ -18,33 +18,37 @@ function getFormErrorsAjax(data) {
     if(data.status == 'failed') {
         /*Display form errors*/
         if(data.message.errorProject == true) {
-            $('#form_project').addClass('errorClass');
-            $('#label_project').html('PLease insert numbers only!');
-            $('#form_project').blur(function() {
+            var form_project = $('#form_project');
+            form_project.addClass('errorClass');
+            $('#label_project').html('Please insert project number!');
+            form_project.blur(function() {
                 $('#form_project').removeClass('errorClass');
                 $('#label_project').html('');
             });
         }
         if(data.message.errorTask == true) {
-            $('#form_task').addClass('errorClass');
-            $('#label_task').html('PLease insert two upercase letters!');
-            $('#form_task').blur(function() {
+            var form_task = $('#form_task');
+            form_task.addClass('errorClass');
+            $('#label_task').html('Please insert task! Ex: TI-01');
+            form_task.blur(function() {
                 $('#form_task').removeClass('errorClass');
                 $('#label_task').html('');
             });
         }
         if(data.message.errorDetails == true) {
-            $('#form_details').addClass('errorClass');
-            $('#label_details').html('Please insert the details');
-            $('#form_details').blur(function() {
+            var form_details = $('#form_details');
+            form_details.addClass('errorClass');
+            $('#label_details').html('The details cannot be empty!');
+            form_details.blur(function() {
                 $('#form_details').removeClass('errorClass');
                 $('#label_details').html('');
             });
         }
         if(data.message.errorHours == true) {
-            $('#form_hours').addClass('errorClass');
-            $('#label_hours').html('Hours cannot be empty');
-            $('#form_hours').blur(function() {
+            var form_hours = $('#form_hours');
+            form_hours.addClass('errorClass');
+            $('#label_hours').html('You have to work something!');
+            form_hours.blur(function() {
                 $('#form_hours').removeClass('errorClass');
                 $('#label_hours').html('');
             });
