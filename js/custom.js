@@ -1,8 +1,8 @@
 /* Custom javascript */
 
-function getWorkAjax(response){
+function getWorkAjax(data){
     $('#work_list').empty();
-    $.each(response, function (index, val) {
+    $.each(data, function (index, val) {
         var eachrow = "<tr>"
             + "<td class='work_td' id='project_"+val.id_work+"'>" + val.project + "</td>"
             + "<td class='work_td' id='task_"+val.id_work+"'>" + val.task + "</td>"
@@ -22,7 +22,7 @@ function getFormErrorsAjax(data) {
         }
         if(data.message.errorTask == true) {
             $('#form_task').addClass('errorClass');
-            $('#label_task').html('PLease insert TI-01!');
+            $('#label_task').html('PLease insert two upercase letters!');
         }
         if(data.message.errorDetails == true) {
             $('#form_details').addClass('errorClass');
@@ -41,6 +41,7 @@ function getFormErrorsAjax(data) {
         if(add_edit == 'Work added!') {
             $('#form_project, #form_task, #form_details, #form_hours').val('');
         }
+        // getWorkAjax(data.getDate);
     }
 }
 
@@ -59,7 +60,7 @@ $(document).ready(function () {
             date    :$('#form_date').val(),
             id_work :$('#form_job_entry_id').val()
         };
-        $.post( url, work, function(data){ getFormErrorsAjax(data); }, dataType );
+        $.post( url, work, function(data){ getFormErrorsAjax(data); getWorkAjax(data.getDate); }, dataType );
     });
 
     /*Form fill from work*/
@@ -67,9 +68,9 @@ $(document).ready(function () {
         $('#form_job_entry_id').val(this.getAttribute("id"));
         var allData = {
             project: $('#project_' + this.id).html(),
-            task: $('#task_' + this.id).html(),
+            task:    $('#task_' + this.id).html(),
             details: $('#details_' + this.id).html(),
-            hours: $('#hours_' + this.id).html(),
+            hours:   $('#hours_' + this.id).html()
         };
         $('#form_project').val(allData.project);
         $('#form_task').val(allData.task);
@@ -109,7 +110,7 @@ $(document).ready(function () {
                 dataType: "json",
                 url     : "/track/getDate",
                 data    : {data: datePicker},
-                success : function(response) { getWorkAjax(response); },
+                success : function(data) { getWorkAjax(data); },
                 error   : function(err) {alert(err);}
             });
         }

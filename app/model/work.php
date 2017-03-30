@@ -158,7 +158,8 @@ class model_work {
      *   The user's date.
      *
      * @return array $work array
-     *   Return model_user in case of SUCCESS, FALSE otherwise.     *
+     *   Return model_user in case of SUCCESS, FALSE otherwise.
+     *
      * @throws \Exception
      */
     public static function getWorkByDate($date) {
