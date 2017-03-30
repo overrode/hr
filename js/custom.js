@@ -18,19 +18,19 @@ function getFormErrorsAjax(data) {
     if(data.status == 'failed') {
         if(data.message.errorProject == true) {
             $('#form_project').addClass('errorClass');
-            $('#label_project').html('PLease insert numbers only!');
+            $('#label_project').html('Please insert numbers only!');
         }
         if(data.message.errorTask == true) {
             $('#form_task').addClass('errorClass');
-            $('#label_task').html('PLease insert TI-01!');
+            $('#label_task').html('Please insert the task!');
         }
         if(data.message.errorDetails == true) {
             $('#form_details').addClass('errorClass');
-            $('#label_details').html('Please insert the details');
+            $('#label_details').html('Please insert the details!');
         }
         if(data.message.errorHours == true) {
             $('#form_hours').addClass('errorClass');
-            $('#label_hours').html('Hours cannot be empty');
+            $('#label_hours').html('Hours cannot be empty!');
         }
     }
     if(data.status == 'success') {
@@ -59,22 +59,27 @@ $(document).ready(function () {
             date    :$('#form_date').val(),
             id_work :$('#form_job_entry_id').val()
         };
+
         $.post( url, work, function(data){ getFormErrorsAjax(data); }, dataType );
     });
 
     /*Form fill from work*/
     $('#work_list').on('click', '.work_edit_button', function () {
         $('#form_job_entry_id').val(this.getAttribute("id"));
+
         var allData = {
             project: $('#project_' + this.id).html(),
             task: $('#task_' + this.id).html(),
             details: $('#details_' + this.id).html(),
             hours: $('#hours_' + this.id).html(),
         };
+
         $('#form_project').val(allData.project);
         $('#form_task').val(allData.task);
         $('#form_details').val(allData.details);
         $('#form_hours').val(allData.hours);
+
+        $('#submit_btn').html('EDIT');
     });
 
     /**
@@ -109,7 +114,7 @@ $(document).ready(function () {
                 dataType: "json",
                 url     : "/track/getDate",
                 data    : {data: datePicker},
-                success : function(response) { getWorkAjax(response); },
+                success : function(response) { getWorkAjax(response);  $('#submit_btn').html('SAVE');},
                 error   : function(err) {alert(err);}
             });
         }
@@ -122,5 +127,3 @@ $(document).ready(function () {
     });
 
 });
-
-

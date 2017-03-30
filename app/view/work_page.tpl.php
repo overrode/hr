@@ -34,8 +34,8 @@
                         <input type="hidden" id="form_job_entry_id" name="id_work" >
                         <!--Date-->
                         <label>Date</label>
-                            <input id="form_date" type="text" class="form-control "  name="date"  value="" readonly title="Hidden ID">
-                        <button class="login_home btn btn-info btn-block login" name="submit_work">SAVE</button>
+                            <input id="form_date" type="text" class="form-control" name="date"  value="" readonly title="Hidden ID">
+                        <button class="login_home btn btn-info btn-block login" id="submit_btn" name="submit_work">SAVE</button>
                     </form>
                 </div>
             </div>
