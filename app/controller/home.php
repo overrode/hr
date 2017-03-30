@@ -39,8 +39,8 @@ class controller_home {
             $form_error = array(
                 'no_email' => empty($form_data['login_email']) ? "Please insert your email!" : FALSE,
                 'no_password' => empty($form_data['login_password']) ? "Please insert your password!" : FALSE,
-                'wrong_email' => ($user_email != $form_data['login_email']) ? "Wrong e-mail!" : FALSE,
-                'wrong_password' => (!empty($form_data['login_password']) && $user_login->password) ? "Wrong password!" : FALSE,
+                'wrong_email' => ($user_email != $form_data['login_email']) ? "Wrong e-mail or password!" : FALSE,
+                'wrong_password' => (!empty($form_data['login_password']) && $user_login->password) ? "Wrong email or password!" : FALSE,
             );
             if ($user_email === $form_data['login_email'] && $user_login->checkPassword($form_data['login_password'])) {
                 $_SESSION['user'] = $user_email;
@@ -101,7 +101,14 @@ class controller_home {
                         $user_data['password'],
                         $user_data['job']
                     );
-                    header('Location: /home/login');
+
+                    $user_login = model_user::getByEmail( $user_data['email']);
+                    $user_email = $user_login->email;
+
+                    $_SESSION['user'] = $user_email;
+                    $_SESSION['id'] = $user_login->id;
+
+                    header('Location: /home/track');
                 } catch (Exception $e) {
                     header('Location: /500/index');
                 }
@@ -117,7 +124,7 @@ class controller_home {
      */
     function action_track() {
         if(model_user::userLoggedIn()) {
-            // Include view for this page.
+         //    Include view for this page.
             @include_once APP_PATH . 'view/track_page.tpl.php';
         } else {
             header('Location: /home/login');
@@ -150,5 +157,4 @@ class controller_home {
             @include_once APP_PATH . 'view/track_page.tpl.php';
         }
     }
-
 }
