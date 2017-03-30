@@ -12,6 +12,7 @@
     </title>
 </head>
 <body>
+<video class="video_header" preload="auto" autoplay muted loop src="../img/pingpong.mp4"></video>
 <header class="container-fluid">
     <div class="row">
         <a href="/">
