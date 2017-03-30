@@ -1,8 +1,8 @@
 /* Custom javascript */
 
-function getWorkAjax(response){
+function getWorkAjax(data){
     $('#work_list').empty();
-    $.each(response, function (index, val) {
+    $.each(data, function (index, val) {
         var eachrow = "<tr>"
             + "<td class='work_td' id='project_"+val.id_work+"'>" + val.project + "</td>"
             + "<td class='work_td' id='task_"+val.id_work+"'>" + val.task + "</td>"
@@ -59,21 +59,18 @@ $(document).ready(function () {
             date    :$('#form_date').val(),
             id_work :$('#form_job_entry_id').val()
         };
-
-        $.post( url, work, function(data){ getFormErrorsAjax(data); }, dataType );
+        $.post( url, work, function(data){ getFormErrorsAjax(data); getWorkAjax(data.getDate); }, dataType );
     });
 
     /*Form fill from work*/
     $('#work_list').on('click', '.work_edit_button', function () {
         $('#form_job_entry_id').val(this.getAttribute("id"));
-
         var allData = {
             project: $('#project_' + this.id).html(),
-            task: $('#task_' + this.id).html(),
+            task:    $('#task_' + this.id).html(),
             details: $('#details_' + this.id).html(),
-            hours: $('#hours_' + this.id).html(),
+            hours:   $('#hours_' + this.id).html()
         };
-
         $('#form_project').val(allData.project);
         $('#form_task').val(allData.task);
         $('#form_details').val(allData.details);
@@ -114,7 +111,7 @@ $(document).ready(function () {
                 dataType: "json",
                 url     : "/track/getDate",
                 data    : {data: datePicker},
-                success : function(response) { getWorkAjax(response);  $('#submit_btn').html('SAVE');},
+                success : function(data) { getWorkAjax(data);  $('#submit_btn').html('SAVE');},
                 error   : function(err) {alert(err);}
             });
         }
@@ -127,3 +124,5 @@ $(document).ready(function () {
     });
 
 });
+
+

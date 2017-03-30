@@ -30,7 +30,7 @@
                         <!--Hours-->
                         <label>Hours</label>
                         <label id="label_hours"></label>
-                        <input id="form_hours" type="text" class="form-control" name="hours" value="<?php echo $_POST['hours']; ?>" title="Hours">
+                        <input id="form_hours" type="text" class="numbersOnly form-control" name="hours" value="<?php echo $_POST['hours']; ?>" title="Hours">
                         <input type="hidden" id="form_job_entry_id" name="id_work" >
                         <!--Date-->
                         <label>Date</label>
