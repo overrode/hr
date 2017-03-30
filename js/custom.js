@@ -106,6 +106,8 @@ $(document).ready(function () {
         $('#form_task').val(allData.task);
         $('#form_details').val(allData.details);
         $('#form_hours').val(allData.hours);
+
+        $('#submit_btn').html('EDIT');
     });
 
     /**
@@ -141,10 +143,16 @@ $(document).ready(function () {
                 dataType: "json",
                 url     : "/track/getDate",
                 data    : {data: datePicker},
-                success : function(data) { getWorkAjax(data); },
+                success : function(data) { getWorkAjax(data);  $('#submit_btn').html('SAVE');},
                 error   : function(err) {alert(err);}
             });
         }
+    });
+
+    $('.numbersOnly').on('blur',function () {
+        this.value = this.value.replace(/[^0-9\.]/g,'');
+        if(this.value % 1 != 0)
+            this.value = Number((Math.round(this.value * 4) / 4).toFixed(2))
     });
 });
 
