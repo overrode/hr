@@ -82,6 +82,7 @@ class controller_track {
             $return = new stdClass();
             $return->status = 'success';
             $return->work = $success_message;
+            $return->getDate = model_work::getWorkByDate($dateFormat);
         }
         else {
             $return = new stdClass();
@@ -89,7 +90,6 @@ class controller_track {
             $return->message = $form_errors;
         }
         print json_encode($return);
-//        @include_once APP_PATH . 'view/work_page.tpl.php';
     }
 }
 

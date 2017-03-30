@@ -22,7 +22,7 @@ function getFormErrorsAjax(data) {
         }
         if(data.message.errorTask == true) {
             $('#form_task').addClass('errorClass');
-            $('#label_task').html('PLease insert TI-01!');
+            $('#label_task').html('PLease insert two upercase letters!');
         }
         if(data.message.errorDetails == true) {
             $('#form_details').addClass('errorClass');
@@ -41,6 +41,7 @@ function getFormErrorsAjax(data) {
         if(add_edit == 'Work added!') {
             $('#form_project, #form_task, #form_details, #form_hours').val('');
         }
+        // getWorkAjax(data.getDate);
     }
 }
 
@@ -59,7 +60,7 @@ $(document).ready(function () {
             date    :$('#form_date').val(),
             id_work :$('#form_job_entry_id').val()
         };
-        $.post( url, work, function(data){ getFormErrorsAjax(data); getWorkAjax()}, dataType );
+        $.post( url, work, function(data){ getFormErrorsAjax(data); getWorkAjax(data.getDate); }, dataType );
     });
 
     /*Form fill from work*/
